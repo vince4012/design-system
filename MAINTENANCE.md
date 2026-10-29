@@ -3,7 +3,7 @@
 Document de référence pour reprendre la maintenance (humain ou IA). **À tenir à jour à
 chaque session de travail** (voir § 7, Journal).
 
-- Dépôt : https://github.com/vince4012/design-system — propriétaire Vincent Bros (`vince4012`).
+- Dépôt **public** : https://github.com/vince4012/design-system — propriétaire Vincent Bros (`vince4012`).
 - Première appli cliente : Quittances (https://github.com/vince4012/quittances).
 - Langue : français (docs, commentaires, textes par défaut des composants).
 
@@ -61,6 +61,10 @@ web/                    réservé (variables CSS générées depuis les tokens)
 - `PageScaffold` : sous-titre en `Expanded` (sinon les actions se décalent).
 - Sous la barre d'outils native, les clics démarrent un déplacement de fenêtre : passer par
   `ToolbarItem` (c'est fait dans `PageScaffold`).
+
+- Pousser vers GitHub : ce dépôt est configuré en `http.version=HTTP/1.1` (+ `postBuffer`),
+  sinon le premier envoi échouait (« l'hôte distant a fermé la connexion »). Réglage local à
+  refaire sur un nouveau clone si l'erreur revient.
 
 ## 5. Vérification
 
