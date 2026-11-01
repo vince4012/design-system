@@ -33,7 +33,8 @@ class Glass extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     final shape = BorderRadius.circular(radius);
-    final color = tint ?? Colors.white;
+    final highlight = dark ? Tokens.colorGlassHighlightDark : Tokens.colorGlassHighlightLight;
+    final color = tint ?? (dark ? Tokens.colorGlassTintDark : Tokens.colorGlassTintLight);
     final alpha = tint != null
         ? (dark ? Tokens.opacityGlassTintDark : Tokens.opacityGlassTintLight)
         : strong
@@ -72,7 +73,7 @@ class Glass extends StatelessWidget {
                 ],
               ),
               border: Border.all(
-                color: Colors.white.withValues(
+                color: highlight.withValues(
                   alpha: dark ? Tokens.opacityGlassBorderDark : Tokens.opacityGlassBorderLight,
                 ),
               ),
@@ -83,8 +84,8 @@ class Glass extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.center,
                 colors: [
-                  Colors.white.withValues(alpha: dark ? Tokens.opacityGlassSheenDark : Tokens.opacityGlassSheenLight),
-                  Colors.white.withValues(alpha: 0),
+                  highlight.withValues(alpha: dark ? Tokens.opacityGlassSheenDark : Tokens.opacityGlassSheenLight),
+                  highlight.withValues(alpha: 0),
                 ],
               ),
             ),
@@ -128,26 +129,42 @@ class GlassBadge extends StatelessWidget {
   }
 }
 
-/// Petite étiquette arrondie (statut).
+/// Couleur d'un état : teinte vive (fond, bordure, icône) et encre pour le texte
+/// sur le fond teinté (plus foncée en thème clair, pour rester lisible).
+class StatusStyle {
+  const StatusStyle({required this.fill, required this.ink});
+
+  final Color fill;
+  final Color ink;
+}
+
+/// Petite étiquette arrondie (statut). Avec [style] (voir [StatusColors]) le texte
+/// prend l'encre de l'état ; avec [color], le texte prend cette couleur.
 class StatusPill extends StatelessWidget {
-  const StatusPill({super.key, required this.label, required this.color});
+  const StatusPill({super.key, required this.label, this.color, this.style})
+    : assert((color == null) != (style == null), 'Donner color ou style, pas les deux.');
 
   final String label;
-  final Color color;
+  final Color? color;
+  final StatusStyle? style;
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.14),
-      borderRadius: BorderRadius.circular(99),
-      border: Border.all(color: color.withValues(alpha: 0.3), width: 0.8),
-    ),
-    child: Text(
-      label,
-      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color, fontWeight: FontWeight.w600),
-    ),
-  );
+  Widget build(BuildContext context) {
+    final fill = style?.fill ?? color!;
+    final ink = style?.ink ?? color!;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: fill.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(99),
+        border: Border.all(color: fill.withValues(alpha: 0.3), width: 0.8),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(color: ink, fontWeight: FontWeight.w600),
+      ),
+    );
+  }
 }
 
 /// Panneau de verre regroupant des lignes séparées par un filet, comme une liste du Finder.
@@ -273,8 +290,23 @@ class GlassSection extends StatelessWidget {
   );
 }
 
-/// Couleurs d'état communes, pour [StatusPill] notamment.
+/// Couleurs d'état communes, pour [StatusPill] notamment. Elles dépendent du thème.
 abstract final class StatusColors {
-  static const success = Tokens.colorStatusSuccess;
-  static const warning = Tokens.colorStatusWarning;
+  static bool _dark(BuildContext context) => Theme.of(context).brightness == Brightness.dark;
+
+  static StatusStyle success(BuildContext context) => _dark(context)
+      ? const StatusStyle(fill: Tokens.colorStatusSuccessFillDark, ink: Tokens.colorStatusSuccessInkDark)
+      : const StatusStyle(fill: Tokens.colorStatusSuccessFillLight, ink: Tokens.colorStatusSuccessInkLight);
+
+  static StatusStyle warning(BuildContext context) => _dark(context)
+      ? const StatusStyle(fill: Tokens.colorStatusWarningFillDark, ink: Tokens.colorStatusWarningInkDark)
+      : const StatusStyle(fill: Tokens.colorStatusWarningFillLight, ink: Tokens.colorStatusWarningInkLight);
+
+  static StatusStyle danger(BuildContext context) => _dark(context)
+      ? const StatusStyle(fill: Tokens.colorStatusDangerFillDark, ink: Tokens.colorStatusDangerInkDark)
+      : const StatusStyle(fill: Tokens.colorStatusDangerFillLight, ink: Tokens.colorStatusDangerInkLight);
+
+  static StatusStyle neutral(BuildContext context) => _dark(context)
+      ? const StatusStyle(fill: Tokens.colorStatusNeutralDark, ink: Tokens.colorStatusNeutralDark)
+      : const StatusStyle(fill: Tokens.colorStatusNeutralLight, ink: Tokens.colorStatusNeutralLight);
 }

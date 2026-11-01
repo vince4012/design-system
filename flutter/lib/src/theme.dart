@@ -9,14 +9,34 @@ import 'tokens.g.dart';
 ThemeData vbTheme(Brightness brightness) {
   final dark = brightness == Brightness.dark;
   final accent = dark ? Tokens.colorAccentDark : Tokens.colorAccentLight;
+  final surface = dark ? Tokens.colorSurfaceDark : Tokens.colorSurfaceLight;
   final scheme = ColorScheme.fromSeed(
     seedColor: Tokens.colorAccentDark,
     brightness: brightness,
     dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
-  ).copyWith(primary: accent, onPrimary: Colors.white);
+  ).copyWith(
+    primary: accent,
+    onPrimary: dark ? Tokens.colorOnAccentDark : Tokens.colorOnAccentLight,
+    onSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
+    onSurfaceVariant: dark ? Tokens.colorInkMutedDark : Tokens.colorInkMutedLight,
+    surface: surface,
+    surfaceContainerLowest: surface,
+    surfaceContainerLow: surface,
+    surfaceContainer: surface,
+    surfaceContainerHigh: surface,
+    surfaceContainerHighest: surface,
+    inverseSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
+    onInverseSurface: dark ? Tokens.colorBackgroundDarkBottom : Tokens.colorBackgroundLightTop,
+    outline: dark ? Tokens.colorStatusNeutralDark : Tokens.colorStatusNeutralLight,
+    error: dark ? Tokens.colorStatusDangerFillDark : Tokens.colorStatusDangerFillLight,
+    onError: dark ? Tokens.colorStatusDangerOnDark : Tokens.colorStatusDangerOnLight,
+  );
+  // Contours et remplissages : bleu pâle sur l'ardoise, noir transparent sur le sable.
+  final highlight = Tokens.colorGlassHighlightDark;
+  final tint = Tokens.colorGlassTintDark;
   final fieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(Tokens.radiusControl),
-    borderSide: BorderSide(color: dark ? Colors.white.withValues(alpha: 0.12) : Colors.black.withValues(alpha: 0.08)),
+    borderSide: BorderSide(color: dark ? highlight.withValues(alpha: 0.16) : Colors.black.withValues(alpha: 0.08)),
   );
   const stadium = StadiumBorder();
   const buttonPadding = EdgeInsets.symmetric(horizontal: 14, vertical: 8);
@@ -51,11 +71,14 @@ ThemeData vbTheme(Brightness brightness) {
       filled: true,
       isDense: true,
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      fillColor: dark ? Colors.white.withValues(alpha: 0.06) : Colors.white.withValues(alpha: 0.65),
+      fillColor: dark ? tint.withValues(alpha: 0.08) : Colors.white.withValues(alpha: 0.65),
       border: fieldBorder,
       enabledBorder: fieldBorder,
       focusedBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.primary, width: 1.5)),
       errorBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.error)),
+      focusedErrorBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.error, width: 1.5)),
+      // Message d'erreur en encre brique : la teinte vive est trop claire pour du texte de 11,5 pt.
+      errorStyle: TextStyle(color: dark ? Tokens.colorStatusDangerInkDark : Tokens.colorStatusDangerInkLight),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
@@ -73,7 +96,7 @@ ThemeData vbTheme(Brightness brightness) {
         minimumSize: buttonSize,
         textStyle: buttonText,
         iconSize: 16,
-        side: BorderSide(color: dark ? Colors.white24 : Colors.black12),
+        side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -92,8 +115,8 @@ ThemeData vbTheme(Brightness brightness) {
       style: SegmentedButton.styleFrom(
         visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
         textStyle: buttonText,
-        side: BorderSide(color: dark ? Colors.white24 : Colors.black12),
-        backgroundColor: dark ? Colors.white.withValues(alpha: 0.04) : Colors.white.withValues(alpha: 0.5),
+        side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
+        backgroundColor: dark ? tint.withValues(alpha: 0.06) : Colors.white.withValues(alpha: 0.5),
         // Segment choisi bien visible ; sans foregroundColor, tout passerait en bleu.
         selectedBackgroundColor: scheme.primary.withValues(alpha: dark ? 0.28 : 0.14),
         selectedForegroundColor: dark ? Colors.white : scheme.primary,
@@ -120,7 +143,7 @@ ThemeData vbTheme(Brightness brightness) {
         border: dark ? Border.all(color: Colors.white.withValues(alpha: 0.12)) : null,
       ),
     ),
-    dividerTheme: DividerThemeData(color: dark ? Colors.white12 : Colors.black.withValues(alpha: 0.07)),
+    dividerTheme: DividerThemeData(color: dark ? highlight.withValues(alpha: 0.14) : Colors.black.withValues(alpha: 0.07)),
   );
 }
 

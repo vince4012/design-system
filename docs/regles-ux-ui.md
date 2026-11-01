@@ -22,18 +22,27 @@ tokens fait foi.
 
 | Rôle | Clair | Sombre | Usage |
 |---|---|---|---|
-| Accent | #007AFF | #0A84FF | bouton principal, liens, sélection, icônes de navigation |
-| Succès | #22A06B | idem | état positif (« Envoyée », « En cours ») |
-| Attention | #E8A33D | idem | à faire, rappel (« À générer ») |
-| Erreur | rouge du thème | idem | actions destructrices, erreurs de saisie |
-| Neutre | gris « outline » du thème | idem | état inactif (« Terminé ») |
-| Fond | dégradé #F2F3F6 → #E6E8EC | #15171C → #0D0E12 | fond de fenêtre |
+| Accent (bleu électrique) | #1450E8 | #4A8BFF | bouton principal, liens, sélection, icônes de navigation |
+| Texte sur accent | #FFFFFF | #08162E | libellé des boutons pleins |
+| Succès (vert minéral) | #1E9E78, texte #075A43 | #3FCB9B | état positif (« Envoyée », « En cours ») |
+| Attention (or) | #C9A227, texte #6E4F00 | #E3B94E | à faire, rappel (« À générer ») |
+| Erreur (brique en clair, rouge vif en sombre) | #CC4125, texte #98291A | #FF5E57 | actions destructrices, erreurs de saisie |
+| Neutre | #666A71 | #9A9DA4 | état inactif (« Terminé ») |
+| Texte | #23262B (schiste) | #E8E6E1 | texte courant et titres |
+| Texte secondaire | #5E6269 | #A9ABB0 | sous-titres, légendes |
+| Fond | dégradé #EEEBE5 → #E2DED6 (sable) | #1B1F27 → #0E1015 (ardoise bleutée) | fond de fenêtre |
 
+- Univers **minéral** : sable chaud en clair, ardoise bleutée en sombre (verre teinté bleu-ardoise), un seul bleu vif en accent.
 - Une seule couleur d'accent par appli. Les autres couleurs servent aux **états**, jamais à
   la décoration.
-- Les étiquettes de statut utilisent la couleur à ~14 % d'opacité en fond, à ~30 % en bordure,
-  et le texte dans la couleur pleine.
-- Pastilles d'icône des listes : dégradé #3D8BFF → #7B5CFF ; grisées pour un élément inactif.
+- Chaque état a une teinte vive (fond, bordure, icône) et une encre pour le texte : en clair,
+  l'encre est plus foncée pour tenir 4,5:1. Un état n'est jamais porté par la couleur seule :
+  toujours un libellé.
+- Les étiquettes de statut utilisent la teinte vive à ~14 % d'opacité en fond, à ~30 % en bordure,
+  et le texte dans l'encre de l'état.
+- Pastilles d'icône des listes : dégradé bleu #3D7BFF → #1243C8 ; grisées pour un élément inactif.
+- Contrastes : texte 4,5:1 minimum, icônes et bordures 3:1. Exception connue : la teinte vive
+  de l'or (2,0:1) et du vert (2,8:1) en icône seule sur le fond clair ; toujours avec un libellé.
 
 ## 3. Typographie
 

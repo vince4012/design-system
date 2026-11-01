@@ -18,7 +18,7 @@ flutter/                package Flutter vb_design
   lib/src/theme.dart    vbTheme(Brightness), ThemeModeStore
   lib/src/design_scope.dart  DesignScope (fenêtre native active ?)
   lib/src/background.dart    AppBackground
-  lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusColors
+  lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
   lib/src/forms.dart    AppTextField, DateField, FieldRow, requiredField, GlassDialog, showGlassDialog, FormDialog, confirm, showMessage
   lib/src/page.dart     PageScaffold, EmptyState
   lib/src/shell.dart    GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch
@@ -94,14 +94,15 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
   L'artifact contient `tokens.json` (format du type : listes, clair/sombre), le README, les règles
   UX/UI, 11 composants en **aperçus HTML statiques** (rendus des widgets Flutter via `bundle.css`)
   et une couverture. Aucun code n'y est exécuté ni généré.
-- Fichiers de l'artifact (dossier `project/`) : valeurs `ink`, `ink-muted`, `neutral`, `danger` et
-  `shadow-*` approchées (elles viennent du thème Material / du code Dart, pas de `tokens.json`).
+- Depuis la 0.2.0, couleurs d'états et neutres sont dans `tokens/tokens.json` (plus de valeurs
+  approchées côté artifact, sauf `shadow-*`, `glass-*`, `field-*`, `divider`, `outline`, `select-fill`,
+  `scrim`, qui restent calées sur le code Dart).
 - Cycle d'évolution : on modifie un token ou un composant dans l'artifact (page ou demande à Claude),
   puis Claude **reporte** le changement dans `tokens/tokens.json`, régénère et vérifie les captures.
   À l'inverse, après un changement dans le dépôt, Claude met l'artifact à jour. Ne jamais éditer les
   deux sans reporter.
-- Contrastes de la source sous 4,5:1 conservés et signalés dans les notes des tokens (accent, succès,
-  attention).
+- Contrastes : 4,5:1 (texte) et 3:1 (icônes) tenus, sauf teintes vives or (2,0:1) et vert (2,8:1) en icône
+  seule sur fond clair, toujours avec libellé. Page Palette de l'artifact = détail mesuré.
 - Alternative écartée : synchronisation vers claude.ai/design (`/design-sync`), car Claude Design
   autonome ferme le 14/12/2026.
 
@@ -112,3 +113,4 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 29/10/2026 | Création : règles UX/UI, tokens, package Flutter `vb_design` 0.1.0 extrait de Quittances, galerie et captures de référence. |
 | 01/11/2026 | Support visuel : artifact Claude « ColDay Design System » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
 | 01/11/2026 | Renommage en « ColDay Design System » (applis publiées sous le nom ColDay) : README, MAINTENANCE, artifact. Package `vb_design` inchangé. |
+| 01/11/2026 | Palette minérale (0.2.0, non taguée) : sable (inchangé) / ardoise bleutée avec verre teinté, bleu électrique `#1450E8` / `#4A8BFF`, états or / vert minéral / brique (rouge vif en sombre) ; tokens `glass.tint`, `glass.highlight` ; tokens `ink`, `inkMuted`, `surface`, `onAccent`, `status.*.{fill,ink}` ; `StatusColors` devient des méthodes (`StatusStyle`), changement incompatible ; thème, galerie, captures, règles UX/UI et artifact mis à jour. |

@@ -1,3 +1,18 @@
+## 0.2.0
+
+- Nouveau schéma de couleurs « minéral » : fond sable (clair, inchangé) / ardoise bleutée (sombre),
+  texte schiste, accent bleu électrique (`#1450E8` / `#4A8BFF`), états or / vert minéral / brique
+  (rouge vif en sombre), pastilles d'icône en dégradé bleu.
+- Verre : couleurs de base et de bordure en tokens (`color.glass.tint`, `color.glass.highlight`) ;
+  en sombre il est teinté bleu-ardoise.
+- Tokens : ajout de `color.onAccent`, `color.surface`, `color.ink`, `color.inkMuted`,
+  `color.status.{success,warning,danger}.{fill,ink}`, `color.status.danger.on`, `color.status.neutral`.
+  Les anciens `colorStatusSuccess` / `colorStatusWarning` disparaissent.
+- **Changement incompatible** : `StatusColors.success` / `warning` deviennent des méthodes
+  (`StatusColors.success(context)`) et renvoient un `StatusStyle` ; `StatusPill` accepte `style:`
+  (ou `color:` comme avant). Ajout de `StatusColors.danger` et `neutral`.
+- Thème : surfaces, textes, erreur et message d'erreur de champ alignés sur les tokens.
+
 ## 0.1.0
 
 - Première version, extraite de l'appli Quittances : tokens, thème clair / sombre, composants

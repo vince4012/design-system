@@ -100,7 +100,7 @@ class ListsPage extends StatelessWidget {
               subtitle: 'Sous-titre · détail · 650,00 €',
               onTap: () {},
               trailing: [
-                const StatusPill(label: 'Envoyée', color: StatusColors.success),
+                StatusPill(label: 'Envoyée', style: StatusColors.success(context)),
                 IconButton(icon: const Icon(Icons.visibility_outlined), tooltip: 'Aperçu', onPressed: () {}),
               ],
             ),
@@ -111,7 +111,7 @@ class ListsPage extends StatelessWidget {
               onTap: () {},
               trailing: [
                 StatusPill(label: 'Prorata 26/30 j', color: Theme.of(context).colorScheme.primary),
-                const StatusPill(label: 'À générer', color: StatusColors.warning),
+                StatusPill(label: 'À générer', style: StatusColors.warning(context)),
                 OutlinedButton(onPressed: () {}, child: const Text('Générer')),
               ],
             ),
@@ -120,7 +120,7 @@ class ListsPage extends StatelessWidget {
               muted: true,
               title: 'Élément inactif',
               subtitle: 'Pastille grisée',
-              trailing: [StatusPill(label: 'Terminé', color: Theme.of(context).colorScheme.outline)],
+              trailing: [StatusPill(label: 'Terminé', style: StatusColors.neutral(context))],
             ),
           ],
         ),
@@ -234,8 +234,11 @@ class FoundationsPage extends StatelessWidget {
     final colors = [
       ('Accent clair', Tokens.colorAccentLight),
       ('Accent sombre', Tokens.colorAccentDark),
-      ('Succès', Tokens.colorStatusSuccess),
-      ('Attention', Tokens.colorStatusWarning),
+      ('Fond clair', Tokens.colorBackgroundLightTop),
+      ('Fond sombre', Tokens.colorBackgroundDarkTop),
+      ('Succès', Tokens.colorStatusSuccessFillLight),
+      ('Attention', Tokens.colorStatusWarningFillLight),
+      ('Erreur', Tokens.colorStatusDangerFillLight),
       ('Pastille début', Tokens.colorBadgeStart),
       ('Pastille fin', Tokens.colorBadgeEnd),
     ];
@@ -288,7 +291,7 @@ class FoundationsPage extends StatelessWidget {
           const SizedBox(height: Tokens.spaceM),
           Row(
             children: [
-              for (final (name, tint) in [('Verre', null), ('Verre teinté', StatusColors.warning)]) ...[
+              for (final (name, tint) in [('Verre', null), ('Verre teinté', StatusColors.warning(context).fill)]) ...[
                 Expanded(
                   child: Glass(
                     radius: Tokens.radiusGroup,
