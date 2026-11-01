@@ -39,6 +39,7 @@ class GalleryRoot extends StatelessWidget {
       destinations: [
         ShellDestination(
           label: 'Listes',
+          count: 3,
           icon: Icons.list_alt_outlined,
           selectedIcon: Icons.list_alt,
           builder: (_) => const ListsPage(),
@@ -97,6 +98,7 @@ class ListsPage extends StatelessWidget {
             GlassListTile(
               icon: Icons.receipt_long,
               title: 'Élément principal',
+              favorite: true,
               subtitle: 'Sous-titre · détail · 650,00 €',
               onTap: () {},
               trailing: [

@@ -104,6 +104,19 @@ class Glass extends StatelessWidget {
   }
 }
 
+/// Or de signature : filet de la rubrique active, compteurs, étoile des favoris.
+/// Le bleu reste la seule couleur d'action ; l'or ne marque que ces détails.
+abstract final class Signature {
+  static bool _dark(BuildContext context) => Theme.of(context).brightness == Brightness.dark;
+
+  /// Fond doré.
+  static Color fill(BuildContext context) =>
+      _dark(context) ? Tokens.colorSignatureFillDark : Tokens.colorSignatureFillLight;
+
+  /// Texte et icônes posés sur [fill].
+  static Color on(BuildContext context) => _dark(context) ? Tokens.colorSignatureOnDark : Tokens.colorSignatureOnLight;
+}
+
 /// Petit carré arrondi en dégradé portant une icône (avatar des lignes de liste).
 class GlassBadge extends StatelessWidget {
   const GlassBadge({super.key, required this.icon, this.muted = false});
@@ -212,6 +225,7 @@ class GlassListTile extends StatelessWidget {
     this.subtitle,
     this.trailing = const [],
     this.muted = false,
+    this.favorite = false,
     this.onTap,
   });
 
@@ -220,6 +234,9 @@ class GlassListTile extends StatelessWidget {
   final String? subtitle;
   final List<Widget> trailing;
   final bool muted;
+
+  /// Étoile dorée avant les éléments de droite.
+  final bool favorite;
   final VoidCallback? onTap;
 
   @override
@@ -250,6 +267,10 @@ class GlassListTile extends StatelessWidget {
                   ],
                 ),
               ),
+              if (favorite) ...[
+                const SizedBox(width: 8),
+                Icon(Icons.star_rounded, size: 16, color: Signature.fill(context)),
+              ],
               for (final widget in trailing) ...[const SizedBox(width: 8), widget],
             ],
           ),

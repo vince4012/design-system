@@ -41,8 +41,8 @@ abstract final class Tokens {
   static const colorStatusSuccessInkLight = Color(0xFF075A43);
   /// Succès, texte, sombre.
   static const colorStatusSuccessInkDark = Color(0xFF3FCB9B);
-  /// Attention, teinte vive, clair : or du rocher.
-  static const colorStatusWarningFillLight = Color(0xFFC9A227);
+  /// Attention, teinte vive, clair : ambre (même or que la signature).
+  static const colorStatusWarningFillLight = Color(0xFFF0B429);
   /// Attention, teinte vive, sombre.
   static const colorStatusWarningFillDark = Color(0xFFE3B94E);
   /// Attention, texte sur fond teinté, clair.
@@ -73,6 +73,14 @@ abstract final class Tokens {
   static const colorGlassHighlightLight = Color(0xFFFFFFFF);
   /// Bordure, reflet, filets et contours, sombre : bleu pâle.
   static const colorGlassHighlightDark = Color(0xFFAAC3F0);
+  /// Or de signature, clair : ambre. Filet de la rubrique active, compteurs, étoile des favoris.
+  static const colorSignatureFillLight = Color(0xFFF0B429);
+  /// Or de signature, sombre.
+  static const colorSignatureFillDark = Color(0xFFE3B94E);
+  /// Texte sur l'or de signature, clair (8,1:1).
+  static const colorSignatureOnLight = Color(0xFF23262B);
+  /// Texte sur l'or de signature, sombre (9,9:1).
+  static const colorSignatureOnDark = Color(0xFF14171A);
   /// Dégradé des pastilles d'icône, début (bleu uniquement).
   static const colorBadgeStart = Color(0xFF3D7BFF);
   /// Dégradé des pastilles d'icône, fin.

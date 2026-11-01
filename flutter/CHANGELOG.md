@@ -3,6 +3,9 @@
 - Nouveau schéma de couleurs « minéral » : fond sable (clair, inchangé) / ardoise bleutée (sombre),
   texte schiste, accent bleu électrique (`#1450E8` / `#4A8BFF`), états or / vert minéral / brique
   (rouge vif en sombre), pastilles d'icône en dégradé bleu.
+- Or de signature (`color.signature.{fill,on}`, ambre `#F0B429` en clair, `#E3B94E` en sombre,
+  aussi couleur d'attention en clair) : filet doré sur la rubrique active de `GlassShell`, compteur
+  `ShellDestination(count:)`, étoile `GlassListTile(favorite:)`, helper `Signature`.
 - Verre : couleurs de base et de bordure en tokens (`color.glass.tint`, `color.glass.highlight`) ;
   en sombre il est teinté bleu-ardoise.
 - Tokens : ajout de `color.onAccent`, `color.surface`, `color.ink`, `color.inkMuted`,

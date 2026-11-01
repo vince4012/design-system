@@ -25,16 +25,19 @@ tokens fait foi.
 | Accent (bleu électrique) | #1450E8 | #4A8BFF | bouton principal, liens, sélection, icônes de navigation |
 | Texte sur accent | #FFFFFF | #08162E | libellé des boutons pleins |
 | Succès (vert minéral) | #1E9E78, texte #075A43 | #3FCB9B | état positif (« Envoyée », « En cours ») |
-| Attention (or) | #C9A227, texte #6E4F00 | #E3B94E | à faire, rappel (« À générer ») |
+| Attention (ambre) | #F0B429, texte #6E4F00 | #E3B94E | à faire, rappel (« À générer ») |
 | Erreur (brique en clair, rouge vif en sombre) | #CC4125, texte #98291A | #FF5E57 | actions destructrices, erreurs de saisie |
 | Neutre | #666A71 | #9A9DA4 | état inactif (« Terminé ») |
+| Or de signature | #F0B429 | #E3B94E | filet de la rubrique active, compteurs, étoile des favoris ; texte dessus #23262B / #14171A |
 | Texte | #23262B (schiste) | #E8E6E1 | texte courant et titres |
 | Texte secondaire | #5E6269 | #A9ABB0 | sous-titres, légendes |
 | Fond | dégradé #EEEBE5 → #E2DED6 (sable) | #1B1F27 → #0E1015 (ardoise bleutée) | fond de fenêtre |
 
 - Univers **minéral** : sable chaud en clair, ardoise bleutée en sombre (verre teinté bleu-ardoise), un seul bleu vif en accent.
-- Une seule couleur d'accent par appli. Les autres couleurs servent aux **états**, jamais à
-  la décoration.
+- Un seul **accent d'action** par appli (le bleu). Les autres couleurs servent aux **états**,
+  jamais à la décoration, avec une exception : l'**or de signature**, réservé à trois détails (filet
+  de la rubrique active de la barre latérale, compteurs, étoile des favoris). C'est le même or que
+  l'attention. Jamais d'or en texte sur fond clair ni en grand aplat.
 - Chaque état a une teinte vive (fond, bordure, icône) et une encre pour le texte : en clair,
   l'encre est plus foncée pour tenir 4,5:1. Un état n'est jamais porté par la couleur seule :
   toujours un libellé.
@@ -42,7 +45,8 @@ tokens fait foi.
   et le texte dans l'encre de l'état.
 - Pastilles d'icône des listes : dégradé bleu #3D7BFF → #1243C8 ; grisées pour un élément inactif.
 - Contrastes : texte 4,5:1 minimum, icônes et bordures 3:1. Exception connue : la teinte vive
-  de l'or (2,0:1) et du vert (2,8:1) en icône seule sur le fond clair ; toujours avec un libellé.
+  de l'ambre (1,6:1) et du vert (2,8:1) en icône seule sur le fond clair ; toujours avec un libellé.
+  Le texte posé sur l'or de signature fait 8,1:1 (clair) et 9,9:1 (sombre).
 
 ## 3. Typographie
 

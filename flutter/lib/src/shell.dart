@@ -14,6 +14,7 @@ class ShellDestination {
     required this.selectedIcon,
     required this.builder,
     this.bottom = false,
+    this.count,
   });
 
   final String label;
@@ -23,6 +24,9 @@ class ShellDestination {
 
   /// Placée en bas de la barre (ex. « Réglages »).
   final bool bottom;
+
+  /// Compteur doré à droite du libellé (masqué si nul ou absent).
+  final int? count;
 }
 
 /// Coquille d'appli façon Finder : fond, barre latérale en verre flottante
@@ -164,18 +168,39 @@ class _NavItemState extends State<_NavItem> {
           margin: const EdgeInsets.only(bottom: 2),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(color: fill, borderRadius: BorderRadius.circular(9)),
-          child: Row(
+          child: Stack(
+            fit: StackFit.passthrough,
+            clipBehavior: Clip.none,
             children: [
-              Icon(
-                widget.selected ? widget.destination.selectedIcon : widget.destination.icon,
-                size: Tokens.sizeIcon,
-                color: scheme.primary,
-              ),
-              const SizedBox(width: 10),
-              Text(
-                widget.destination.label,
-                style: Theme.of(context).textTheme.bodyMedium
-                    ?.copyWith(fontWeight: widget.selected ? FontWeight.w600 : FontWeight.w400),
+              // Filet doré sur la rubrique active.
+              if (widget.selected)
+                Positioned(
+                  left: -7,
+                  top: 3,
+                  bottom: 3,
+                  child: Container(
+                    width: 3,
+                    decoration: BoxDecoration(color: Signature.fill(context), borderRadius: BorderRadius.circular(2)),
+                  ),
+                ),
+              Row(
+                children: [
+                  Icon(
+                    widget.selected ? widget.destination.selectedIcon : widget.destination.icon,
+                    size: Tokens.sizeIcon,
+                    color: scheme.primary,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    widget.destination.label,
+                    style: Theme.of(context).textTheme.bodyMedium
+                        ?.copyWith(fontWeight: widget.selected ? FontWeight.w600 : FontWeight.w400),
+                  ),
+                  if (widget.destination.count case final count? when count > 0) ...[
+                    const Spacer(),
+                    _CountBadge(count),
+                  ],
+                ],
               ),
             ],
           ),
@@ -183,6 +208,27 @@ class _NavItemState extends State<_NavItem> {
       ),
     );
   }
+}
+
+/// Compteur doré d'une rubrique de la barre latérale.
+class _CountBadge extends StatelessWidget {
+  const _CountBadge(this.count);
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    constraints: const BoxConstraints(minWidth: 20),
+    height: 18,
+    padding: const EdgeInsets.symmetric(horizontal: 6),
+    alignment: Alignment.center,
+    decoration: BoxDecoration(color: Signature.fill(context), borderRadius: BorderRadius.circular(99)),
+    child: Text(
+      '$count',
+      style: Theme.of(context).textTheme.labelSmall
+          ?.copyWith(color: Signature.on(context), fontWeight: FontWeight.w700),
+    ),
+  );
 }
 
 /// Sélecteur Auto / Clair / Sombre en pilule de verre.
