@@ -29,13 +29,14 @@ class PageScaffold extends StatelessWidget {
   Widget _build(BuildContext context, {required bool toolbar}) {
     final text = Theme.of(context).textTheme;
     return Padding(
-      // Barre native : le titre est centré sur ses 52 pt. Sinon, simple marge.
-      padding: EdgeInsets.fromLTRB(Tokens.spaceS, toolbar ? 6 : 14, Tokens.spaceL, 0),
+      // Marge du haut = marge de droite, pour que les actions ne collent pas au bord.
+      padding: const EdgeInsets.fromLTRB(Tokens.spaceS, Tokens.spaceL, Tokens.spaceL, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            height: Tokens.sizePageToolbar,
+          // Hauteur minimale : la barre grandit si une action est plus haute (ex. 44 pt).
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: Tokens.sizePageToolbar),
             child: Row(
               children: [
                 const SizedBox(width: Tokens.spaceXs),

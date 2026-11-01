@@ -1,3 +1,8 @@
+## 0.2.1
+
+- `PageScaffold` : marge du haut égale à la marge de droite (`spaceL`) ; la barre de titre grandit
+  si une action dépasse `sizePageToolbar` (hauteur minimale au lieu de fixe).
+
 ## 0.2.0
 
 - Nouveau schéma de couleurs « minéral » : fond sable (clair, inchangé) / ardoise bleutée (sombre),
