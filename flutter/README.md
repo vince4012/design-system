@@ -1,6 +1,6 @@
 # vb_design (Flutter)
 
-Thème et composants du design system. Règles d'usage : [`../docs/regles-ux-ui.md`](../docs/regles-ux-ui.md).
+Thème et composants du design system. Migration depuis la 0.1.0 : [`MIGRATION.md`](MIGRATION.md). Règles d'usage : [`../docs/regles-ux-ui.md`](../docs/regles-ux-ui.md).
 
 ## Mise en place
 
@@ -51,7 +51,7 @@ Le package ne demande aucun droit (entitlement) macOS particulier.
 | `AppBackground` | fond neutre (translucide sur macOS) |
 | `GlassShell`, `ShellDestination`, `SidebarHeader`, `ThemeModeSwitch` | coquille façon Finder |
 | `PageScaffold`, `EmptyState` | page avec barre de titre compacte ; état vide |
-| `Glass`, `GlassSection`, `GlassGroup`, `GlassListView`, `GlassListTile`, `GlassBadge`, `StatusPill`, `StatusColors` | composants en verre |
+| `Glass`, `GlassSection`, `GlassGroup`, `GlassListView`, `GlassListTile`, `GlassBadge`, `StatusPill`, `StatusStyle`, `StatusColors`, `Signature` | composants en verre (étoile `favorite` des tuiles, or de signature) |
 | `AppTextField`, `DateField`, `FieldRow`, `requiredField` | formulaires |
 | `GlassDialog`, `showGlassDialog`, `FormDialog`, `confirm`, `showMessage` | dialogues, confirmations, messages |
 | `NativeWindow`, `ToolbarItem` | fenêtre macOS (vitrage, barre d'outils, agrandissement, plein écran) |

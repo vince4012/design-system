@@ -84,7 +84,7 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Version dans `flutter/pubspec.yaml` + `flutter/CHANGELOG.md` ; tag Git `vX.Y.Z` à chaque
   version publiée. Les applis dépendent d'un tag précis (`ref: vX.Y.Z`) : une évolution ne
   les touche que lorsqu'elles montent de version.
-- Applis clientes : Quittances.
+- Applis clientes : Quittances. Guide de montée de version : `flutter/MIGRATION.md` (0.1.0 → 0.2.0).
 - Conventions avec le propriétaire : français ; une étape manuelle à la fois ; enregistrer et
   pousser sur Git uniquement à sa demande. Identité Git locale : Vincent Bros <colday@hotmail.fr>.
 
@@ -114,3 +114,4 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 01/11/2026 | Support visuel : artifact Claude « ColDay Design System » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
 | 01/11/2026 | Renommage en « ColDay Design System » (applis publiées sous le nom ColDay) : README, MAINTENANCE, artifact. Package `vb_design` inchangé. |
 | 01/11/2026 | Palette minérale (0.2.0, non taguée) : sable (inchangé) / ardoise bleutée avec verre teinté, bleu électrique `#1450E8` / `#4A8BFF`, états or / vert minéral / brique (rouge vif en sombre) ; tokens `glass.tint`, `glass.highlight` ; or de signature ambre (filet de rubrique active, compteur `ShellDestination.count`, étoile `GlassListTile.favorite`) ; tokens `ink`, `inkMuted`, `surface`, `onAccent`, `status.*.{fill,ink}` ; `StatusColors` devient des méthodes (`StatusStyle`), changement incompatible ; thème, galerie, captures, règles UX/UI et artifact mis à jour. |
+| 01/11/2026 | Préparation de la publication 0.2.0 : description du package (ColDay), ref `v0.2.0` dans le README, guide `flutter/MIGRATION.md` pour Quittances ; tag `v0.2.0`. |
