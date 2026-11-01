@@ -1,4 +1,4 @@
-# Design system — dossier de maintenance
+# ColDay Design System — dossier de maintenance
 
 Document de référence pour reprendre la maintenance (humain ou IA). **À tenir à jour à
 chaque session de travail** (voir § 7, Journal).
@@ -29,7 +29,7 @@ flutter/                package Flutter vb_design
 web/                    réservé (variables CSS générées depuis les tokens)
 ```
 
-Support visuel : artifact « Design system VB » (type Design System de Claude), lien
+Support visuel : artifact « ColDay Design System » (type Design System de Claude), lien
 https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 
 ## 2. Tokens
@@ -110,4 +110,5 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | Date | Changement |
 |---|---|
 | 29/10/2026 | Création : règles UX/UI, tokens, package Flutter `vb_design` 0.1.0 extrait de Quittances, galerie et captures de référence. |
-| 01/11/2026 | Support visuel : artifact Claude « Design system VB » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
+| 01/11/2026 | Support visuel : artifact Claude « ColDay Design System » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
+| 01/11/2026 | Renommage en « ColDay Design System » (applis publiées sous le nom ColDay) : README, MAINTENANCE, artifact. Package `vb_design` inchangé. |

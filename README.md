@@ -1,6 +1,6 @@
-# Design system
+# ColDay Design System
 
-Design system commun des applis de Vincent Bros : règles UX/UI, valeurs de design (tokens)
+Design system commun des applis publiées sous le nom de ColDay : règles UX/UI, valeurs de design (tokens)
 et code de thème réutilisable.
 
 | Dossier | Contenu |
