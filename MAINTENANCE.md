@@ -29,6 +29,9 @@ flutter/                package Flutter vb_design
 web/                    réservé (variables CSS générées depuis les tokens)
 ```
 
+Support visuel : artifact « Design system VB » (type Design System de Claude), lien
+https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
+
 ## 2. Tokens
 
 - Format : objets `{"$value", "$description"}` rangés par catégorie ; paires `light` / `dark`.
@@ -85,8 +88,26 @@ web/                    réservé (variables CSS générées depuis les tokens)
 - Conventions avec le propriétaire : français ; une étape manuelle à la fois ; enregistrer et
   pousser sur Git uniquement à sa demande. Identité Git locale : Vincent Bros <colday@hotmail.fr>.
 
+## 6 bis. Support visuel (artifact Claude)
+
+- Miroir visuel, **pas une seconde source** : la source reste `tokens/tokens.json` et le code Flutter.
+  L'artifact contient `tokens.json` (format du type : listes, clair/sombre), le README, les règles
+  UX/UI, 11 composants en **aperçus HTML statiques** (rendus des widgets Flutter via `bundle.css`)
+  et une couverture. Aucun code n'y est exécuté ni généré.
+- Fichiers de l'artifact (dossier `project/`) : valeurs `ink`, `ink-muted`, `neutral`, `danger` et
+  `shadow-*` approchées (elles viennent du thème Material / du code Dart, pas de `tokens.json`).
+- Cycle d'évolution : on modifie un token ou un composant dans l'artifact (page ou demande à Claude),
+  puis Claude **reporte** le changement dans `tokens/tokens.json`, régénère et vérifie les captures.
+  À l'inverse, après un changement dans le dépôt, Claude met l'artifact à jour. Ne jamais éditer les
+  deux sans reporter.
+- Contrastes de la source sous 4,5:1 conservés et signalés dans les notes des tokens (accent, succès,
+  attention).
+- Alternative écartée : synchronisation vers claude.ai/design (`/design-sync`), car Claude Design
+  autonome ferme le 14/12/2026.
+
 ## 7. Journal
 
 | Date | Changement |
 |---|---|
 | 29/10/2026 | Création : règles UX/UI, tokens, package Flutter `vb_design` 0.1.0 extrait de Quittances, galerie et captures de référence. |
+| 01/11/2026 | Support visuel : artifact Claude « Design system VB » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
