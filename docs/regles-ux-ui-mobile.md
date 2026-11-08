@@ -19,9 +19,10 @@ Première appli cliente : FiiDrive (Android natif). Référence visuelle : captu
 | Texte secondaire | 12 pt | **14 sp** |
 | Titre de page | 17 pt, dans la barre d'outils | **28 sp**, en haut de l'écran |
 | Rayon des cartes | 14–16 pt | **20 dp** |
+| Fond | dégradé plus clair en haut, plus foncé en bas | dégradé **inversé** : plus foncé en haut, plus clair en bas (surcharge `color.background.*`) |
 | Navigation | barre latérale flottante | pas de barre latérale (barre d'onglets ou écran unique selon l'appli) |
 
-Ce qui **ne change pas** : fond en dégradé neutre (plus foncé en haut, plus clair en bas, comme sur desktop depuis la 0.4.0), cartes unies à bordure lumineuse fine, un seul accent
+Ce qui **ne change pas** : cartes unies à bordure lumineuse fine, un seul accent
 d'action (le bleu), états jamais portés par la couleur seule, icônes de liste brutes, contrastes 4,5:1 / 3:1.
 
 ## 2. Principes

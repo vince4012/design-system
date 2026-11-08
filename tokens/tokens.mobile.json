@@ -107,6 +107,28 @@
     }
   },
   "color": {
+    "background": {
+      "light": {
+        "top": {
+          "$value": "#EAE6DF",
+          "$description": "Fond d'appli mobile, haut du dégradé (clair) : sable plus foncé. Sur mobile le dégradé est plus foncé en haut, plus clair en bas (desktop : l'inverse)."
+        },
+        "bottom": {
+          "$value": "#FAF8F4",
+          "$description": "Fond d'appli mobile, bas du dégradé (clair) : sable clair."
+        }
+      },
+      "dark": {
+        "top": {
+          "$value": "#090B0E",
+          "$description": "Fond d'appli mobile, haut du dégradé (sombre) : ardoise très foncée."
+        },
+        "bottom": {
+          "$value": "#1D232D",
+          "$description": "Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée."
+        }
+      }
+    },
     "overlay": {
       "fill": {
         "light": {

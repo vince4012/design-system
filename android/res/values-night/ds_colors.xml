@@ -3,9 +3,9 @@
 <resources>
     <!-- Bleu électrique, thème sombre (bleu vif de Saracroche). 5,2:1 sur le fond ardoise. -->
     <color name="ds_color_accent">#FF0091FF</color>
-    <!-- Fond d'appli, bas du dégradé (sombre) : ardoise bleutée. -->
+    <!-- Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée. -->
     <color name="ds_color_background_bottom">#FF1D232D</color>
-    <!-- Fond d'appli, haut du dégradé (sombre) : ardoise très foncée. Plus foncé en haut, plus clair en bas (inversé en 0.4.0). Le fond porte le dégradé, les cartes sont unies. -->
+    <!-- Fond d'appli mobile, haut du dégradé (sombre) : ardoise très foncée. -->
     <color name="ds_color_background_top">#FF090B0E</color>
     <!-- Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent. -->
     <color name="ds_color_banner">#E60091FF</color>

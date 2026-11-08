@@ -1,3 +1,12 @@
+## 0.4.1
+
+- **Le dégradé de fond inversé de la 0.4.0 devient propre au mobile.** Sur desktop, retour au dégradé d'avant :
+  **plus clair en haut, plus foncé en bas** (clair : `#FAF8F4` → `#EAE6DF` ; sombre : `#1D232D` → `#090B0E`). Les valeurs de
+  `Tokens.colorBackground{Light,Dark}{Top,Bottom}` redeviennent celles de la 0.3.x ; `onInverseSurface` du thème aussi.
+- Le mobile garde le dégradé inversé, par une surcharge `color.background.*` dans `tokens/tokens.mobile.json`
+  (les ressources `android/res` ne changent pas, sauf les commentaires).
+- Captures de référence de la galerie régénérées.
+
 ## 0.4.0
 
 Dégradé de fond inversé ; première partie **mobile** du design system (Android natif).

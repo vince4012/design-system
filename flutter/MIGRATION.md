@@ -1,3 +1,12 @@
+# Migration 0.4.0 → 0.4.1
+
+Pour une appli desktop : le dégradé de fond **revient au sens d'avant la 0.4.0** (plus clair en haut, plus foncé en bas).
+Monter `ref: v0.4.1` puis `flutter pub upgrade vb_design` ; rien d'autre à faire. Si l'appli lit
+`Tokens.colorBackground*` directement, les valeurs sont celles de la 0.3.x. Une appli qui avait contourné l'inversion de
+la 0.4.0 peut retirer son contournement. Régénérer les captures de référence si elle en a. Mobile : inchangé.
+
+---
+
 # Migration 0.3.x → 0.4.0
 
 Un seul changement visible pour une appli Flutter desktop : le **dégradé de fond est inversé** (plus foncé en haut,

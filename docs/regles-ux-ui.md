@@ -9,7 +9,7 @@ tokens fait foi.
 1. **Natif avant tout.** L'appli doit ressembler à une appli du système, sur le modèle du
    **Finder** de macOS : barre latérale flottante, barre d'outils compacte, listes groupées,
    contrôles compacts. Pas d'esthétique « web » ni « Material » visible.
-2. **Liquid Glass, mais sobre.** Le **fond** porte le dégradé (neutre, en diagonale, plus foncé en haut et plus clair en bas) ; les
+2. **Liquid Glass, mais sobre.** Le **fond** porte le dégradé (neutre, en diagonale) ; les
    **cartes** en verre flouté sont unies, sans reflet, avec une bordure lumineuse fine. **Fond neutre** : pas de taches colorées, pas de halo central, rien qui
    éclaircit l'interface.
 3. **Clair / Sombre / Auto**, Auto (suit le système) par défaut, choix mémorisé. Chaque écran
@@ -31,7 +31,7 @@ tokens fait foi.
 | Or de signature | #FEC600 | #FEC600 | filet de la rubrique active, compteurs, étoile des favoris ; texte dessus #23262B / #14171A |
 | Texte | #23262B (schiste) | #E8E6E1 | texte courant et titres |
 | Texte secondaire | #5E6269 | #A9ABB0 | sous-titres, légendes |
-| Fond | dégradé #EAE6DF → #FAF8F4 (sable), plus foncé en haut | #090B0E → #1D232D (ardoise bleutée), plus foncé en haut | fond de fenêtre |
+| Fond | dégradé #FAF8F4 → #EAE6DF (sable) | #1D232D → #090B0E (ardoise bleutée) | fond de fenêtre |
 
 - Univers **minéral** : sable chaud en clair, ardoise bleutée en sombre (verre teinté bleu-ardoise), un seul bleu vif en accent.
 - Un seul **accent d'action** par appli (le bleu). Les autres couleurs servent aux **états**,

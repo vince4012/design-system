@@ -13,14 +13,14 @@ abstract final class Tokens {
   static const colorOnAccentLight = Color(0xFFFFFFFF);
   /// Texte et icônes sur l'accent, thème sombre (5,5:1).
   static const colorOnAccentDark = Color(0xFF08162E);
-  /// Fond d'appli, haut du dégradé (clair) : sable plus foncé. Le dégradé est plus foncé en haut, plus clair en bas (inversé en 0.4.0). Le fond porte le dégradé, les cartes sont unies.
-  static const colorBackgroundLightTop = Color(0xFFEAE6DF);
-  /// Fond d'appli, bas du dégradé (clair) : sable clair.
-  static const colorBackgroundLightBottom = Color(0xFFFAF8F4);
-  /// Fond d'appli, haut du dégradé (sombre) : ardoise très foncée. Plus foncé en haut, plus clair en bas (inversé en 0.4.0). Le fond porte le dégradé, les cartes sont unies.
-  static const colorBackgroundDarkTop = Color(0xFF090B0E);
-  /// Fond d'appli, bas du dégradé (sombre) : ardoise bleutée.
-  static const colorBackgroundDarkBottom = Color(0xFF1D232D);
+  /// Fond d'appli, haut du dégradé (clair) : sable clair. Le fond porte le dégradé, les cartes sont unies.
+  static const colorBackgroundLightTop = Color(0xFFFAF8F4);
+  /// Fond d'appli, bas du dégradé (clair).
+  static const colorBackgroundLightBottom = Color(0xFFEAE6DF);
+  /// Fond d'appli, haut du dégradé (sombre) : ardoise bleutée. Le fond porte le dégradé, les cartes sont unies.
+  static const colorBackgroundDarkTop = Color(0xFF1D232D);
+  /// Fond d'appli, bas du dégradé (sombre).
+  static const colorBackgroundDarkBottom = Color(0xFF090B0E);
   /// Surfaces opaques (menus, sélecteurs), clair.
   static const colorSurfaceLight = Color(0xFFF7F5F1);
   /// Surfaces opaques (menus, sélecteurs), sombre.
