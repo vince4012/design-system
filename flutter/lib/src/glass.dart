@@ -76,6 +76,7 @@ class Glass extends StatelessWidget {
               type: MaterialType.transparency,
               child: InkWell(
                 onTap: onTap,
+                mouseCursor: WidgetStateMouseCursor.clickable,
                 borderRadius: shape,
                 child: Padding(padding: padding, child: child),
               ),
@@ -115,7 +116,11 @@ class GlassBadge extends StatelessWidget {
     return SizedBox(
       width: Tokens.sizeListIcon,
       height: Tokens.sizeListIcon,
-      child: Icon(icon, size: 22, color: muted ? scheme.outline : scheme.primary),
+      // Alignée à gauche : le bord gauche de l'icône est celui du filet séparateur.
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Icon(icon, size: 22, color: muted ? scheme.outline : scheme.primary),
+      ),
     );
   }
 }
@@ -177,7 +182,7 @@ class GlassGroup extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final (i, child) in children.indexed) ...[
-          if (i > 0) const Divider(height: 1, indent: 54, endIndent: 12),
+          if (i > 0) const Divider(height: 1, indent: 12, endIndent: 12),
           child,
         ],
       ],
@@ -229,6 +234,7 @@ class GlassListTile extends StatelessWidget {
       type: MaterialType.transparency,
       child: InkWell(
         onTap: onTap,
+        mouseCursor: WidgetStateMouseCursor.clickable,
         borderRadius: BorderRadius.circular(Tokens.radiusControl),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),

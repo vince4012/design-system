@@ -211,12 +211,11 @@ class _ControlsPageState extends State<ControlsPage> {
                   ),
                 ],
               ),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
+              AppSwitchTile(
                 value: _switch,
                 onChanged: (v) => setState(() => _switch = v),
-                title: const Text('Interrupteur'),
-                subtitle: const Text('Avec une ligne d\'explication.'),
+                title: 'Interrupteur',
+                subtitle: 'Avec une ligne d\'explication.',
               ),
             ],
           ),

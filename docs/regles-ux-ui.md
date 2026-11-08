@@ -14,7 +14,7 @@ tokens fait foi.
    éclaircit l'interface.
 3. **Clair / Sombre / Auto**, Auto (suit le système) par défaut, choix mémorisé. Chaque écran
    est vérifié dans les deux thèmes.
-4. **Compact et lisible.** Texte courant en 13 pt, contrôles de 32 pt de haut, marges
+4. **Compact et lisible.** Texte courant en 13 pt, contrôles de 38 pt de haut (boutons, champs, segments, rubriques de la barre latérale, sélecteur de thème : tous identiques), marges
    resserrées, une information principale par ligne.
 5. **Français** pour tous les textes, typographie française (« », espaces avant : ; ? !).
 
@@ -70,7 +70,7 @@ l'interface.
 - **Page** : barre de titre compacte (40 pt) avec titre, sous-titre gris à côté, actions à droite ;
   sur Mac fenêtré, elle est alignée sur les boutons de la fenêtre.
 - **Listes** : un panneau de verre par groupe (rayon 14), lignes séparées par un filet fin
-  décalé après l'icône ; en-tête de groupe en petites majuscules grises au-dessus.
+  qui court du bord gauche de l'icône au bord droit, avec la même marge de 12 pt des deux côtés ; en-tête de groupe en petites majuscules grises au-dessus.
 - **Ligne de liste** : icône brute (zone de 30 pt), titre (demi-gras) et sous-titre (« · » entre les
   informations), puis à droite : étiquettes de statut, actions en icônes, action principale
   en bouton contour.
@@ -79,7 +79,7 @@ l'interface.
 
 ## 5. Composants et usages
 
-- **Boutons** : capsule, 32 pt. Un seul bouton plein (principal) par zone ; secondaire en
+- **Boutons** : capsule, 38 pt (même hauteur que les champs et les segments). Un seul bouton plein (principal) par zone ; secondaire en
   contour ; tertiaire en texte. Destructif : rouge, toujours avec confirmation.
 - **Segments** (choix exclusifs, filtres, vues) : segment choisi teinté de l'accent, les autres
   en couleur de texte normale.
@@ -89,6 +89,8 @@ l'interface.
 - **Messages brefs** : bandeau flottant en bas, une phrase.
 - **États vides** : icône grise et une phrase, centrées.
 - **Bulles d'aide** : sur toutes les actions en icône ; texte blanc sur fond gris foncé.
+- **Curseur** : « main » (pointeur) sur tout élément cliquable : boutons, rubriques, lignes de liste
+  cliquables, champ date, interrupteur, segments. Flèche pour un élément désactivé ou inerte.
 - **Chargement** : indicateur sur l'élément concerné (ligne, bouton), pas d'écran bloquant.
 
 ## 6. Comportement et rédaction
@@ -102,9 +104,9 @@ l'interface.
 
 ## 7. Fenêtre macOS
 
-- Fenêtre translucide (flou natif du bureau), barre de titre fondue, **barre d'outils unifiée**
+- Fond de fenêtre **opaque** (le bureau ne transparaît pas), barre de titre fondue, **barre d'outils unifiée**
   de 52 pt : les boutons fermer / réduire / agrandir se placent dans le coin de la barre
   latérale.
 - Ouverture **agrandie** (pas de plein écran automatique). En plein écran, la barre d'outils se
   masque toute seule.
-- Windows : pas de vitrage natif, fond opaque ; même mise en page.
+- Windows : fond opaque également ; même mise en page.

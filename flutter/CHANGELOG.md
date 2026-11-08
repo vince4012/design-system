@@ -1,3 +1,24 @@
+## 0.3.0
+
+Palette et relief alignés sur Saracroche, contrôles homogènes.
+
+- Couleurs : accent `#006AC7` (clair) / `#0091FF` (sombre) ; succès `#36C759` / `#2ED158` ; attention et or
+  de signature `#FEC600` ; erreur `#E5262B` / `#FF4144` ; encres des états recalculées (contrastes 4,5:1 tenus).
+- Relief inversé : le fond d'appli porte le dégradé (diagonale, plus clair en clair, plus sombre en sombre),
+  les cartes `Glass` sont unies (plus de dégradé de remplissage ni de reflet). Fond opaque sur macOS.
+- Hauteur de tous les contrôles : **38 pt** (`size.control`) : boutons, champs, champ date, segments,
+  rubriques de la barre latérale, sélecteur de thème.
+- Étiquette d'attention pleine en clair (`StatusStyle.solid`, jaune vif).
+- Icônes de liste brutes, sans pastille ; le séparateur de liste court du bord gauche de l'icône.
+- Barre latérale : filet doré de la rubrique active recalé entre les arrondis de la rubrique.
+- Nouveaux `AppSwitch` et `AppSwitchTile` (interrupteur réduit, ~43 pt) ; correction du pouce qui se fondait
+  dans la piste au survol.
+- Curseur « main » sur tous les éléments cliquables (test `cursor_test.dart`).
+- `FieldRow` : 20 pt entre deux rangées de champs (10 avant).
+- **Changements incompatibles (tokens)** : retrait de `Tokens.colorBadgeStart` / `colorBadgeEnd`,
+  `Tokens.radiusBadge`, `Tokens.opacityGlassSheenLight` / `Dark` ; `Tokens.sizeBadge` devient
+  `Tokens.sizeListIcon`. Voir `MIGRATION.md`.
+
 ## 0.2.1
 
 - `PageScaffold` : marge du haut égale à la marge de droite (`spaceL`) ; la barre de titre grandit

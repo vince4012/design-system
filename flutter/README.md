@@ -9,7 +9,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final nativeWindow = Platform.isMacOS;
   if (nativeWindow) {
-    await NativeWindow.setUp();   // fenêtre translucide, barre d'outils unifiée
+    await NativeWindow.setUp();   // fenêtre macOS, barre d'outils unifiée
     NativeWindow.maximize();       // ouverture agrandie
   }
   final prefs = await SharedPreferences.getInstance();
@@ -48,11 +48,11 @@ Le package ne demande aucun droit (entitlement) macOS particulier.
 | `Tokens` | valeurs générées depuis `tokens/tokens.json` |
 | `vbTheme`, `ThemeModeStore` | thème clair / sombre ; mémorisation du choix |
 | `DesignScope` | indique si la fenêtre native (macOS) est active |
-| `AppBackground` | fond neutre (translucide sur macOS) |
+| `AppBackground` | fond neutre en dégradé, opaque |
 | `GlassShell`, `ShellDestination`, `SidebarHeader`, `ThemeModeSwitch` | coquille façon Finder |
 | `PageScaffold`, `EmptyState` | page avec barre de titre compacte ; état vide |
 | `Glass`, `GlassSection`, `GlassGroup`, `GlassListView`, `GlassListTile`, `GlassBadge`, `StatusPill`, `StatusStyle`, `StatusColors`, `Signature` | composants en verre (étoile `favorite` des tuiles, or de signature) |
-| `AppTextField`, `DateField`, `FieldRow`, `requiredField` | formulaires |
+| `AppTextField`, `DateField`, `AppSwitch`, `AppSwitchTile`, `FieldRow`, `requiredField` | formulaires (interrupteur réduit : à utiliser à la place de `Switch` / `SwitchListTile`) |
 | `GlassDialog`, `showGlassDialog`, `FormDialog`, `confirm`, `showMessage` | dialogues, confirmations, messages |
 | `NativeWindow`, `ToolbarItem` | fenêtre macOS (vitrage, barre d'outils, agrandissement, plein écran) |
 

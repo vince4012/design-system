@@ -4,8 +4,8 @@ import 'design_scope.dart';
 import 'tokens.g.dart';
 
 /// Fond de l'appli : dégradé neutre (en diagonale) qui porte tout le relief ;
-/// les cartes de verre, elles, sont unies et le laissent transparaître. Avec une fenêtre native (macOS), il devient translucide et
-/// laisse voir le flou du bureau.
+/// les cartes de verre, elles, sont unies et le laissent transparaître. Opaque par défaut, y compris avec une fenêtre native (macOS) :
+/// l'opacité vient des tokens `opacity.background.translucent` (1 = opaque).
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key, required this.child, this.translucent});
 

@@ -101,10 +101,10 @@ abstract final class Tokens {
   static const opacityGlassBorderLight = 0.75;
   /// Bordure lumineuse du verre (sombre), couleur glass.highlight.
   static const opacityGlassBorderDark = 0.16;
-  /// Opacité du fond quand la fenêtre native est floutée (macOS, clair).
-  static const opacityBackgroundTranslucentLight = 0.68;
+  /// Opacité du fond avec la fenêtre native (macOS, clair) : 1 = opaque, le bureau ne transparaît pas. Baisser pour retrouver le flou natif.
+  static const opacityBackgroundTranslucentLight = 1.0;
   /// Idem en sombre.
-  static const opacityBackgroundTranslucentDark = 0.72;
+  static const opacityBackgroundTranslucentDark = 1.0;
   /// Flou d'arrière-plan du verre (sigma).
   static const blurGlass = 24.0;
   /// Champs de saisie, menus, éléments de liste.
@@ -131,10 +131,12 @@ abstract final class Tokens {
   static const fontSizeCaption = 11.5;
   /// Étiquettes de statut.
   static const fontSizeMicro = 11.0;
-  /// Hauteur des boutons.
-  static const sizeControl = 32.0;
+  /// Hauteur des contrôles : boutons, champs de saisie, segments. Alignée sur le champ de saisie.
+  static const sizeControl = 38.0;
   /// Zone de l'icône brute (sans pastille) des lignes de liste.
   static const sizeListIcon = 30.0;
+  /// Largeur de l'interrupteur (AppSwitch) ; la hauteur suit (Material : 52 × 32 ; ici réduit à l'échelle).
+  static const sizeSwitchWidth = 50.0;
   /// Icônes de bouton et de navigation.
   static const sizeIcon = 18.0;
   /// Largeur de la barre latérale.

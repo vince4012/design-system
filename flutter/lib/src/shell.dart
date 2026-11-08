@@ -159,49 +159,56 @@ class _NavItemState extends State<_NavItem> {
         ? (dark ? Colors.white.withValues(alpha: 0.05) : Colors.black.withValues(alpha: 0.035))
         : Colors.transparent;
     return MouseRegion(
+      // Curseur « main » : la rubrique est cliquable.
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
       child: GestureDetector(
         onTap: widget.onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          margin: const EdgeInsets.only(bottom: 2),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(color: fill, borderRadius: BorderRadius.circular(9)),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 2),
           child: Stack(
-            fit: StackFit.passthrough,
             clipBehavior: Clip.none,
             children: [
-              // Filet doré sur la rubrique active.
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 120),
+                // Même hauteur que les boutons et les champs.
+                constraints: const BoxConstraints(minHeight: Tokens.sizeControl),
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(color: fill, borderRadius: BorderRadius.circular(9)),
+                child: Row(
+                  children: [
+                    Icon(
+                      widget.selected ? widget.destination.selectedIcon : widget.destination.icon,
+                      size: Tokens.sizeIcon,
+                      color: scheme.primary,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      widget.destination.label,
+                      style: Theme.of(context).textTheme.bodyMedium
+                          ?.copyWith(fontWeight: widget.selected ? FontWeight.w600 : FontWeight.w400),
+                    ),
+                    if (widget.destination.count case final count? when count > 0) ...[
+                      const Spacer(),
+                      _CountBadge(count),
+                    ],
+                  ],
+                ),
+              ),
+              // Filet doré sur la rubrique active : il commence en bas de l'arrondi du haut
+              // et finit en haut de l'arrondi du bas (rayon 9).
               if (widget.selected)
                 Positioned(
-                  left: -7,
-                  top: 3,
-                  bottom: 3,
+                  left: 3,
+                  top: 9,
+                  bottom: 9,
                   child: Container(
                     width: 3,
                     decoration: BoxDecoration(color: Signature.fill(context), borderRadius: BorderRadius.circular(2)),
                   ),
                 ),
-              Row(
-                children: [
-                  Icon(
-                    widget.selected ? widget.destination.selectedIcon : widget.destination.icon,
-                    size: Tokens.sizeIcon,
-                    color: scheme.primary,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    widget.destination.label,
-                    style: Theme.of(context).textTheme.bodyMedium
-                        ?.copyWith(fontWeight: widget.selected ? FontWeight.w600 : FontWeight.w400),
-                  ),
-                  if (widget.destination.count case final count? when count > 0) ...[
-                    const Spacer(),
-                    _CountBadge(count),
-                  ],
-                ],
-              ),
             ],
           ),
         ),
@@ -250,28 +257,37 @@ class ThemeModeSwitch extends StatelessWidget {
     return Glass(
       radius: 99,
       padding: const EdgeInsets.all(3),
-      child: Row(
-        children: [
-          for (final (mode, icon, label) in _modes)
-            Expanded(
-              child: Tooltip(
-                message: label,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    color: mode == value ? scheme.primary.withValues(alpha: 0.18) : Colors.transparent,
-                  ),
-                  child: IconButton(
-                    icon: Icon(icon, size: 16),
-                    visualDensity: VisualDensity.compact,
-                    color: mode == value ? scheme.primary : scheme.onSurfaceVariant,
-                    onPressed: () => onChanged(mode),
+      // 38 pt au total comme les autres contrôles : 30 + 2 × 3 de marge + 2 × 1 de liseré.
+      child: SizedBox(
+        height: Tokens.sizeControl - 8,
+        child: Row(
+          children: [
+            for (final (mode, icon, label) in _modes)
+              Expanded(
+                child: Tooltip(
+                  message: label,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(99),
+                      color: mode == value ? scheme.primary.withValues(alpha: 0.18) : Colors.transparent,
+                    ),
+                    child: IconButton(
+                      icon: Icon(icon, size: 16),
+                      style: IconButton.styleFrom(
+                        minimumSize: const Size(0, Tokens.sizeControl - 8),
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.standard,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      color: mode == value ? scheme.primary : scheme.onSurfaceVariant,
+                      onPressed: () => onChanged(mode),
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

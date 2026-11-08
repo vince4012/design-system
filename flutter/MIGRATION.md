@@ -1,3 +1,49 @@
+# Migration 0.2.x → 0.3.0
+
+Évolution visuelle (couleurs, relief, hauteurs) : la plupart des changements s'appliquent d'eux-mêmes en
+montant la version. Quelques points demandent une action.
+
+## 1. Monter la version
+
+```yaml
+dependencies:
+  vb_design:
+    git:
+      url: https://github.com/vince4012/design-system.git
+      path: flutter
+      ref: v0.3.0
+```
+
+Puis `flutter pub upgrade vb_design`.
+
+## 2. Tokens supprimés ou renommés
+
+Si l'appli les lit directement :
+
+| Avant | Après |
+|---|---|
+| `Tokens.colorBadgeStart` / `colorBadgeEnd` | supprimés (les icônes de liste n'ont plus de pastille) |
+| `Tokens.radiusBadge` | supprimé |
+| `Tokens.sizeBadge` | `Tokens.sizeListIcon` |
+| `Tokens.opacityGlassSheenLight` / `Dark` | supprimés (plus de reflet sur le verre) |
+
+## 3. Interrupteurs
+
+Pour profiter de l'interrupteur réduit, remplacer `Switch` par `AppSwitch` et `SwitchListTile` par
+`AppSwitchTile(title:, subtitle:, value:, onChanged:)`. Les anciens restent fonctionnels, à l'ancienne taille.
+
+## 4. Ce qui change sans rien faire
+
+- Hauteur des boutons, champs, segments, rubriques de la barre latérale : 38 pt (les mises en page qui
+  comptaient sur ~24 pt pour un bouton peuvent grandir : à vérifier dans les lignes de liste et barres d'outils).
+- Couleurs d'accent et d'état, fond en dégradé, cartes unies, fond opaque sur macOS.
+- Les icônes de `GlassListTile` sont brutes ; `GlassBadge` garde son nom mais n'affiche que l'icône.
+- `FieldRow` espace les rangées de 20 pt.
+- Si l'appli affiche le jaune d'attention en texte ou en icône sur fond clair, utiliser l'encre
+  (`StatusColors.warning(context).ink`), pas la teinte vive.
+
+---
+
 # Migration 0.1.0 → 0.2.0
 
 Palette « minérale » : sable (clair), ardoise bleutée (sombre), bleu électrique, états ambre / vert

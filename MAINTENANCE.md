@@ -19,7 +19,7 @@ flutter/                package Flutter vb_design
   lib/src/design_scope.dart  DesignScope (fenêtre native active ?)
   lib/src/background.dart    AppBackground
   lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
-  lib/src/forms.dart    AppTextField, DateField, FieldRow, requiredField, GlassDialog, showGlassDialog, FormDialog, confirm, showMessage
+  lib/src/forms.dart    AppTextField, DateField, AppSwitch, AppSwitchTile, FieldRow, requiredField, GlassDialog, showGlassDialog, FormDialog, confirm, showMessage
   lib/src/page.dart     PageScaffold, EmptyState
   lib/src/shell.dart    GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch
   lib/src/native_window.dart  NativeWindow (macOS), ToolbarItem
@@ -65,6 +65,13 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Sous la barre d'outils native, les clics démarrent un déplacement de fenêtre : passer par
   `ToolbarItem` (c'est fait dans `PageScaffold`).
 
+- Curseur « main » : sur desktop, `InkWell` retombe sur la flèche par défaut (`adaptiveClickable`) ; toujours
+  passer `mouseCursor: WidgetStateMouseCursor.clickable`. `GestureDetector` n'a aucun curseur : l'envelopper
+  dans un `MouseRegion(cursor: click)`. `test/cursor_test.dart` vérifie les composants.
+
+- Interrupteur : Material passe le pouce actif en `primaryContainer` au survol et au clic ; dans notre palette
+  c'est presque le bleu de la piste (`#1493FF` sur `#0091FF`), le pouce disparaît. Le thème force `onPrimary`.
+
 - Pousser vers GitHub : ce dépôt est configuré en `http.version=HTTP/1.1` (+ `postBuffer`),
   sinon le premier envoi échouait (« l'hôte distant a fermé la connexion »). Réglage local à
   refaire sur un nouveau clone si l'erreur revient.
@@ -84,7 +91,7 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Version dans `flutter/pubspec.yaml` + `flutter/CHANGELOG.md` ; tag Git `vX.Y.Z` à chaque
   version publiée. Les applis dépendent d'un tag précis (`ref: vX.Y.Z`) : une évolution ne
   les touche que lorsqu'elles montent de version.
-- Applis clientes : Quittances. Guide de montée de version : `flutter/MIGRATION.md` (0.1.0 → 0.2.0).
+- Applis clientes : Quittances. Guide de montée de version : `flutter/MIGRATION.md` (0.2.x → 0.3.0, puis 0.1.0 → 0.2.0).
 - Conventions avec le propriétaire : français ; une étape manuelle à la fois ; enregistrer et
   pousser sur Git uniquement à sa demande. Identité Git locale : Vincent Bros <colday@hotmail.fr>.
 
@@ -122,3 +129,15 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 08/11/2026 | Branche `v0.3-refonte` : rouge d'erreur aligné sur Saracroche — teinte vive `#CC4125`/`#FF5E57` → `#E5262B` (clair, le `#FF383C` assombri : 4,5:1 avec texte blanc ; le brut ne fait que 3,6:1) / `#FF4144` (sombre, exact) ; encre `#98291A` → `#A8121A` (clair), `#FF5E57` → `#FF5C5F` (sombre, 4,6:1 sur fond teinté). |
 | 08/11/2026 | Branche `v0.3-refonte` : relief inversé — le fond d'appli porte le dégradé (diagonale, haut `#FAF8F4`/`#1D232D`, bas `#EAE6DF`/`#090B0E`), les cartes `Glass` sont unies (plus de dégradé de remplissage ni de reflet ; token `opacity.glass.sheen` retiré), bordure, ombre et flou inchangés. À juger sur la fenêtre macOS réelle. |
 | 08/11/2026 | Branche `v0.3-refonte` : icônes de liste brutes (plus de pastille en dégradé bleu) — `GlassBadge` garde son nom mais n'affiche que l'icône (accent, grise si inactif) ; tokens `color.badge.*` et `radius.badge` supprimés, `size.badge` → `size.listIcon` ; captures Saracroche de référence ajoutées dans `docs/exemples-apps-screenshots/` (pour la partie mobile). |
+| 08/11/2026 | Branche `v0.3-refonte` : filet séparateur des listes du bord gauche de l'icône (retrait 12 pt, comme à droite) au lieu de partir sous le texte (54 pt) ; icône alignée à gauche de sa zone. Icônes de liste gardées en couleur d'accent. |
+| 08/11/2026 | Branche `v0.3-refonte` : fond d'appli opaque sur la fenêtre macOS (`opacity.background.translucent` 0,68 / 0,72 → 1) ; le flou natif du bureau ne transparaît plus. Mécanisme conservé : rebaisser le token pour le retrouver. |
+| 08/11/2026 | Branche `v0.3-refonte` : hauteur des contrôles homogène à 38 pt (`size.control` 32 → 38) : boutons (plein, contour, texte), champs de saisie (`InputDecoration.constraints`, icône de fin du champ date réduite), segments. Avant : boutons ~24 pt visibles (densité compacte), champ ~37, segments ~36, champ date 40. |
+| 08/11/2026 | Branche `v0.3-refonte` : correction des hauteurs de champs — le cadre visible d'un champ (hors libellé flottant, qui déborde au-dessus) mesurait 37 pt (texte) et 35 pt (date) au lieu de 38 : `contentPadding` vertical 12,5, icône de fin et bouton « effacer » du champ date réduits ; cadre des champs, boutons et segments mesurés égaux à 38 pt dans les captures. |
+| 08/11/2026 | Branche `v0.3-refonte` : rubriques de la barre latérale (`_NavItem`, y compris « À propos ») et sélecteur Auto / Clair / Sombre à la même hauteur de 38 pt que les contrôles (avant ~30 pt et ~46 pt). |
+| 08/11/2026 | Branche `v0.3-refonte` : filet doré de la rubrique active sur toute la hauteur de la rubrique (jusqu'aux limites de son arrondi, 38 pt) au lieu de ~12 pt ; `_NavItem` restructuré (`Stack` extérieur, le filet ne dépend plus de la hauteur de la ligne). |
+| 08/11/2026 | Branche `v0.3-refonte` : filet doré de la rubrique active recalé — il commence en bas de l'arrondi du haut et finit en haut de l'arrondi du bas (retrait de 9 pt, soit 20 pt de long sur 38) ; la version pleine hauteur (précédente ligne) est remplacée. |
+| 08/11/2026 | Branche `v0.3-refonte` : interrupteur réduit — nouveaux `AppSwitch` (le `Switch` Material à l'échelle, environ 43 pt visibles au lieu de 52, token `size.switchWidth`) et `AppSwitchTile` (remplace `SwitchListTile`) ; galerie migrée. Les applis doivent les utiliser à la place de `Switch` / `SwitchListTile` pour profiter de la taille réduite. |
+| 08/11/2026 | Branche `v0.3-refonte` : curseur « main » sur tous les éléments cliquables — rubriques de la barre latérale (aucun curseur avant), `InkWell` de `Glass`, `GlassListTile`, `DateField`, `AppSwitchTile` (flèche sur desktop avant), boutons, segments, interrupteur (explicites dans le thème) ; flèche pour les éléments désactivés. Nouveau `test/cursor_test.dart`. |
+| 08/11/2026 | Branche `v0.3-refonte` : bug de survol de l'interrupteur — le pouce actif prenait la teinte `primaryContainer` (quasi identique à la piste) ; `switchTheme.thumbColor` le garde en `onPrimary`. `AppSwitchTile` coupe en plus le halo rond du pouce (`AppSwitch.hoverHalo: false`), la ligne ayant déjà sa surbrillance de survol. |
+| 08/11/2026 | Branche `v0.3-refonte` : espacement vertical entre rangées de champs (`FieldRow`) 10 → 20 pt (marge de 5 → 10 de chaque côté) ; le libellé flottant en mangeait la moitié. |
+| 08/11/2026 | **Publication 0.3.0** (validée par le propriétaire) : version `0.3.0` dans `pubspec.yaml`, `CHANGELOG.md`, guide `MIGRATION.md` (0.2.x → 0.3.0), ref `v0.3.0` dans le README ; tag `v0.3.0`. L'artifact Claude « ColDay Design System » n'est pas encore à jour (voir § 6 bis). |

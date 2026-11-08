@@ -71,7 +71,8 @@ ThemeData vbTheme(Brightness brightness) {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       isDense: true,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12.5),
+      suffixIconConstraints: const BoxConstraints(minWidth: 36, minHeight: Tokens.sizeControl),
       fillColor: dark ? tint.withValues(alpha: 0.08) : Colors.white.withValues(alpha: 0.65),
       border: fieldBorder,
       enabledBorder: fieldBorder,
@@ -83,18 +84,26 @@ ThemeData vbTheme(Brightness brightness) {
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
+        enabledMouseCursor: SystemMouseCursors.click,
+        disabledMouseCursor: SystemMouseCursors.basic,
         shape: stadium,
         padding: buttonPadding,
         minimumSize: buttonSize,
+        visualDensity: VisualDensity.standard,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: buttonText,
         iconSize: 16,
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
+        enabledMouseCursor: SystemMouseCursors.click,
+        disabledMouseCursor: SystemMouseCursors.basic,
         shape: stadium,
         padding: buttonPadding,
         minimumSize: buttonSize,
+        visualDensity: VisualDensity.standard,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: buttonText,
         iconSize: 16,
         side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
@@ -102,19 +111,33 @@ ThemeData vbTheme(Brightness brightness) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
+        enabledMouseCursor: SystemMouseCursors.click,
+        disabledMouseCursor: SystemMouseCursors.basic,
         shape: stadium,
         padding: buttonPadding,
         minimumSize: buttonSize,
+        visualDensity: VisualDensity.standard,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: buttonText,
         iconSize: 16,
       ),
     ),
     iconButtonTheme: IconButtonThemeData(
-      style: IconButton.styleFrom(iconSize: Tokens.sizeIcon, visualDensity: VisualDensity.compact),
+      style: IconButton.styleFrom(
+        enabledMouseCursor: SystemMouseCursors.click,
+        disabledMouseCursor: SystemMouseCursors.basic,
+        iconSize: Tokens.sizeIcon,
+        visualDensity: VisualDensity.compact,
+      ),
     ),
     segmentedButtonTheme: SegmentedButtonThemeData(
       style: SegmentedButton.styleFrom(
-        visualDensity: const VisualDensity(horizontal: -2, vertical: -3),
+        enabledMouseCursor: SystemMouseCursors.click,
+        disabledMouseCursor: SystemMouseCursors.basic,
+        // Le segment a une hauteur minimale de 40 ; -0,5 de densité la ramène à 38 (= Tokens.sizeControl).
+        visualDensity: const VisualDensity(vertical: -0.5),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: buttonSize,
         textStyle: buttonText,
         side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
         backgroundColor: dark ? tint.withValues(alpha: 0.06) : Colors.white.withValues(alpha: 0.5),
@@ -124,7 +147,16 @@ ThemeData vbTheme(Brightness brightness) {
         foregroundColor: scheme.onSurface,
       ),
     ),
-    switchTheme: const SwitchThemeData(materialTapTargetSize: MaterialTapTargetSize.shrinkWrap),
+    switchTheme: SwitchThemeData(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      mouseCursor: WidgetStateMouseCursor.clickable,
+      // Pouce actif toujours foncé : par défaut Material le passe en `primaryContainer` au survol
+      // et au clic, une teinte de bleu proche de la piste, et il se fond dedans.
+      thumbColor: WidgetStateProperty.resolveWith(
+        (states) =>
+            states.contains(WidgetState.selected) && !states.contains(WidgetState.disabled) ? scheme.onPrimary : null,
+      ),
+    ),
     listTileTheme: const ListTileThemeData(dense: true, visualDensity: VisualDensity.compact),
     popupMenuTheme: PopupMenuThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Tokens.radiusControl)),

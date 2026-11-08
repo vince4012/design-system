@@ -64,18 +64,104 @@ class DateField extends StatelessWidget {
     validator: validator,
     builder: (field) => InkWell(
       onTap: () => _pick(context),
+      mouseCursor: WidgetStateMouseCursor.clickable,
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: label,
           errorText: field.errorText,
           suffixIcon: value != null && onClear != null
-              ? IconButton(icon: const Icon(Icons.clear), tooltip: 'Effacer', onPressed: onClear)
+              ? IconButton(
+                  icon: const Icon(Icons.clear),
+                  tooltip: 'Effacer',
+                  // Compact : sinon le bouton (40 pt) agrandirait le champ.
+                  style: IconButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(34, 34),
+                    maximumSize: const Size(34, 34),
+                    visualDensity: VisualDensity.standard,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: onClear,
+                )
               : const Icon(Icons.calendar_today),
         ),
         child: Text(value != null ? MaterialLocalizations.of(context).formatCompactDate(value!) : ''),
       ),
     ),
   );
+}
+
+/// Interrupteur réduit (Tokens.sizeSwitchWidth de large) : le `Switch` Material, à l'échelle.
+/// Le thème règle déjà ses couleurs.
+///
+/// [hoverHalo] : halo rond autour du pouce au survol. À couper (`false`) quand l'interrupteur
+/// est déjà dans une zone qui réagit au survol, sinon les deux surbrillances se superposent.
+class AppSwitch extends StatelessWidget {
+  const AppSwitch({super.key, required this.value, required this.onChanged, this.hoverHalo = true});
+
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+  final bool hoverHalo;
+
+  @override
+  Widget build(BuildContext context) {
+    final switchWidget = Switch(value: value, onChanged: onChanged);
+    return SizedBox(
+      width: Tokens.sizeSwitchWidth,
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: hoverHalo
+            ? switchWidget
+            : SwitchTheme(
+                data: SwitchTheme.of(context).copyWith(overlayColor: const WidgetStatePropertyAll(Colors.transparent)),
+                child: switchWidget,
+              ),
+      ),
+    );
+  }
+}
+
+/// Ligne « titre, explication, interrupteur » : remplace `SwitchListTile`.
+class AppSwitchTile extends StatelessWidget {
+  const AppSwitchTile({super.key, required this.value, required this.onChanged, required this.title, this.subtitle});
+
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+  final String title;
+  final String? subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final text = Theme.of(context).textTheme;
+    return InkWell(
+      onTap: onChanged == null ? null : () => onChanged!(!value),
+      mouseCursor: WidgetStateMouseCursor.clickable,
+      borderRadius: BorderRadius.circular(Tokens.radiusControl),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: text.bodyMedium),
+                  if (subtitle != null)
+                    Text(
+                      subtitle!,
+                      style: text.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(width: Tokens.spaceM),
+            // La ligne entière réagit déjà au survol : pas de second halo autour du pouce.
+            AppSwitch(value: value, onChanged: onChanged, hoverHalo: false),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 /// Ligne de champs de même largeur, espacés.
@@ -86,7 +172,9 @@ class FieldRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 5),
+    // 10 de chaque côté : 20 pt entre deux rangées. Le libellé flottant déborde de ~6 pt au-dessus
+    // du cadre, il reste donc ~14 pt visibles entre le bas d'un champ et le cadre du suivant.
+    padding: const EdgeInsets.symmetric(vertical: Tokens.spaceXl / 2),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
