@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'tokens.g.dart';
 
-/// Panneau « verre » : flou d'arrière-plan, remplissage translucide,
-/// reflet en haut et bordure lumineuse.
+/// Panneau « verre » : flou d'arrière-plan, remplissage translucide uni
+/// et bordure lumineuse.
 class Glass extends StatelessWidget {
   const Glass({
     super.key,
@@ -64,29 +64,12 @@ class Glass extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: shape,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  color.withValues(alpha: alpha * 1.3),
-                  color.withValues(alpha: alpha * 0.7),
-                ],
-              ),
+              // Remplissage uni : le relief vient du dégradé du fond, pas de la carte.
+              color: color.withValues(alpha: alpha),
               border: Border.all(
                 color: highlight.withValues(
                   alpha: dark ? Tokens.opacityGlassBorderDark : Tokens.opacityGlassBorderLight,
                 ),
-              ),
-            ),
-            foregroundDecoration: BoxDecoration(
-              borderRadius: shape,
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: [
-                  highlight.withValues(alpha: dark ? Tokens.opacityGlassSheenDark : Tokens.opacityGlassSheenLight),
-                  highlight.withValues(alpha: 0),
-                ],
               ),
             ),
             child: Material(
@@ -145,10 +128,14 @@ class GlassBadge extends StatelessWidget {
 /// Couleur d'un état : teinte vive (fond, bordure, icône) et encre pour le texte
 /// sur le fond teinté (plus foncée en thème clair, pour rester lisible).
 class StatusStyle {
-  const StatusStyle({required this.fill, required this.ink});
+  const StatusStyle({required this.fill, required this.ink, this.solid = false});
 
   final Color fill;
   final Color ink;
+
+  /// Étiquette pleine (fond = teinte vive, sans bordure) au lieu d'un fond teinté à ~14 %.
+  /// Pour le jaune en clair : teinté sur le sable, il tourne au beige terne.
+  final bool solid;
 }
 
 /// Petite étiquette arrondie (statut). Avec [style] (voir [StatusColors]) le texte
@@ -165,12 +152,13 @@ class StatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     final fill = style?.fill ?? color!;
     final ink = style?.ink ?? color!;
+    final solid = style?.solid ?? false;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: fill.withValues(alpha: 0.14),
+        color: fill.withValues(alpha: solid ? 1 : 0.14),
         borderRadius: BorderRadius.circular(99),
-        border: Border.all(color: fill.withValues(alpha: 0.3), width: 0.8),
+        border: solid ? null : Border.all(color: fill.withValues(alpha: 0.3), width: 0.8),
       ),
       child: Text(
         label,
@@ -321,7 +309,11 @@ abstract final class StatusColors {
 
   static StatusStyle warning(BuildContext context) => _dark(context)
       ? const StatusStyle(fill: Tokens.colorStatusWarningFillDark, ink: Tokens.colorStatusWarningInkDark)
-      : const StatusStyle(fill: Tokens.colorStatusWarningFillLight, ink: Tokens.colorStatusWarningInkLight);
+      : const StatusStyle(
+          fill: Tokens.colorStatusWarningFillLight,
+          ink: Tokens.colorStatusWarningInkLight,
+          solid: true,
+        );
 
   static StatusStyle danger(BuildContext context) => _dark(context)
       ? const StatusStyle(fill: Tokens.colorStatusDangerFillDark, ink: Tokens.colorStatusDangerInkDark)

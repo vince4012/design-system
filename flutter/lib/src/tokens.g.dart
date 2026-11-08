@@ -5,22 +5,22 @@ import 'dart:ui';
 
 /// Valeurs de design communes (voir tokens/tokens.json et docs/regles-ux-ui.md).
 abstract final class Tokens {
-  /// Bleu électrique, thème clair (boutons, liens, sélection). 4,9:1 sur le fond sable.
-  static const colorAccentLight = Color(0xFF1450E8);
-  /// Bleu électrique, thème sombre. 5,0:1 sur le fond ardoise.
-  static const colorAccentDark = Color(0xFF4A8BFF);
+  /// Bleu vif, thème clair (boutons, liens, sélection) : le bleu de Saracroche #0088FF assombri pour tenir 4,5:1 sur le fond sable (5,4:1 avec du texte blanc).
+  static const colorAccentLight = Color(0xFF006AC7);
+  /// Bleu électrique, thème sombre (bleu vif de Saracroche). 5,2:1 sur le fond ardoise.
+  static const colorAccentDark = Color(0xFF0091FF);
   /// Texte et icônes sur l'accent, thème clair (5,5:1).
   static const colorOnAccentLight = Color(0xFFFFFFFF);
   /// Texte et icônes sur l'accent, thème sombre (5,5:1).
   static const colorOnAccentDark = Color(0xFF08162E);
-  /// Fond d'appli, haut du dégradé (clair) : sable.
-  static const colorBackgroundLightTop = Color(0xFFEEEBE5);
+  /// Fond d'appli, haut du dégradé (clair) : sable clair. Le fond porte le dégradé, les cartes sont unies.
+  static const colorBackgroundLightTop = Color(0xFFFAF8F4);
   /// Fond d'appli, bas du dégradé (clair).
-  static const colorBackgroundLightBottom = Color(0xFFE2DED6);
-  /// Fond d'appli, haut du dégradé (sombre) : ardoise bleutée.
-  static const colorBackgroundDarkTop = Color(0xFF1B1F27);
+  static const colorBackgroundLightBottom = Color(0xFFEAE6DF);
+  /// Fond d'appli, haut du dégradé (sombre) : ardoise bleutée. Le fond porte le dégradé, les cartes sont unies.
+  static const colorBackgroundDarkTop = Color(0xFF1D232D);
   /// Fond d'appli, bas du dégradé (sombre).
-  static const colorBackgroundDarkBottom = Color(0xFF0E1015);
+  static const colorBackgroundDarkBottom = Color(0xFF090B0E);
   /// Surfaces opaques (menus, sélecteurs), clair.
   static const colorSurfaceLight = Color(0xFFF7F5F1);
   /// Surfaces opaques (menus, sélecteurs), sombre.
@@ -33,30 +33,30 @@ abstract final class Tokens {
   static const colorInkMutedLight = Color(0xFF5E6269);
   /// Texte secondaire, sombre (7,1:1 sur le fond).
   static const colorInkMutedDark = Color(0xFFA9ABB0);
-  /// Succès, teinte vive (pastilles, icônes, fonds teintés), clair : vert minéral.
-  static const colorStatusSuccessFillLight = Color(0xFF1E9E78);
-  /// Succès, teinte vive, sombre.
-  static const colorStatusSuccessFillDark = Color(0xFF3FCB9B);
-  /// Succès, texte (étiquettes) sur fond teinté, clair.
-  static const colorStatusSuccessInkLight = Color(0xFF075A43);
-  /// Succès, texte, sombre.
-  static const colorStatusSuccessInkDark = Color(0xFF3FCB9B);
-  /// Attention, teinte vive, clair : ambre (même or que la signature).
-  static const colorStatusWarningFillLight = Color(0xFFF0B429);
+  /// Succès, teinte vive (pastilles, icônes, fonds teintés), clair : vert franc de Saracroche.
+  static const colorStatusSuccessFillLight = Color(0xFF36C759);
+  /// Succès, teinte vive, sombre : vert franc de Saracroche.
+  static const colorStatusSuccessFillDark = Color(0xFF2ED158);
+  /// Succès, texte (étiquettes) sur fond teinté, clair (4,9:1).
+  static const colorStatusSuccessInkLight = Color(0xFF0D6E2C);
+  /// Succès, texte, sombre (6,3:1 sur fond teinté).
+  static const colorStatusSuccessInkDark = Color(0xFF2ED158);
+  /// Attention, teinte vive, clair : jaune vif de l'interrupteur Saracroche (même or que la signature).
+  static const colorStatusWarningFillLight = Color(0xFFFEC600);
   /// Attention, teinte vive, sombre.
-  static const colorStatusWarningFillDark = Color(0xFFE3B94E);
-  /// Attention, texte sur fond teinté, clair.
-  static const colorStatusWarningInkLight = Color(0xFF6E4F00);
-  /// Attention, texte, sombre.
-  static const colorStatusWarningInkDark = Color(0xFFE3B94E);
-  /// Erreur, teinte vive (boutons destructifs, bordures, icônes), clair : brique.
-  static const colorStatusDangerFillLight = Color(0xFFCC4125);
-  /// Erreur, teinte vive, sombre : rouge vif.
-  static const colorStatusDangerFillDark = Color(0xFFFF5E57);
-  /// Erreur, texte (messages, étiquettes), clair.
-  static const colorStatusDangerInkLight = Color(0xFF98291A);
-  /// Erreur, texte, sombre.
-  static const colorStatusDangerInkDark = Color(0xFFFF5E57);
+  static const colorStatusWarningFillDark = Color(0xFFFEC600);
+  /// Attention, texte clair : posé sur l'étiquette jaune pleine (7,3:1). Brun foncé, plus lisible que le brun clair sur fond teinté.
+  static const colorStatusWarningInkLight = Color(0xFF4A3600);
+  /// Attention, texte, sombre (7,7:1 sur fond teinté).
+  static const colorStatusWarningInkDark = Color(0xFFFEC600);
+  /// Erreur, teinte vive (boutons destructifs, bordures, icônes), clair : le rouge de Saracroche #FF383C assombri pour tenir 4,5:1 avec du texte blanc.
+  static const colorStatusDangerFillLight = Color(0xFFE5262B);
+  /// Erreur, teinte vive, sombre : rouge de Saracroche.
+  static const colorStatusDangerFillDark = Color(0xFFFF4144);
+  /// Erreur, texte (messages, étiquettes), clair (5,4:1 sur fond teinté).
+  static const colorStatusDangerInkLight = Color(0xFFA8121A);
+  /// Erreur, texte, sombre (4,6:1 sur fond teinté).
+  static const colorStatusDangerInkDark = Color(0xFFFF5C5F);
   /// Texte sur fond d'erreur, clair (4,8:1).
   static const colorStatusDangerOnLight = Color(0xFFFFFFFF);
   /// Texte sur fond d'erreur, sombre.
@@ -73,10 +73,10 @@ abstract final class Tokens {
   static const colorGlassHighlightLight = Color(0xFFFFFFFF);
   /// Bordure, reflet, filets et contours, sombre : bleu pâle.
   static const colorGlassHighlightDark = Color(0xFFAAC3F0);
-  /// Or de signature, clair : ambre. Filet de la rubrique active, compteurs, étoile des favoris.
-  static const colorSignatureFillLight = Color(0xFFF0B429);
+  /// Or de signature, clair : jaune vif. Filet de la rubrique active, compteurs, étoile des favoris.
+  static const colorSignatureFillLight = Color(0xFFFEC600);
   /// Or de signature, sombre.
-  static const colorSignatureFillDark = Color(0xFFE3B94E);
+  static const colorSignatureFillDark = Color(0xFFFEC600);
   /// Texte sur l'or de signature, clair (8,1:1).
   static const colorSignatureOnLight = Color(0xFF23262B);
   /// Texte sur l'or de signature, sombre (9,9:1).
@@ -105,10 +105,6 @@ abstract final class Tokens {
   static const opacityGlassBorderLight = 0.75;
   /// Bordure lumineuse du verre (sombre), couleur glass.highlight.
   static const opacityGlassBorderDark = 0.16;
-  /// Reflet blanc en haut du verre (clair) : discret.
-  static const opacityGlassSheenLight = 0.12;
-  /// Reflet en haut du verre (sombre), couleur glass.highlight.
-  static const opacityGlassSheenDark = 0.06;
   /// Opacité du fond quand la fenêtre native est floutée (macOS, clair).
   static const opacityBackgroundTranslucentLight = 0.68;
   /// Idem en sombre.

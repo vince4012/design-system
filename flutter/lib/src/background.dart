@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'design_scope.dart';
 import 'tokens.g.dart';
 
-/// Fond de l'appli : dégradé neutre et discret, que le verre laisse
-/// transparaître. Avec une fenêtre native (macOS), il devient translucide et
+/// Fond de l'appli : dégradé neutre (en diagonale) qui porte tout le relief ;
+/// les cartes de verre, elles, sont unies et le laissent transparaître. Avec une fenêtre native (macOS), il devient translucide et
 /// laisse voir le flou du bureau.
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key, required this.child, this.translucent});
@@ -26,8 +26,8 @@ class AppBackground extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [for (final c in colors) c.withValues(alpha: alpha)],
         ),
       ),

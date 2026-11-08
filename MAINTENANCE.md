@@ -101,7 +101,7 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
   puis Claude **reporte** le changement dans `tokens/tokens.json`, régénère et vérifie les captures.
   À l'inverse, après un changement dans le dépôt, Claude met l'artifact à jour. Ne jamais éditer les
   deux sans reporter.
-- Contrastes : 4,5:1 (texte) et 3:1 (icônes) tenus, sauf teintes vives or (2,0:1) et vert (2,8:1) en icône
+- Contrastes : 4,5:1 (texte) et 3:1 (icônes) tenus, sauf teintes vives or (1,4:1) et vert (1,9:1) en icône
   seule sur fond clair, toujours avec libellé. Page Palette de l'artifact = détail mesuré.
 - Alternative écartée : synchronisation vers claude.ai/design (`/design-sync`), car Claude Design
   autonome ferme le 14/12/2026.
@@ -115,3 +115,9 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 01/11/2026 | Renommage en « ColDay Design System » (applis publiées sous le nom ColDay) : README, MAINTENANCE, artifact. Package `vb_design` inchangé. |
 | 01/11/2026 | Palette minérale (0.2.0, non taguée) : sable (inchangé) / ardoise bleutée avec verre teinté, bleu électrique `#1450E8` / `#4A8BFF`, états or / vert minéral / brique (rouge vif en sombre) ; tokens `glass.tint`, `glass.highlight` ; or de signature ambre (filet de rubrique active, compteur `ShellDestination.count`, étoile `GlassListTile.favorite`) ; tokens `ink`, `inkMuted`, `surface`, `onAccent`, `status.*.{fill,ink}` ; `StatusColors` devient des méthodes (`StatusStyle`), changement incompatible ; thème, galerie, captures, règles UX/UI et artifact mis à jour. |
 | 01/11/2026 | Préparation de la publication 0.2.0 : description du package (ColDay), ref `v0.2.0` dans le README, guide `flutter/MIGRATION.md` pour Quittances ; tag `v0.2.0`. |
+| 08/11/2026 | Branche `v0.3-refonte` : accent sombre `#4A8BFF` → `#0091FF` (bleu du bouton de Saracroche, plus lumineux) ; texte sur accent inchangé (`#08162E`, 5,6:1). Accent clair `#1450E8` → `#006AC7` (le `#0088FF` de Saracroche assombri : 4,5:1 sur sable, 5,4:1 avec texte blanc ; le `#0088FF` brut ne fait que 3,0:1 / 3,5:1). Un essai de verre à la Infomaniak (liseré 1 px, fond uni) a été testé puis abandonné. |
+| 08/11/2026 | Branche `v0.3-refonte` : vert de succès aligné sur Saracroche — teinte vive `#1E9E78`/`#3FCB9B` → `#36C759`/`#2ED158`, encre `#075A43`/`#3FCB9B` → `#0D6E2C`/`#2ED158` (4,9:1 clair, 6,3:1 sombre sur fond d'étiquette) ; la teinte vive reste réservée aux icônes avec libellé (1,9:1 sur sable). |
+| 08/11/2026 | Branche `v0.3-refonte` : or de signature et teinte « attention » alignés sur le jaune de l'interrupteur Saracroche, `#FEC600` dans les deux thèmes (avant `#F0B429` / `#E3B94E`) ; encre d'attention `#7A5800` (clair, 5,2:1) / `#FEC600` (sombre) ; texte sur or inchangé (9,6:1 / 11,4:1). Or toujours réservé aux détails de signature et aux états, jamais en texte sur fond clair. |
+| 08/11/2026 | Branche `v0.3-refonte` : étiquette d'attention pleine en clair (`StatusStyle.solid`, fond `#FEC600`, sans bordure, encre `#4A3600` 7,3:1) — teintée à 14 % sur le sable le jaune virait au beige terne. Sombre inchangé. |
+| 08/11/2026 | Branche `v0.3-refonte` : rouge d'erreur aligné sur Saracroche — teinte vive `#CC4125`/`#FF5E57` → `#E5262B` (clair, le `#FF383C` assombri : 4,5:1 avec texte blanc ; le brut ne fait que 3,6:1) / `#FF4144` (sombre, exact) ; encre `#98291A` → `#A8121A` (clair), `#FF5E57` → `#FF5C5F` (sombre, 4,6:1 sur fond teinté). |
+| 08/11/2026 | Branche `v0.3-refonte` : relief inversé — le fond d'appli porte le dégradé (diagonale, haut `#FAF8F4`/`#1D232D`, bas `#EAE6DF`/`#090B0E`), les cartes `Glass` sont unies (plus de dégradé de remplissage ni de reflet ; token `opacity.glass.sheen` retiré), bordure, ombre et flou inchangés. À juger sur la fenêtre macOS réelle. |

@@ -10,27 +10,28 @@ ThemeData vbTheme(Brightness brightness) {
   final dark = brightness == Brightness.dark;
   final accent = dark ? Tokens.colorAccentDark : Tokens.colorAccentLight;
   final surface = dark ? Tokens.colorSurfaceDark : Tokens.colorSurfaceLight;
-  final scheme = ColorScheme.fromSeed(
-    seedColor: Tokens.colorAccentDark,
-    brightness: brightness,
-    dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
-  ).copyWith(
-    primary: accent,
-    onPrimary: dark ? Tokens.colorOnAccentDark : Tokens.colorOnAccentLight,
-    onSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
-    onSurfaceVariant: dark ? Tokens.colorInkMutedDark : Tokens.colorInkMutedLight,
-    surface: surface,
-    surfaceContainerLowest: surface,
-    surfaceContainerLow: surface,
-    surfaceContainer: surface,
-    surfaceContainerHigh: surface,
-    surfaceContainerHighest: surface,
-    inverseSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
-    onInverseSurface: dark ? Tokens.colorBackgroundDarkBottom : Tokens.colorBackgroundLightTop,
-    outline: dark ? Tokens.colorStatusNeutralDark : Tokens.colorStatusNeutralLight,
-    error: dark ? Tokens.colorStatusDangerFillDark : Tokens.colorStatusDangerFillLight,
-    onError: dark ? Tokens.colorStatusDangerOnDark : Tokens.colorStatusDangerOnLight,
-  );
+  final scheme =
+      ColorScheme.fromSeed(
+        seedColor: Tokens.colorAccentDark,
+        brightness: brightness,
+        dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
+      ).copyWith(
+        primary: accent,
+        onPrimary: dark ? Tokens.colorOnAccentDark : Tokens.colorOnAccentLight,
+        onSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
+        onSurfaceVariant: dark ? Tokens.colorInkMutedDark : Tokens.colorInkMutedLight,
+        surface: surface,
+        surfaceContainerLowest: surface,
+        surfaceContainerLow: surface,
+        surfaceContainer: surface,
+        surfaceContainerHigh: surface,
+        surfaceContainerHighest: surface,
+        inverseSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
+        onInverseSurface: dark ? Tokens.colorBackgroundDarkBottom : Tokens.colorBackgroundLightTop,
+        outline: dark ? Tokens.colorStatusNeutralDark : Tokens.colorStatusNeutralLight,
+        error: dark ? Tokens.colorStatusDangerFillDark : Tokens.colorStatusDangerFillLight,
+        onError: dark ? Tokens.colorStatusDangerOnDark : Tokens.colorStatusDangerOnLight,
+      );
   // Contours et remplissages : bleu pâle sur l'ardoise, noir transparent sur le sable.
   final highlight = Tokens.colorGlassHighlightDark;
   final tint = Tokens.colorGlassTintDark;
@@ -77,7 +78,7 @@ ThemeData vbTheme(Brightness brightness) {
       focusedBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.primary, width: 1.5)),
       errorBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.error)),
       focusedErrorBorder: fieldBorder.copyWith(borderSide: BorderSide(color: scheme.error, width: 1.5)),
-      // Message d'erreur en encre brique : la teinte vive est trop claire pour du texte de 11,5 pt.
+      // Message d'erreur en encre rouge foncé : la teinte vive est trop claire pour du texte de 11,5 pt.
       errorStyle: TextStyle(color: dark ? Tokens.colorStatusDangerInkDark : Tokens.colorStatusDangerInkLight),
     ),
     filledButtonTheme: FilledButtonThemeData(
@@ -143,7 +144,9 @@ ThemeData vbTheme(Brightness brightness) {
         border: dark ? Border.all(color: Colors.white.withValues(alpha: 0.12)) : null,
       ),
     ),
-    dividerTheme: DividerThemeData(color: dark ? highlight.withValues(alpha: 0.14) : Colors.black.withValues(alpha: 0.07)),
+    dividerTheme: DividerThemeData(
+      color: dark ? highlight.withValues(alpha: 0.14) : Colors.black.withValues(alpha: 0.07),
+    ),
   );
 }
 

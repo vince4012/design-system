@@ -9,8 +9,8 @@ tokens fait foi.
 1. **Natif avant tout.** L'appli doit ressembler à une appli du système, sur le modèle du
    **Finder** de macOS : barre latérale flottante, barre d'outils compacte, listes groupées,
    contrôles compacts. Pas d'esthétique « web » ni « Material » visible.
-2. **Liquid Glass, mais sobre.** Panneaux en verre flouté discret, reflet léger, bordure
-   lumineuse fine. **Fond neutre** : pas de taches colorées, pas de halo central, rien qui
+2. **Liquid Glass, mais sobre.** Le **fond** porte le dégradé (neutre, en diagonale) ; les
+   **cartes** en verre flouté sont unies, sans reflet, avec une bordure lumineuse fine. **Fond neutre** : pas de taches colorées, pas de halo central, rien qui
    éclaircit l'interface.
 3. **Clair / Sombre / Auto**, Auto (suit le système) par défaut, choix mémorisé. Chaque écran
    est vérifié dans les deux thèmes.
@@ -22,16 +22,16 @@ tokens fait foi.
 
 | Rôle | Clair | Sombre | Usage |
 |---|---|---|---|
-| Accent (bleu électrique) | #1450E8 | #4A8BFF | bouton principal, liens, sélection, icônes de navigation |
+| Accent (bleu électrique) | #006AC7 | #0091FF | bouton principal, liens, sélection, icônes de navigation |
 | Texte sur accent | #FFFFFF | #08162E | libellé des boutons pleins |
-| Succès (vert minéral) | #1E9E78, texte #075A43 | #3FCB9B | état positif (« Envoyée », « En cours ») |
-| Attention (ambre) | #F0B429, texte #6E4F00 | #E3B94E | à faire, rappel (« À générer ») |
-| Erreur (brique en clair, rouge vif en sombre) | #CC4125, texte #98291A | #FF5E57 | actions destructrices, erreurs de saisie |
+| Succès (vert franc) | #36C759, texte #0D6E2C | #2ED158 | état positif (« Envoyée », « En cours ») |
+| Attention (jaune vif) | #FEC600, texte #4A3600 | #FEC600 | à faire, rappel (« À générer ») |
+| Erreur (rouge franc) | #E5262B, texte #A8121A | #FF4144, texte #FF5C5F | actions destructrices, erreurs de saisie |
 | Neutre | #666A71 | #9A9DA4 | état inactif (« Terminé ») |
-| Or de signature | #F0B429 | #E3B94E | filet de la rubrique active, compteurs, étoile des favoris ; texte dessus #23262B / #14171A |
+| Or de signature | #FEC600 | #FEC600 | filet de la rubrique active, compteurs, étoile des favoris ; texte dessus #23262B / #14171A |
 | Texte | #23262B (schiste) | #E8E6E1 | texte courant et titres |
 | Texte secondaire | #5E6269 | #A9ABB0 | sous-titres, légendes |
-| Fond | dégradé #EEEBE5 → #E2DED6 (sable) | #1B1F27 → #0E1015 (ardoise bleutée) | fond de fenêtre |
+| Fond | dégradé #FAF8F4 → #EAE6DF (sable) | #1D232D → #090B0E (ardoise bleutée) | fond de fenêtre |
 
 - Univers **minéral** : sable chaud en clair, ardoise bleutée en sombre (verre teinté bleu-ardoise), un seul bleu vif en accent.
 - Un seul **accent d'action** par appli (le bleu). Les autres couleurs servent aux **états**,
@@ -42,11 +42,11 @@ tokens fait foi.
   l'encre est plus foncée pour tenir 4,5:1. Un état n'est jamais porté par la couleur seule :
   toujours un libellé.
 - Les étiquettes de statut utilisent la teinte vive à ~14 % d'opacité en fond, à ~30 % en bordure,
-  et le texte dans l'encre de l'état.
+  et le texte dans l'encre de l'état. Exception : en clair, l'étiquette d'attention est **pleine** (fond jaune vif, sans bordure, texte brun foncé), car le jaune teinté à 14 % tourne au beige terne sur le sable.
 - Pastilles d'icône des listes : dégradé bleu #3D7BFF → #1243C8 ; grisées pour un élément inactif.
 - Contrastes : texte 4,5:1 minimum, icônes et bordures 3:1. Exception connue : la teinte vive
-  de l'ambre (1,6:1) et du vert (2,8:1) en icône seule sur le fond clair ; toujours avec un libellé.
-  Le texte posé sur l'or de signature fait 8,1:1 (clair) et 9,9:1 (sombre).
+  du jaune (1,4:1) et du vert (1,9:1) en icône seule sur le fond clair ; toujours avec un libellé.
+  Le texte posé sur l'or de signature fait 9,6:1 (clair) et 11,4:1 (sombre).
 
 ## 3. Typographie
 
