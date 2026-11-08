@@ -1,3 +1,39 @@
+# Migration 0.3.x → 0.4.0
+
+Un seul changement visible pour une appli Flutter desktop : le **dégradé de fond est inversé** (plus foncé en haut,
+plus clair en bas). Il s'applique de lui-même via `AppBackground`.
+
+## 1. Monter la version
+
+```yaml
+dependencies:
+  vb_design:
+    git:
+      url: https://github.com/vince4012/design-system.git
+      path: flutter
+      ref: v0.4.0
+```
+
+Puis `flutter pub upgrade vb_design`.
+
+## 2. Tokens de fond permutés
+
+`Tokens.colorBackgroundLightTop` / `LightBottom` / `DarkTop` / `DarkBottom` gardent leur nom mais **leurs valeurs sont
+échangées** (le « haut » est maintenant la couleur la plus foncée). Si l'appli les lit directement (hors
+`AppBackground` / thème), vérifier que le nouveau sens convient ; sinon, rien à faire.
+
+## 3. Captures de référence (golden tests)
+
+Si l'appli a des tests de captures, elles changent : les régénérer (`flutter test --update-goldens`) et **regarder** les
+images avant de les valider.
+
+## 4. Ce qui ne change pas
+
+Palette, couleurs d'état, hauteurs de contrôle (38 pt), composants : inchangés. Les tokens mobiles et le générateur Android
+n'affectent pas une appli Flutter desktop.
+
+---
+
 # Migration 0.2.x → 0.3.0
 
 Évolution visuelle (couleurs, relief, hauteurs) : la plupart des changements s'appliquent d'eux-mêmes en

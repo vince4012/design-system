@@ -21,7 +21,7 @@ Première appli cliente : FiiDrive (Android natif). Référence visuelle : captu
 | Rayon des cartes | 14–16 pt | **20 dp** |
 | Navigation | barre latérale flottante | pas de barre latérale (barre d'onglets ou écran unique selon l'appli) |
 
-Ce qui **ne change pas** : fond en dégradé neutre, cartes unies à bordure lumineuse fine, un seul accent
+Ce qui **ne change pas** : fond en dégradé neutre (plus foncé en haut, plus clair en bas, comme sur desktop depuis la 0.4.0), cartes unies à bordure lumineuse fine, un seul accent
 d'action (le bleu), états jamais portés par la couleur seule, icônes de liste brutes, contrastes 4,5:1 / 3:1.
 
 ## 2. Principes
@@ -46,7 +46,7 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Segments** : capsule de 48 dp ; segment choisi plein accent (texte `onAccent`), les autres en couleur de texte.
 - **Ligne de liste** : hauteur ≥ 56 dp, icône brute d'accent (24 dp), titre 17 sp, sous-titre 14 sp en gris,
   élément de fin (interrupteur, chevron) ; filet séparateur fin entre les lignes.
-- **Interrupteur** : 46 × 28 dp, piste **bleu d'accent** (pas de jaune, moins lisible), pouce blanc.
+- **Interrupteur** : 46 × 28 dp, piste **bleu d'accent** (pas de jaune, moins lisible), pouce blanc rond de 22 dp **à l'intérieur** de la piste (3 dp de marge), **contour fin et discret** (encre à ~18 % sur la piste, ~22 % sur le pouce) : sans lui, le pouce blanc se fond dans une carte claire.
 - **Dialogue / feuille basse** : verre opaque, rayon 24 ; boutons empilés pleine largeur ou à droite selon l'espace.
 - **Message bref** : bandeau flottant en bas, une phrase, au-dessus de la zone de gestes du système.
 
@@ -66,4 +66,4 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 ## 5. Thème
 
 Auto (suit le système) par défaut, puis Clair / Sombre au choix, mémorisé ; même sélecteur à trois états que le
-desktop. Un thème de **contenu** (par exemple le style d'une carte) reste un réglage distinct du thème de l'interface.
+desktop. Un contenu thématisable (par exemple une carte) **suit le thème de l'interface** : pas de réglage séparé.

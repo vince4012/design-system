@@ -3,10 +3,10 @@
 <resources>
     <!-- Bleu vif, thème clair (boutons, liens, sélection) : le bleu de Saracroche #0088FF assombri pour tenir 4,5:1 sur le fond sable (5,4:1 avec du texte blanc). -->
     <color name="ds_color_accent">#FF006AC7</color>
-    <!-- Fond d'appli, bas du dégradé (clair). -->
-    <color name="ds_color_background_bottom">#FFEAE6DF</color>
-    <!-- Fond d'appli, haut du dégradé (clair) : sable clair. Le fond porte le dégradé, les cartes sont unies. -->
-    <color name="ds_color_background_top">#FFFAF8F4</color>
+    <!-- Fond d'appli, bas du dégradé (clair) : sable clair. -->
+    <color name="ds_color_background_bottom">#FFFAF8F4</color>
+    <!-- Fond d'appli, haut du dégradé (clair) : sable plus foncé. Le dégradé est plus foncé en haut, plus clair en bas (inversé en 0.4.0). Le fond porte le dégradé, les cartes sont unies. -->
+    <color name="ds_color_background_top">#FFEAE6DF</color>
     <!-- Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent. -->
     <color name="ds_color_banner">#F0006AC7</color>
     <!-- Bordure et reflet du verre, clair : blanc. -->

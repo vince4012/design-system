@@ -1,3 +1,18 @@
+## 0.4.0
+
+Dégradé de fond inversé ; première partie **mobile** du design system (Android natif).
+
+- **Changement visuel pour toutes les applis** : le dégradé de fond est **plus foncé en haut et plus clair en bas**
+  (clair : `#EAE6DF` → `#FAF8F4` ; sombre : `#090B0E` → `#1D232D`). Les valeurs de `Tokens.colorBackground{Light,Dark}{Top,Bottom}`
+  sont donc **permutées** : une appli qui lit ces tokens directement pour autre chose que `AppBackground` doit vérifier
+  qu'elle veut bien le nouveau sens. `onInverseSurface` du thème garde la même couleur qu'avant.
+- Nouvelle famille de tokens **mobile** : `tokens/tokens.mobile.json` (surcharges : contrôles 48 dp, texte 17 / 14 sp,
+  titre 28 sp, cartes 20 dp, éléments flottants sur carte, bandeau, tracé, interrupteur 46 × 28 dp) et règles
+  `docs/regles-ux-ui-mobile.md`. Sans effet sur le package Flutter pour l'instant (thème Flutter mobile à venir).
+- Nouveau générateur **Android** (`android/tool/generate_tokens.dart`, ressources `android/res` : `values` /
+  `values-night`), utilisé par FiiDrive. Hors du package Flutter.
+- Captures de référence de la galerie régénérées (nouveau dégradé).
+
 ## 0.3.0
 
 Palette et relief alignés sur Saracroche, contrôles homogènes.

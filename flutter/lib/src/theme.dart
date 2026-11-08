@@ -27,7 +27,7 @@ ThemeData vbTheme(Brightness brightness) {
         surfaceContainerHigh: surface,
         surfaceContainerHighest: surface,
         inverseSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
-        onInverseSurface: dark ? Tokens.colorBackgroundDarkBottom : Tokens.colorBackgroundLightTop,
+        onInverseSurface: dark ? Tokens.colorBackgroundDarkTop : Tokens.colorBackgroundLightBottom,
         outline: dark ? Tokens.colorStatusNeutralDark : Tokens.colorStatusNeutralLight,
         error: dark ? Tokens.colorStatusDangerFillDark : Tokens.colorStatusDangerFillLight,
         onError: dark ? Tokens.colorStatusDangerOnDark : Tokens.colorStatusDangerOnLight,
