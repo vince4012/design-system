@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GÉNÉRÉ par android/tool/generate_tokens.dart depuis tokens/tokens.json et tokens/tokens.mobile.json — ne pas modifier à la main. -->
+<resources>
+    <!-- Flou d'arrière-plan du verre (sigma). -->
+    <dimen name="ds_blur_glass">24dp</dimen>
+    <!-- Texte courant et libellés de contrôles (desktop : 13). 16 jugé trop petit sur les textes secondaires. -->
+    <dimen name="ds_font_size_body">17sp</dimen>
+    <!-- Sous-titres de ligne, aides, textes secondaires (desktop : 12). -->
+    <dimen name="ds_font_size_body_small">14sp</dimen>
+    <!-- En-têtes de groupe, légendes (desktop : 11,5). -->
+    <dimen name="ds_font_size_caption">13sp</dimen>
+    <!-- Grand titre d'écran (rare), comme Saracroche. -->
+    <dimen name="ds_font_size_headline">34sp</dimen>
+    <!-- Étiquettes de statut, unités (km/h) (desktop : 11). -->
+    <dimen name="ds_font_size_micro">12sp</dimen>
+    <!-- Titres de carte et de dialogue (desktop : 14). -->
+    <dimen name="ds_font_size_subtitle">19sp</dimen>
+    <!-- Titre de page, en haut de l'écran (desktop : 17). -->
+    <dimen name="ds_font_size_title">28sp</dimen>
+    <!-- Opacité du fond avec la fenêtre native (macOS, clair) : 1 = opaque, le bureau ne transparaît pas. Baisser pour retrouver le flou natif. -->
+    <item name="ds_opacity_background_translucent" format="float" type="dimen">1</item>
+    <!-- Bordure lumineuse blanche du verre (clair). -->
+    <item name="ds_opacity_glass_border" format="float" type="dimen">0.75</item>
+    <!-- Remplissage blanc du verre (clair). -->
+    <item name="ds_opacity_glass_fill" format="float" type="dimen">0.52</item>
+    <!-- Verre au premier plan : dialogues (clair). -->
+    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.78</item>
+    <!-- Verre teinté d'une couleur (clair). -->
+    <item name="ds_opacity_glass_tint" format="float" type="dimen">0.18</item>
+    <!-- Champs de saisie, segments, éléments de liste (desktop : 10). -->
+    <dimen name="ds_radius_control">12dp</dimen>
+    <!-- Dialogues et feuilles basses (desktop : 20). -->
+    <dimen name="ds_radius_dialog">24dp</dimen>
+    <!-- Cartes de liste groupée (desktop : 14). -->
+    <dimen name="ds_radius_group">20dp</dimen>
+    <!-- Cartes de page / de réglages (desktop : 16). Valeur validée sur maquette. -->
+    <dimen name="ds_radius_section">20dp</dimen>
+    <!-- Barre latérale flottante. -->
+    <dimen name="ds_radius_sidebar">18dp</dimen>
+    <!-- Hauteur des contrôles tactiles : boutons capsule, champs, segments (desktop : 38). Cible tactile minimale. -->
+    <dimen name="ds_size_control">48dp</dimen>
+    <!-- Icônes de bouton et de navigation (desktop : 18). -->
+    <dimen name="ds_size_icon">24dp</dimen>
+    <!-- Zone de l'icône brute d'une ligne de liste (desktop : 30 ; l'icône mobile est plus grande à l'écran mais sans zone dédiée). -->
+    <dimen name="ds_size_list_icon">24dp</dimen>
+    <!-- Hauteur minimale d'une ligne de liste (contrôle + 8). -->
+    <dimen name="ds_size_list_row">56dp</dimen>
+    <!-- Boutons ronds posés sur une carte ou un contenu plein écran (contrôle + 8). -->
+    <dimen name="ds_size_map_button">56dp</dimen>
+    <!-- Hauteur de la barre de titre compacte d'un écran (desktop : 40). -->
+    <dimen name="ds_size_page_toolbar">56dp</dimen>
+    <!-- Largeur de la barre de progression verticale d'un trajet. -->
+    <dimen name="ds_size_progress_bar">14dp</dimen>
+    <!-- Largeur de la barre latérale. -->
+    <dimen name="ds_size_sidebar_width">210dp</dimen>
+    <!-- Hauteur de l'interrupteur. -->
+    <dimen name="ds_size_switch_height">28dp</dimen>
+    <!-- Largeur de l'interrupteur ; hauteur 28, pouce 22. -->
+    <dimen name="ds_size_switch_width">46dp</dimen>
+    <!-- Hauteur de la barre d'outils native macOS (unifiée). -->
+    <dimen name="ds_size_toolbar">52dp</dimen>
+    <!-- Cible tactile minimale de tout élément cliquable, y compris icône seule. -->
+    <dimen name="ds_size_touch_min">48dp</dimen>
+    <!-- Marge intérieure d'une carte. -->
+    <dimen name="ds_space_card">16dp</dimen>
+    <!-- Écart vertical entre deux cartes ou deux champs. -->
+    <dimen name="ds_space_gap">10dp</dimen>
+    <dimen name="ds_space_l">16dp</dimen>
+    <dimen name="ds_space_m">12dp</dimen>
+    <dimen name="ds_space_s">8dp</dimen>
+    <!-- Marge d'écran identique sur les quatre bords, y compris pour les éléments flottants sur une carte. -->
+    <dimen name="ds_space_screen">12dp</dimen>
+    <dimen name="ds_space_xl">20dp</dimen>
+    <dimen name="ds_space_xs">4dp</dimen>
+</resources>

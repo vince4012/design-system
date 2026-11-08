@@ -11,7 +11,9 @@ chaque session de travail** (voir § 7, Journal).
 
 ```
 docs/regles-ux-ui.md    règles UX/UI communes (référence pour toute techno)
-tokens/tokens.json      valeurs de design — SOURCE UNIQUE
+docs/regles-ux-ui-mobile.md  règles UX/UI mobiles (complément, 0.4 en préparation)
+tokens/tokens.json      valeurs de design — SOCLE (couleurs, verre, valeurs desktop)
+tokens/tokens.mobile.json  surcharges de la famille MOBILE (fusion par chemin, voir tokens/README.md)
 flutter/                package Flutter vb_design
   lib/vb_design.dart    exports publics
   lib/src/tokens.g.dart GÉNÉRÉ depuis tokens.json (ne pas éditer)
@@ -26,6 +28,9 @@ flutter/                package Flutter vb_design
   tool/generate_tokens.dart   générateur tokens.json → tokens.g.dart
   test/tokens_test.dart       tokens à jour, thème
   example/              galerie (appli macOS / Windows) + captures de référence (test/goldens)
+android/                Android natif (famille mobile), ressources GÉNÉRÉES
+  tool/generate_tokens.dart   générateur socle + tokens.mobile.json → res/ (--check pour vérifier)
+  res/values{,-night}/ds_colors.xml, ds_dimens.xml   (ne pas éditer)
 web/                    réservé (variables CSS générées depuis les tokens)
 ```
 
@@ -36,7 +41,7 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 
 - Format : objets `{"$value", "$description"}` rangés par catégorie ; paires `light` / `dark`.
 - Nom généré = chemin en camelCase (`radius.dialog` → `Tokens.radiusDialog`).
-- Après toute modification : `cd flutter && dart run tool/generate_tokens.dart`.
+- Après toute modification : `cd flutter && dart run tool/generate_tokens.dart` **et** `dart run android/tool/generate_tokens.dart` (racine du dépôt ; `--check` pour contrôler).
   `test/tokens_test.dart` régénère et échoue si le fichier n'était pas à jour.
 - Le générateur gère couleurs (`#RRGGBB`, `#AARRGGBB` → `Color`) et nombres (→ `double`).
   Un nouveau type de valeur demande d'étendre `_dart()` dans le générateur.
@@ -101,6 +106,7 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
   L'artifact contient `tokens.json` (format du type : listes, clair/sombre), le README, les règles
   UX/UI, 11 composants en **aperçus HTML statiques** (rendus des widgets Flutter via `bundle.css`)
   et une couverture. Aucun code n'y est exécuté ni généré.
+- Depuis la 0.3.0, l'artifact reflète la palette Saracroche, le fond en dégradé, les contrôles de 38 pt, les icônes de liste brutes, et a un composant `Switch` (interrupteur) ; la page Palette (contrastes mesurés par script) est régénérée. Les aperçus HTML ne gèrent ni le curseur ni le survol.
 - Depuis la 0.2.0, couleurs d'états et neutres sont dans `tokens/tokens.json` (plus de valeurs
   approchées côté artifact, sauf `shadow-*`, `glass-*`, `field-*`, `divider`, `outline`, `select-fill`,
   `scrim`, qui restent calées sur le code Dart).
@@ -140,4 +146,8 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 08/11/2026 | Branche `v0.3-refonte` : curseur « main » sur tous les éléments cliquables — rubriques de la barre latérale (aucun curseur avant), `InkWell` de `Glass`, `GlassListTile`, `DateField`, `AppSwitchTile` (flèche sur desktop avant), boutons, segments, interrupteur (explicites dans le thème) ; flèche pour les éléments désactivés. Nouveau `test/cursor_test.dart`. |
 | 08/11/2026 | Branche `v0.3-refonte` : bug de survol de l'interrupteur — le pouce actif prenait la teinte `primaryContainer` (quasi identique à la piste) ; `switchTheme.thumbColor` le garde en `onPrimary`. `AppSwitchTile` coupe en plus le halo rond du pouce (`AppSwitch.hoverHalo: false`), la ligne ayant déjà sa surbrillance de survol. |
 | 08/11/2026 | Branche `v0.3-refonte` : espacement vertical entre rangées de champs (`FieldRow`) 10 → 20 pt (marge de 5 → 10 de chaque côté) ; le libellé flottant en mangeait la moitié. |
-| 08/11/2026 | **Publication 0.3.0** (validée par le propriétaire) : version `0.3.0` dans `pubspec.yaml`, `CHANGELOG.md`, guide `MIGRATION.md` (0.2.x → 0.3.0), ref `v0.3.0` dans le README ; tag `v0.3.0`. L'artifact Claude « ColDay Design System » n'est pas encore à jour (voir § 6 bis). |
+| 08/11/2026 | **Publication 0.3.0** (validée par le propriétaire) : version `0.3.0` dans `pubspec.yaml`, `CHANGELOG.md`, guide `MIGRATION.md` (0.2.x → 0.3.0), ref `v0.3.0` dans le README ; tag `v0.3.0`. L'artifact Claude est mis à jour le même jour (ci-dessous). |
+| 08/11/2026 | Artifact « ColDay Design System » régénéré pour la 0.3.0 (version 19) : `tokens.json` (couleurs, tailles 38 pt, `size-list-icon`, `size-switch-width`, fond opaque ; retrait de `badge-*`, `glass-sheen`, `radius-badge`), README, `regles-ux-ui.md` (copie à jour du dépôt, l'ancienne datait de la 0.1), `bundle.css`, aperçus des composants, nouveau composant `Switch`, page Palette (contrastes recalculés : le bleu d'accent fait 4,3:1 en texte posé directement sur le bas du dégradé clair ; jaune 1,5:1 et vert 2,1:1 en icône seule sur fond clair). |
+| 08/11/2026 | **Branche `v0.4-mobile` (partie mobile, première fois)** : décision du propriétaire d'étendre le design system au mobile, pour Android natif (FiiDrive, première appli cliente mobile) puis Flutter mobile et d'autres technos. Structure retenue : `tokens.json` = socle, `tokens/tokens.mobile.json` = surcharges mobiles (fusion par chemin). Valeurs validées sur maquette interactive FiiDrive (clair et sombre) : contrôles 48 dp, texte courant 17 sp (16 jugé trop petit), secondaire 14 sp, titre 28 sp, rayon des cartes 20 dp, interrupteur à piste bleue d'accent (le jaune de Saracroche écarté, moins lisible), éléments flottants sur carte en verre simulé par opacité (~90 %, sans flou : indisponible avant Android 12). Fichiers ajoutés : `tokens/tokens.mobile.json`, `docs/regles-ux-ui-mobile.md`, section « Familles de plateformes » de `tokens/README.md`. **Pas encore fait** : générateur Android (`colors.xml` / `values-night`, `dimens.xml`), test de fraîcheur, version et `CHANGELOG`, thème Flutter mobile, artifact. Rien n'est commité. Thème Auto / Clair / Sombre côté FiiDrive : prévu dans un second temps. |
+| 08/11/2026 | Branche `v0.4-mobile` : **générateur Android** `android/tool/generate_tokens.dart` (Dart autonome) — fusionne `tokens.json` + `tokens.mobile.json` par chemin et écrit `android/res/values{,-night}/ds_colors.xml` et `ds_dimens.xml` (63 ressources : couleurs clair/sombre par qualificateur `values-night`, `dp`, `sp`, opacités en `float`). Option `--check` (code 1 si `res/` périmé ou fichier orphelin). Vérifié : analyse Dart sans alerte, XML valide, clair et sombre symétriques, surcharges mobiles bien appliquées (corps 17 sp, contrôle 48 dp), dérive détectée après modification volontaire du socle (puis rétabli). **Non vérifié** : compilation dans une appli Android réelle ; pas de test automatisé intégré à `flutter test` (le contrôle est la commande `--check`) ; intégration dans FiiDrive à faire (mode de copie à fixer, `UI_MODE_NIGHT_YES` à imposer tant que FiiDrive est sombre uniquement). `android/README.md` documente nommage et usage. Rien n'est commité. |
+| 08/11/2026 | Branche `v0.4-mobile` : **première appli mobile cliente, FiiDrive 0.21.0 (Android natif)** — ressources `android/res` copiées par `tools/sync_design_tokens.sh` (côté FiiDrive), restylage de tous les écrans, vérifié sur émulateur Android 14 (sombre). Retours pour le design system : l'ombre sous un fond translucide transparaît en rectangle (règle ajoutée côté appli : pas d'ombre sur les éléments en verre sur carte), le `Switch` plateforme éclaircit sa piste (piste dessinée en code à 46 × 28 dp). Clair / Sombre Auto : à faire côté FiiDrive. |

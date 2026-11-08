@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GÉNÉRÉ par android/tool/generate_tokens.dart depuis tokens/tokens.json et tokens/tokens.mobile.json — ne pas modifier à la main. -->
+<resources>
+    <!-- Bleu vif, thème clair (boutons, liens, sélection) : le bleu de Saracroche #0088FF assombri pour tenir 4,5:1 sur le fond sable (5,4:1 avec du texte blanc). -->
+    <color name="ds_color_accent">#FF006AC7</color>
+    <!-- Fond d'appli, bas du dégradé (clair). -->
+    <color name="ds_color_background_bottom">#FFEAE6DF</color>
+    <!-- Fond d'appli, haut du dégradé (clair) : sable clair. Le fond porte le dégradé, les cartes sont unies. -->
+    <color name="ds_color_background_top">#FFFAF8F4</color>
+    <!-- Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent. -->
+    <color name="ds_color_banner">#F0006AC7</color>
+    <!-- Bordure et reflet du verre, clair : blanc. -->
+    <color name="ds_color_glass_highlight">#FFFFFFFF</color>
+    <!-- Couleur de base du verre, clair : blanc. -->
+    <color name="ds_color_glass_tint">#FFFFFFFF</color>
+    <!-- Texte courant et titres, clair : schiste. -->
+    <color name="ds_color_ink">#FF23262B</color>
+    <!-- Texte secondaire, clair (5,2:1 sur le fond). -->
+    <color name="ds_color_ink_muted">#FF5E6269</color>
+    <!-- Texte et icônes sur l'accent, thème clair (5,5:1). -->
+    <color name="ds_color_on_accent">#FFFFFFFF</color>
+    <!-- Bordure des éléments flottants, clair (blanc à 80 %). -->
+    <color name="ds_color_overlay_border">#CCFFFFFF</color>
+    <!-- Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité). -->
+    <color name="ds_color_overlay_fill">#E6FAF8F4</color>
+    <!-- Contour du tracé et de sa barre de progression, clair : gris moyen translucide (blanc invisible sur carte claire). -->
+    <color name="ds_color_route_casing">#B3707070</color>
+    <!-- Tracé / progression d'un itinéraire, clair. -->
+    <color name="ds_color_route_line">#FF4DB8FF</color>
+    <!-- Or de signature, clair : jaune vif. Filet de la rubrique active, compteurs, étoile des favoris. -->
+    <color name="ds_color_signature_fill">#FFFEC600</color>
+    <!-- Texte sur l'or de signature, clair (8,1:1). -->
+    <color name="ds_color_signature_on">#FF23262B</color>
+    <!-- Erreur, teinte vive (boutons destructifs, bordures, icônes), clair : le rouge de Saracroche #FF383C assombri pour tenir 4,5:1 avec du texte blanc. -->
+    <color name="ds_color_status_danger_fill">#FFE5262B</color>
+    <!-- Erreur, texte (messages, étiquettes), clair (5,4:1 sur fond teinté). -->
+    <color name="ds_color_status_danger_ink">#FFA8121A</color>
+    <!-- Texte sur fond d'erreur, clair (4,8:1). -->
+    <color name="ds_color_status_danger_on">#FFFFFFFF</color>
+    <!-- Neutre : état inactif (« Terminé »), icône grisée, clair. -->
+    <color name="ds_color_status_neutral">#FF666A71</color>
+    <!-- Succès, teinte vive (pastilles, icônes, fonds teintés), clair : vert franc de Saracroche. -->
+    <color name="ds_color_status_success_fill">#FF36C759</color>
+    <!-- Succès, texte (étiquettes) sur fond teinté, clair (4,9:1). -->
+    <color name="ds_color_status_success_ink">#FF0D6E2C</color>
+    <!-- Attention, teinte vive, clair : jaune vif de l'interrupteur Saracroche (même or que la signature). -->
+    <color name="ds_color_status_warning_fill">#FFFEC600</color>
+    <!-- Attention, texte clair : posé sur l'étiquette jaune pleine (7,3:1). Brun foncé, plus lisible que le brun clair sur fond teinté. -->
+    <color name="ds_color_status_warning_ink">#FF4A3600</color>
+    <!-- Surfaces opaques (menus, sélecteurs), clair. -->
+    <color name="ds_color_surface">#FFF7F5F1</color>
+    <!-- Fond des bulles d'aide (clair), texte blanc. -->
+    <color name="ds_color_tooltip">#EE23262B</color>
+</resources>

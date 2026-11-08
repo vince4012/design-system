@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GÉNÉRÉ par android/tool/generate_tokens.dart depuis tokens/tokens.json et tokens/tokens.mobile.json — ne pas modifier à la main. -->
+<resources>
+    <!-- Bleu électrique, thème sombre (bleu vif de Saracroche). 5,2:1 sur le fond ardoise. -->
+    <color name="ds_color_accent">#FF0091FF</color>
+    <!-- Fond d'appli, bas du dégradé (sombre). -->
+    <color name="ds_color_background_bottom">#FF090B0E</color>
+    <!-- Fond d'appli, haut du dégradé (sombre) : ardoise bleutée. Le fond porte le dégradé, les cartes sont unies. -->
+    <color name="ds_color_background_top">#FF1D232D</color>
+    <!-- Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent. -->
+    <color name="ds_color_banner">#E60091FF</color>
+    <!-- Bordure, reflet, filets et contours, sombre : bleu pâle. -->
+    <color name="ds_color_glass_highlight">#FFAAC3F0</color>
+    <!-- Couleur de base du verre, sombre : bleu-ardoise. -->
+    <color name="ds_color_glass_tint">#FF8CA5D7</color>
+    <!-- Texte courant et titres, sombre : sable clair. -->
+    <color name="ds_color_ink">#FFE8E6E1</color>
+    <!-- Texte secondaire, sombre (7,1:1 sur le fond). -->
+    <color name="ds_color_ink_muted">#FFA9ABB0</color>
+    <!-- Texte et icônes sur l'accent, thème sombre (5,5:1). -->
+    <color name="ds_color_on_accent">#FF08162E</color>
+    <!-- Bordure des éléments flottants, sombre (bleu pâle à 18 %). -->
+    <color name="ds_color_overlay_border">#2EAAC3F0</color>
+    <!-- Idem, sombre (ardoise à ~88 %). -->
+    <color name="ds_color_overlay_fill">#E01D232D</color>
+    <!-- Contour du tracé, sombre : blanc. -->
+    <color name="ds_color_route_casing">#FFFFFFFF</color>
+    <!-- Tracé / progression d'un itinéraire, sombre. -->
+    <color name="ds_color_route_line">#FF4DB8FF</color>
+    <!-- Or de signature, sombre. -->
+    <color name="ds_color_signature_fill">#FFFEC600</color>
+    <!-- Texte sur l'or de signature, sombre (9,9:1). -->
+    <color name="ds_color_signature_on">#FF14171A</color>
+    <!-- Erreur, teinte vive, sombre : rouge de Saracroche. -->
+    <color name="ds_color_status_danger_fill">#FFFF4144</color>
+    <!-- Erreur, texte, sombre (4,6:1 sur fond teinté). -->
+    <color name="ds_color_status_danger_ink">#FFFF5C5F</color>
+    <!-- Texte sur fond d'erreur, sombre. -->
+    <color name="ds_color_status_danger_on">#FF2A0805</color>
+    <!-- Neutre : état inactif, sombre. -->
+    <color name="ds_color_status_neutral">#FF9A9DA4</color>
+    <!-- Succès, teinte vive, sombre : vert franc de Saracroche. -->
+    <color name="ds_color_status_success_fill">#FF2ED158</color>
+    <!-- Succès, texte, sombre (6,3:1 sur fond teinté). -->
+    <color name="ds_color_status_success_ink">#FF2ED158</color>
+    <!-- Attention, teinte vive, sombre. -->
+    <color name="ds_color_status_warning_fill">#FFFEC600</color>
+    <!-- Attention, texte, sombre (7,7:1 sur fond teinté). -->
+    <color name="ds_color_status_warning_ink">#FFFEC600</color>
+    <!-- Surfaces opaques (menus, sélecteurs), sombre. -->
+    <color name="ds_color_surface">#FF262B35</color>
+    <!-- Fond des bulles d'aide (sombre), texte blanc. -->
+    <color name="ds_color_tooltip">#F22B2E33</color>
+</resources>

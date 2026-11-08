@@ -1,0 +1,63 @@
+{
+  "$description": "Surcharges pour la famille MOBILE (téléphones, usage tactile : Android natif, Flutter mobile). Même schéma que tokens.json ; seules les valeurs qui diffèrent du socle ou propres au mobile figurent ici. Fusion : chemin identique = valeur mobile remplace celle du socle ; chemin absent du socle = ajout. Couleurs, opacités du verre et flou viennent du socle. Tailles en dp/sp (= points logiques de tokens.json). Valeurs validées par le propriétaire sur maquette FiiDrive le 08/11/2026.",
+  "radius": {
+    "control": { "$value": 12, "$description": "Champs de saisie, segments, éléments de liste (desktop : 10)." },
+    "group": { "$value": 20, "$description": "Cartes de liste groupée (desktop : 14)." },
+    "section": { "$value": 20, "$description": "Cartes de page / de réglages (desktop : 16). Valeur validée sur maquette." },
+    "dialog": { "$value": 24, "$description": "Dialogues et feuilles basses (desktop : 20)." }
+  },
+  "font": {
+    "size": {
+      "headline": { "$value": 34, "$description": "Grand titre d'écran (rare), comme Saracroche." },
+      "title": { "$value": 28, "$description": "Titre de page, en haut de l'écran (desktop : 17)." },
+      "subtitle": { "$value": 19, "$description": "Titres de carte et de dialogue (desktop : 14)." },
+      "body": { "$value": 17, "$description": "Texte courant et libellés de contrôles (desktop : 13). 16 jugé trop petit sur les textes secondaires." },
+      "bodySmall": { "$value": 14, "$description": "Sous-titres de ligne, aides, textes secondaires (desktop : 12)." },
+      "caption": { "$value": 13, "$description": "En-têtes de groupe, légendes (desktop : 11,5)." },
+      "micro": { "$value": 12, "$description": "Étiquettes de statut, unités (km/h) (desktop : 11)." }
+    }
+  },
+  "size": {
+    "control": { "$value": 48, "$description": "Hauteur des contrôles tactiles : boutons capsule, champs, segments (desktop : 38). Cible tactile minimale." },
+    "touchMin": { "$value": 48, "$description": "Cible tactile minimale de tout élément cliquable, y compris icône seule." },
+    "listRow": { "$value": 56, "$description": "Hauteur minimale d'une ligne de liste (contrôle + 8)." },
+    "listIcon": { "$value": 24, "$description": "Zone de l'icône brute d'une ligne de liste (desktop : 30 ; l'icône mobile est plus grande à l'écran mais sans zone dédiée)." },
+    "icon": { "$value": 24, "$description": "Icônes de bouton et de navigation (desktop : 18)." },
+    "switchWidth": { "$value": 46, "$description": "Largeur de l'interrupteur ; hauteur 28, pouce 22." },
+    "switchHeight": { "$value": 28, "$description": "Hauteur de l'interrupteur." },
+    "mapButton": { "$value": 56, "$description": "Boutons ronds posés sur une carte ou un contenu plein écran (contrôle + 8)." },
+    "progressBar": { "$value": 14, "$description": "Largeur de la barre de progression verticale d'un trajet." },
+    "pageToolbar": { "$value": 56, "$description": "Hauteur de la barre de titre compacte d'un écran (desktop : 40)." }
+  },
+  "space": {
+    "screen": { "$value": 12, "$description": "Marge d'écran identique sur les quatre bords, y compris pour les éléments flottants sur une carte." },
+    "card": { "$value": 16, "$description": "Marge intérieure d'une carte." },
+    "gap": { "$value": 10, "$description": "Écart vertical entre deux cartes ou deux champs." }
+  },
+  "color": {
+    "overlay": {
+      "fill": {
+        "light": { "$value": "#E6FAF8F4", "$description": "Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité)." },
+        "dark": { "$value": "#E01D232D", "$description": "Idem, sombre (ardoise à ~88 %)." }
+      },
+      "border": {
+        "light": { "$value": "#CCFFFFFF", "$description": "Bordure des éléments flottants, clair (blanc à 80 %)." },
+        "dark": { "$value": "#2EAAC3F0", "$description": "Bordure des éléments flottants, sombre (bleu pâle à 18 %)." }
+      }
+    },
+    "banner": {
+      "light": { "$value": "#F0006AC7", "$description": "Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent." },
+      "dark": { "$value": "#E60091FF", "$description": "Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent." }
+    },
+    "route": {
+      "line": {
+        "light": { "$value": "#4DB8FF", "$description": "Tracé / progression d'un itinéraire, clair." },
+        "dark": { "$value": "#4DB8FF", "$description": "Tracé / progression d'un itinéraire, sombre." }
+      },
+      "casing": {
+        "light": { "$value": "#B3707070", "$description": "Contour du tracé et de sa barre de progression, clair : gris moyen translucide (blanc invisible sur carte claire)." },
+        "dark": { "$value": "#FFFFFF", "$description": "Contour du tracé, sombre : blanc." }
+      }
+    }
+  }
+}

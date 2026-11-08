@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GÉNÉRÉ par android/tool/generate_tokens.dart depuis tokens/tokens.json et tokens/tokens.mobile.json — ne pas modifier à la main. -->
+<resources>
+    <!-- Idem en sombre. -->
+    <item name="ds_opacity_background_translucent" format="float" type="dimen">1</item>
+    <!-- Bordure lumineuse du verre (sombre), couleur glass.highlight. -->
+    <item name="ds_opacity_glass_border" format="float" type="dimen">0.16</item>
+    <!-- Remplissage du verre (sombre), couleur glass.tint. -->
+    <item name="ds_opacity_glass_fill" format="float" type="dimen">0.08</item>
+    <!-- Verre au premier plan : dialogues (sombre). -->
+    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.14</item>
+    <!-- Verre teinté d'une couleur (sombre). -->
+    <item name="ds_opacity_glass_tint" format="float" type="dimen">0.22</item>
+</resources>

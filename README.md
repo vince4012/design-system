@@ -8,6 +8,7 @@ et code de thème réutilisable.
 | [`docs/`](docs/regles-ux-ui.md) | Règles UX/UI communes à toutes les applis (principes, couleurs, typographie, mise en page, composants, rédaction). |
 | [`tokens/`](tokens/tokens.json) | Valeurs de design, **source unique** : couleurs, opacités, flou, rayons, tailles de texte, tailles, espacements. |
 | [`flutter/`](flutter/README.md) | Package Flutter `vb_design` : thème, composants en verre, coquille d'appli façon Finder, intégration fenêtre macOS, galerie. |
+| [`android/`](android/README.md) | Ressources Android natif (famille mobile) **générées** depuis les tokens : couleurs clair / sombre, tailles, textes, opacités. |
 | `web/` | Plus tard : thème web (variables CSS) généré depuis les mêmes tokens. |
 
 Rendu : style **Liquid Glass sobre**, proche du Finder de macOS, compact, thème
