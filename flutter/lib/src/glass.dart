@@ -100,7 +100,9 @@ abstract final class Signature {
   static Color on(BuildContext context) => _dark(context) ? Tokens.colorSignatureOnDark : Tokens.colorSignatureOnLight;
 }
 
-/// Petit carré arrondi en dégradé portant une icône (avatar des lignes de liste).
+/// Icône brute d'une ligne de liste (sans pastille ni fond) : bleu d'accent, ou
+/// grise pour un élément inactif. Le nom `GlassBadge` est conservé pour ne pas
+/// casser les applis.
 class GlassBadge extends StatelessWidget {
   const GlassBadge({super.key, required this.icon, this.muted = false});
 
@@ -110,17 +112,10 @@ class GlassBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final colors = muted
-        ? [scheme.outline, scheme.outline.withValues(alpha: 0.6)]
-        : const [Tokens.colorBadgeStart, Tokens.colorBadgeEnd];
-    return Container(
-      width: Tokens.sizeBadge,
-      height: Tokens.sizeBadge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Tokens.radiusBadge),
-        gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: colors),
-      ),
-      child: Icon(icon, color: Colors.white, size: 17),
+    return SizedBox(
+      width: Tokens.sizeListIcon,
+      height: Tokens.sizeListIcon,
+      child: Icon(icon, size: 22, color: muted ? scheme.outline : scheme.primary),
     );
   }
 }
@@ -204,7 +199,7 @@ class GlassListView extends StatelessWidget {
   );
 }
 
-/// Ligne de liste (à placer dans un [GlassGroup]) : badge, titre, sous-titre, éléments à droite.
+/// Ligne de liste (à placer dans un [GlassGroup]) : icône, titre, sous-titre, éléments à droite.
 class GlassListTile extends StatelessWidget {
   const GlassListTile({
     super.key,

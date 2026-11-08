@@ -121,7 +121,7 @@ class ListsPage extends StatelessWidget {
               icon: Icons.person,
               muted: true,
               title: 'Élément inactif',
-              subtitle: 'Pastille grisée',
+              subtitle: 'Icône grisée',
               trailing: [StatusPill(label: 'Terminé', style: StatusColors.neutral(context))],
             ),
           ],
@@ -241,8 +241,6 @@ class FoundationsPage extends StatelessWidget {
       ('Succès', Tokens.colorStatusSuccessFillLight),
       ('Attention', Tokens.colorStatusWarningFillLight),
       ('Erreur', Tokens.colorStatusDangerFillLight),
-      ('Pastille début', Tokens.colorBadgeStart),
-      ('Pastille fin', Tokens.colorBadgeEnd),
     ];
     return PageScaffold(
       title: 'Fondations',

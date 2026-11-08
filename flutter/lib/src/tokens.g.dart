@@ -61,7 +61,7 @@ abstract final class Tokens {
   static const colorStatusDangerOnLight = Color(0xFFFFFFFF);
   /// Texte sur fond d'erreur, sombre.
   static const colorStatusDangerOnDark = Color(0xFF2A0805);
-  /// Neutre : état inactif (« Terminé »), pastille grisée, clair.
+  /// Neutre : état inactif (« Terminé »), icône grisée, clair.
   static const colorStatusNeutralLight = Color(0xFF666A71);
   /// Neutre : état inactif, sombre.
   static const colorStatusNeutralDark = Color(0xFF9A9DA4);
@@ -81,10 +81,6 @@ abstract final class Tokens {
   static const colorSignatureOnLight = Color(0xFF23262B);
   /// Texte sur l'or de signature, sombre (9,9:1).
   static const colorSignatureOnDark = Color(0xFF14171A);
-  /// Dégradé des pastilles d'icône, début (bleu uniquement).
-  static const colorBadgeStart = Color(0xFF3D7BFF);
-  /// Dégradé des pastilles d'icône, fin.
-  static const colorBadgeEnd = Color(0xFF1243C8);
   /// Fond des bulles d'aide (clair), texte blanc.
   static const colorTooltipLight = Color(0xEE23262B);
   /// Fond des bulles d'aide (sombre), texte blanc.
@@ -113,8 +109,6 @@ abstract final class Tokens {
   static const blurGlass = 24.0;
   /// Champs de saisie, menus, éléments de liste.
   static const radiusControl = 10.0;
-  /// Pastilles d'icône.
-  static const radiusBadge = 8.0;
   /// Panneaux de liste groupée.
   static const radiusGroup = 14.0;
   /// Sections de page (réglages).
@@ -139,8 +133,8 @@ abstract final class Tokens {
   static const fontSizeMicro = 11.0;
   /// Hauteur des boutons.
   static const sizeControl = 32.0;
-  /// Pastille d'icône des lignes de liste.
-  static const sizeBadge = 30.0;
+  /// Zone de l'icône brute (sans pastille) des lignes de liste.
+  static const sizeListIcon = 30.0;
   /// Icônes de bouton et de navigation.
   static const sizeIcon = 18.0;
   /// Largeur de la barre latérale.
