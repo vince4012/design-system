@@ -62,6 +62,21 @@ l'interface.
 | En-tête de groupe, légende | 11,5 | demi-gras, gris (majuscules pour les en-têtes de liste) |
 | Étiquette de statut | 11 | demi-gras |
 
+## 3 bis. Iconographie
+
+- **Une seule famille pour toutes les applis : Material Symbols** de Google (licence **Apache 2.0**), la collection
+  présentée sur fonts.google.com/icons ; pas d'autre bibliothèque, pas d'icône dessinée à la main. On cherche une
+  icône par son nom sur ce site.
+- **Style « Outlined » (contour), graisse 400, grade 0, taille optique 24** ; la version pleine (FILL 1) est réservée à
+  un élément actif ou choisi (rubrique sélectionnée, favori).
+- Les anciennes **Material Icons** (les `Icons.*` de Flutter) sont une collection plus ancienne au dessin différent
+  (ex. la roue crantée « réglages ») : ne pas les mélanger aux Material Symbols.
+- **Android natif** : dessins vectoriels extraits de la police variable Material Symbols Outlined (`tools/material_icons.*`
+  de FiiDrive). **Flutter** : à faire, passer de `Icons.*` à un paquet Material Symbols. Attribution de la licence
+  dans l'appli (Réglages ou À propos).
+- Tailles : 18 pt en navigation et dans les boutons, 22 pt dans les lignes de liste (desktop) ; 24 dp sur mobile.
+  Une icône dessinée petite dans sa grille (ex. `stop`) peut être agrandie pour paraître du même poids que les autres.
+
 ## 4. Mise en page
 
 - **Coquille** : barre latérale flottante en verre (210 pt de large, rayon 18, à 8 pt des bords)
