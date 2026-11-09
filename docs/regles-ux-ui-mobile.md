@@ -55,7 +55,7 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 
 (écran de navigation, caméra, etc.)
 
-- Fond `color.overlay.fill`, bordure `color.overlay.border` ; rayon 20 ; pas de flou requis.
+- Fond `color.overlay.fill`, bordure `color.overlay.border` ; rayon 20 ; pas de flou requis. La bordure est un **liseré discret légèrement plus foncé que le fond** en clair (encre à ~16 %), plus clair que le fond en sombre : jamais un anneau blanc épais sur fond clair.
 - **Bandeau d'instruction** (direction) : `color.banner`, texte `onAccent`, grand chiffre ; rouge si hors
   itinéraire, vert à l'arrivée.
 - **Boutons ronds** de 56 dp (`size.mapButton`) au bord droit, empilés avec 10 dp d'écart ; icône d'accent, sauf

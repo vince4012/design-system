@@ -1,3 +1,13 @@
+## 0.5.0
+
+Retours du premier essai réel sur mobile (FiiDrive, Moto G) ; **aucun changement pour une appli Flutter desktop**.
+
+- Mobile : `color.overlay.border` (thème clair) passe de blanc à 80 % à un **liseré discret de la couleur du texte à ~16 %**
+  (`#2923262B`), légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais autour des éléments flottants
+  sur un fond clair ; le sombre ne change pas. Les ressources `android/res` sont régénérées.
+- Règle ajoutée à `docs/regles-ux-ui-mobile.md` (liseré des éléments flottants sur carte).
+- Package Flutter, tokens desktop et captures de référence : inchangés.
+
 ## 0.4.1
 
 - **Le dégradé de fond inversé de la 0.4.0 devient propre au mobile.** Sur desktop, retour au dégradé d'avant :

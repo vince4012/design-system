@@ -19,8 +19,8 @@
     <color name="ds_color_ink_muted">#FF5E6269</color>
     <!-- Texte et icônes sur l'accent, thème clair (5,5:1). -->
     <color name="ds_color_on_accent">#FFFFFFFF</color>
-    <!-- Bordure des éléments flottants, clair (blanc à 80 %). -->
-    <color name="ds_color_overlay_border">#CCFFFFFF</color>
+    <!-- Bordure des éléments flottants, clair : liseré discret de la couleur du texte (schiste) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair. -->
+    <color name="ds_color_overlay_border">#2923262B</color>
     <!-- Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité). -->
     <color name="ds_color_overlay_fill">#E6FAF8F4</color>
     <!-- Contour du tracé et de sa barre de progression, clair : gris moyen translucide (blanc invisible sur carte claire). -->

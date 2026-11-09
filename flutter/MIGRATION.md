@@ -1,3 +1,11 @@
+# Migration 0.4.1 → 0.5.0
+
+Rien à faire pour une appli Flutter desktop : monter `ref: v0.5.0` puis `flutter pub upgrade vb_design` suffit
+(aucun token ni composant desktop ne change). Pour une appli Android : recopier `android/res` (seul
+`ds_color_overlay_border` du thème clair change : liseré foncé discret au lieu d'un anneau blanc).
+
+---
+
 # Migration 0.4.0 → 0.4.1
 
 Pour une appli desktop : le dégradé de fond **revient au sens d'avant la 0.4.0** (plus clair en haut, plus foncé en bas).

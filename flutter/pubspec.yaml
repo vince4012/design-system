@@ -1,6 +1,6 @@
 name: vb_design
 description: "Design system commun des applis publiées sous le nom de ColDay : thème Liquid Glass sobre, composants, coquille d'appli façon Finder."
-version: 0.4.1
+version: 0.5.0
 publish_to: none
 repository: https://github.com/vince4012/design-system
 

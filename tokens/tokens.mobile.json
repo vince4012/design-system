@@ -142,8 +142,8 @@
       },
       "border": {
         "light": {
-          "$value": "#CCFFFFFF",
-          "$description": "Bordure des éléments flottants, clair (blanc à 80 %)."
+          "$value": "#2923262B",
+          "$description": "Bordure des éléments flottants, clair : liseré discret de la couleur du texte (schiste) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair."
         },
         "dark": {
           "$value": "#2EAAC3F0",
