@@ -170,8 +170,8 @@ abstract final class TokensMobile {
   static const colorBackgroundLightBottom = Color(0xFFFAF8F4);
   /// Fond d'appli mobile, haut du dégradé (sombre) : ardoise très foncée.
   static const colorBackgroundDarkTop = Color(0xFF090B0E);
-  /// Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée.
-  static const colorBackgroundDarkBottom = Color(0xFF1D232D);
+  /// Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée (0.7.0 : #1D232D assombri, la partie claire du dégradé était trop présente).
+  static const colorBackgroundDarkBottom = Color(0xFF171C24);
   /// Surfaces opaques (menus, sélecteurs), clair.
   static const colorSurfaceLight = Color(0xFFF7F5F1);
   /// Surfaces opaques (menus, sélecteurs), sombre.
@@ -244,6 +244,14 @@ abstract final class TokensMobile {
   static const colorOverlayBorderLight = Color(0x2923262B);
   /// Bordure des éléments flottants, sombre (bleu pâle à 18 %).
   static const colorOverlayBorderDark = Color(0x2EAAC3F0);
+  /// Carte d'accueil teintée (HeroCard), clair : bleu très pâle, comme la carte d'état de Saracroche.
+  static const colorHeroFillLight = Color(0xFFD9EAFD);
+  /// Carte d'accueil teintée, sombre : bleu nuit.
+  static const colorHeroFillDark = Color(0xFF021627);
+  /// Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#006AC7, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible.
+  static const colorHeroBadgeLight = Color(0xFF007AFF);
+  /// Pastille d'icône de la carte d'accueil, sombre : l'accent.
+  static const colorHeroBadgeDark = Color(0xFF0091FF);
   /// Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent.
   static const colorBannerLight = Color(0xF0006AC7);
   /// Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent.

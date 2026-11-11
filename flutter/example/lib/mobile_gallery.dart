@@ -281,6 +281,17 @@ class _ControlsPageState extends State<_ControlsPage> {
           ),
         ),
         SizedBox(height: metrics.gap),
+        HeroCard(
+          icon: Symbols.usb,
+          title: 'Behringer XR18',
+          subtitle: 'Multipiste · 4 pistes · WAV',
+          action: IconButton(
+            icon: Icon(Symbols.tune, color: Theme.of(context).colorScheme.primary),
+            tooltip: 'Réglages de l\'entrée',
+            onPressed: () {},
+          ),
+        ),
+        SizedBox(height: metrics.gap),
         GlassSection(
           title: 'Saisie et choix',
           icon: Symbols.tune,
@@ -289,16 +300,7 @@ class _ControlsPageState extends State<_ControlsPage> {
             children: [
               AppTextField(controller: _name, label: 'Nom de la session'),
               const SizedBox(height: 12),
-              SegmentedButton<int>(
-                showSelectedIcon: false,
-                segments: const [
-                  ButtonSegment(value: 0, label: Text('Auto')),
-                  ButtonSegment(value: 1, label: Text('44,1 kHz')),
-                  ButtonSegment(value: 2, label: Text('48 kHz')),
-                ],
-                selected: const {0},
-                onSelectionChanged: (_) {},
-              ),
+              AppToggleGroup<int>(options: const {0: 'Auto', 1: '44,1 kHz', 2: '48 kHz'}, value: 0, onChanged: (_) {}),
               const SizedBox(height: 4),
               AppSwitchTile(
                 value: _switch,

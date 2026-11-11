@@ -341,6 +341,8 @@ class GlassDisclosure extends StatelessWidget {
     required this.expanded,
     required this.onToggle,
     this.trailing = const [],
+    this.chevronLeading = false,
+    this.insetChildren = false,
     required this.children,
   });
 
@@ -351,6 +353,13 @@ class GlassDisclosure extends StatelessWidget {
 
   /// Actions à droite de l'en-tête, avant le chevron.
   final List<Widget> trailing;
+
+  /// Chevron avant le titre au lieu de la fin : les actions de [trailing] s'alignent alors avec celles des lignes.
+  final bool chevronLeading;
+
+  /// Les lignes dépliées sont posées sur un fond creusé (plus sombre que l'en-tête) : l'en-tête se lit comme
+  /// l'intitulé du bloc.
+  final bool insetChildren;
   final List<Widget> children;
 
   @override
@@ -358,6 +367,14 @@ class GlassDisclosure extends StatelessWidget {
     final theme = Theme.of(context);
     final metrics = DesignMetrics.of(context);
     final inset = metrics.listPadding.left;
+    final chevron = Padding(
+      padding: EdgeInsets.only(left: chevronLeading ? 0 : 8, right: chevronLeading ? (inset + 4) / 2 : 8),
+      child: AnimatedRotation(
+        turns: expanded ? 0.25 : 0,
+        duration: const Duration(milliseconds: 180),
+        child: Icon(Symbols.chevron_right, size: metrics.icon, color: theme.colorScheme.onSurfaceVariant),
+      ),
+    );
     return Glass(
       radius: metrics.radiusGroup,
       child: Column(
@@ -371,9 +388,16 @@ class GlassDisclosure extends StatelessWidget {
               mouseCursor: SystemMouseCursors.click,
               child: Container(
                 constraints: BoxConstraints(minHeight: metrics.isMobile ? metrics.listRow + 8 : 44),
-                padding: EdgeInsets.only(left: inset, right: inset - 8 < 4 ? 4 : inset - 8, top: 6, bottom: 6),
+                padding: EdgeInsets.only(
+                  // Chevron avant : centré entre le bord de la carte et le texte, qui garde sa place.
+                  left: chevronLeading ? (inset + 4) / 2 : inset,
+                  right: (inset - 8 < 4 ? 4 : inset - 8) + (chevronLeading ? 8 : 0),
+                  top: 6,
+                  bottom: 6,
+                ),
                 child: Row(
                   children: [
+                    if (chevronLeading) chevron,
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,18 +415,7 @@ class GlassDisclosure extends StatelessWidget {
                       ),
                     ),
                     ...trailing,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: AnimatedRotation(
-                        turns: expanded ? 0.25 : 0,
-                        duration: const Duration(milliseconds: 180),
-                        child: Icon(
-                          Symbols.chevron_right,
-                          size: metrics.icon,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
+                    if (!chevronLeading) chevron,
                   ],
                 ),
               ),
@@ -414,11 +427,16 @@ class GlassDisclosure extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: !expanded
                 ? const SizedBox(width: double.infinity)
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      for (final child in children) ...[Divider(height: 1, indent: inset, endIndent: inset), child],
-                    ],
+                : ColoredBox(
+                    color: insetChildren
+                        ? Colors.black.withValues(alpha: theme.brightness == Brightness.dark ? 0.24 : 0.045)
+                        : Colors.transparent,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (final child in children) ...[Divider(height: 1, indent: inset, endIndent: inset), child],
+                      ],
+                    ),
                   ),
           ),
         ],
@@ -466,4 +484,96 @@ Future<String?> promptName(
       ),
     );
   });
+}
+
+/// Carte d'accueil teintée (bleu pâle / bleu nuit), à la manière de la carte d'état de Saracroche : une pastille
+/// d'accent à gauche portant [icon], un [title] et un [subtitle] à sa droite, un [action] discret en haut à droite
+/// (typiquement un bouton de réglages) et un [footer] facultatif sous le tout (bouton d'action principal).
+class HeroCard extends StatelessWidget {
+  const HeroCard({super.key, required this.icon, required this.title, this.subtitle, this.action, this.footer});
+
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+
+  /// En haut à droite, dans la marge de la carte ; en général un `IconButton` en accent.
+  final Widget? action;
+  final Widget? footer;
+
+  /// Diamètre de la pastille d'icône.
+  static const badge = 68.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final metrics = DesignMetrics.of(context);
+    final dark = theme.brightness == Brightness.dark;
+    return Container(
+      decoration: BoxDecoration(
+        color: dark ? TokensMobile.colorHeroFillDark : TokensMobile.colorHeroFillLight,
+        borderRadius: BorderRadius.circular(metrics.radiusSection + 4),
+      ),
+      padding: EdgeInsets.fromLTRB(metrics.card, metrics.card, action == null ? metrics.card : 4, metrics.card),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: badge,
+                height: badge,
+                decoration: BoxDecoration(
+                  color: dark ? TokensMobile.colorHeroBadgeDark : TokensMobile.colorHeroBadgeLight,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, size: 38, fill: 0, weight: 500, color: Colors.white),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    if (subtitle != null)
+                      Text(subtitle!, style: theme.textTheme.bodyMedium?.copyWith(color: scheme.onSurfaceVariant)),
+                  ],
+                ),
+              ),
+              if (action != null) ...[const SizedBox(width: 4), action!],
+            ],
+          ),
+          if (footer != null) ...[const SizedBox(height: 12), footer!],
+        ],
+      ),
+    );
+  }
+}
+
+/// Groupe de choix exclusifs (Auto / Clair / Sombre, formats, débits) : segments sur toute la largeur, le choisi
+/// plein en accent. Préférer les [AppChip] quand les choix sont nombreux ou cumulables.
+class AppToggleGroup<T> extends StatelessWidget {
+  const AppToggleGroup({super.key, required this.options, required this.value, required this.onChanged});
+
+  /// Valeur → libellé, dans l'ordre d'affichage.
+  final Map<T, String> options;
+  final T value;
+
+  /// Null : groupe désactivé.
+  final ValueChanged<T>? onChanged;
+
+  @override
+  Widget build(BuildContext context) => SegmentedButton<T>(
+    showSelectedIcon: false,
+    segments: [for (final e in options.entries) ButtonSegment(value: e.key, label: Text(e.value, maxLines: 1))],
+    selected: {value},
+    onSelectionChanged: onChanged == null ? null : (s) => onChanged!(s.first),
+  );
 }

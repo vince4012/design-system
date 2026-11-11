@@ -1,3 +1,16 @@
+## 0.7.0
+
+Retours du premier écran réel de DiRecLy. **Aucun changement pour une appli desktop** (captures desktop identiques) ; mobile : le fond sombre change.
+
+- Nouveau `HeroCard` : carte d'accueil teintée (pastille d'icône à gauche, titre et sous-titre à droite, action en haut à droite, pied facultatif), d'après la carte d'état de Saracroche.
+- Nouveau `AppToggleGroup<T>` : groupe de choix exclusifs sur toute la largeur (segments pleins en accent), pour les formats, débits, thèmes.
+- Tokens mobiles : `color.hero.fill` (clair `#D9EAFD`, sombre `#021627`) et `color.heroBadge` (clair `#007AFF`, plus vif que l'accent de texte ; sombre `#0091FF`).
+- Mobile sombre : bas du dégradé de fond `#1D232D` → `#171C24` (la partie claire était trop présente). 5 captures mobiles sombres régénérées.
+- Mobile : `GlassSection` pose son titre (avec l'icône) **au-dessus** de la carte au lieu de dedans ; desktop inchangé.
+- `HeroCard` : icône non pleine (contour). `GlassDisclosure(chevronLeading: true)` : chevron avant le titre, actions alignées avec celles des lignes.
+- `GlassDisclosure(insetChildren: true)` : lignes dépliées sur fond creusé.
+- Galerie mobile : `HeroCard` et `AppToggleGroup`.
+
 ## 0.6.0
 
 **Famille mobile dans le package Flutter** (première appli cliente : DiRecLy). **Aucun changement de rendu pour une appli

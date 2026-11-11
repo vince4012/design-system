@@ -284,7 +284,8 @@ class GlassListTile extends StatelessWidget {
   }
 }
 
-/// Section de page en verre avec titre.
+/// Section de page en verre avec titre. Desktop : le titre est dans la carte. Mobile (depuis la 0.7.0) : le titre,
+/// avec son icône, est au-dessus de la carte, ce qui aère la page.
 class GlassSection extends StatelessWidget {
   const GlassSection({super.key, required this.title, required this.child, this.icon});
 
@@ -295,24 +296,30 @@ class GlassSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metrics = DesignMetrics.of(context);
+    final heading = Row(
+      children: [
+        if (icon != null) ...[
+          Icon(icon, size: metrics.isMobile ? 22 : 17, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 8),
+        ],
+        Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
+      ],
+    );
+    if (metrics.isMobile) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(padding: const EdgeInsets.fromLTRB(6, 4, 6, 10), child: heading),
+          Glass(radius: metrics.radiusSection, padding: EdgeInsets.all(metrics.card), child: child),
+        ],
+      );
+    }
     return Glass(
       radius: metrics.radiusSection,
-      padding: metrics.isMobile ? EdgeInsets.all(metrics.card) : const EdgeInsets.fromLTRB(18, 14, 18, 18),
+      padding: const EdgeInsets.fromLTRB(18, 14, 18, 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              if (icon != null) ...[
-                Icon(icon, size: metrics.isMobile ? 22 : 17, color: Theme.of(context).colorScheme.primary),
-                const SizedBox(width: 8),
-              ],
-              Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
-            ],
-          ),
-          const SizedBox(height: 12),
-          child,
-        ],
+        children: [heading, const SizedBox(height: 12), child],
       ),
     );
   }
