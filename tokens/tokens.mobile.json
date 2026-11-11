@@ -81,7 +81,15 @@
     },
     "mapButton": {
       "$value": 56,
-      "$description": "Boutons ronds posés sur une carte ou un contenu plein écran (contrôle + 8)."
+      "$description": "Boutons ronds flottants (enregistrer, arrêter) ou posés sur une carte / un contenu plein écran (contrôle + 8)."
+    },
+    "selectionMark": {
+      "$value": 22,
+      "$description": "Coche ronde d'une ligne en mode sélection multiple (dans une zone tactile de 48)."
+    },
+    "sheetHandle": {
+      "$value": 36,
+      "$description": "Largeur de la poignée d'une feuille basse (4 de haut)."
     },
     "progressBar": {
       "$value": 14,

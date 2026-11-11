@@ -4,7 +4,7 @@ Document de référence pour reprendre la maintenance (humain ou IA). **À tenir
 chaque session de travail** (voir § 7, Journal).
 
 - Dépôt **public** : https://github.com/vince4012/design-system — propriétaire Vincent Bros (`vince4012`).
-- Première appli cliente : Quittances (https://github.com/vince4012/quittances).
+- Applis clientes : Quittances (desktop, https://github.com/vince4012/quittances), FiiDrive (Android natif), DiRecLy (Flutter mobile, en cours).
 - Langue : français (docs, commentaires, textes par défaut des composants).
 
 ## 1. Organisation
@@ -16,8 +16,10 @@ tokens/tokens.json      valeurs de design — SOCLE (couleurs, verre, valeurs de
 tokens/tokens.mobile.json  surcharges de la famille MOBILE (fusion par chemin, voir tokens/README.md)
 flutter/                package Flutter vb_design
   lib/vb_design.dart    exports publics
-  lib/src/tokens.g.dart GÉNÉRÉ depuis tokens.json (ne pas éditer)
-  lib/src/theme.dart    vbTheme(Brightness), ThemeModeStore
+  lib/src/tokens.g.dart GÉNÉRÉ (ne pas éditer NI FORMATER) : Tokens (tokens.json) et TokensMobile (+ tokens.mobile.json)
+  lib/src/metrics.dart  DesignFamily, DesignMetrics (dimensions selon la famille, posées dans le thème)
+  lib/src/theme.dart    vbTheme(Brightness, family:), ThemeModeStore
+  lib/src/mobile.dart   MobilePage, showGlassSheet, GlassSheet, SectionLabel, AppChip, RoundButton, SelectionMark, GlassDisclosure, promptName
   lib/src/design_scope.dart  DesignScope (fenêtre native active ?)
   lib/src/background.dart    AppBackground
   lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
@@ -25,9 +27,9 @@ flutter/                package Flutter vb_design
   lib/src/page.dart     PageScaffold, EmptyState
   lib/src/shell.dart    GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch
   lib/src/native_window.dart  NativeWindow (macOS), ToolbarItem
-  tool/generate_tokens.dart   générateur tokens.json → tokens.g.dart
+  tool/generate_tokens.dart   générateur tokens.json (+ tokens.mobile.json) → tokens.g.dart
   test/tokens_test.dart       tokens à jour, thème
-  example/              galerie (appli macOS / Windows) + captures de référence (test/goldens)
+  example/              galerie desktop (macOS / Windows) et mobile (Android ; lib/mobile_gallery.dart) + captures de référence (test/goldens)
 android/                Android natif (famille mobile), ressources GÉNÉRÉES
   tool/generate_tokens.dart   générateur socle + tokens.mobile.json → res/ (--check pour vérifier)
   res/values{,-night}/ds_colors.xml, ds_dimens.xml   (ne pas éditer)
@@ -60,6 +62,16 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Textes par défaut en français (« Annuler », « Supprimer », « Enregistrer »,
   « Champ obligatoire »), surchargeables là où c'est utile.
 
+## 3 bis. Famille mobile (depuis la 0.6.0)
+
+- Un seul package pour les deux familles. `vbTheme(…, family:)` pose un `DesignMetrics` dans le thème (`ThemeExtension`) ; les
+  composants lisent `DesignMetrics.of(context)` (desktop par défaut). **Ne plus écrire `Tokens.size…` / `Tokens.radius…` en dur dans
+  un composant commun** : passer par `DesignMetrics`, sinon le mobile garde la valeur desktop.
+- `DesignMetrics.desktop` reprend, pour ce que les tokens desktop n'ont pas, les constantes historiques des composants : c'est ce qui
+  garde les captures desktop identiques. Toute retouche d'un composant commun se vérifie sur les 6 captures desktop **et** les 8 mobiles.
+- Couleurs propres au mobile (`colorOverlay*`, `colorBanner*`, `colorRoute*`) : seulement dans `TokensMobile`.
+- Pas de `GlassShell` ni de `PageScaffold` sur mobile : `MobilePage`. `AppBackground` se pose dans `MaterialApp.builder`.
+
 ## 4. Pièges connus (hérités de Quittances, ne pas réintroduire)
 
 - Ne jamais ajouter / retirer la barre d'outils native pendant une transition plein écran
@@ -77,6 +89,12 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Interrupteur : Material passe le pouce actif en `primaryContainer` au survol et au clic ; dans notre palette
   c'est presque le bleu de la piste (`#1493FF` sur `#0091FF`), le pouce disparaît. Le thème force `onPrimary`.
 
+- **Ne pas lancer `dart format` sur `lib/src/tokens.g.dart`** (ni `dart format lib` en bloc) : le fichier reformaté ne correspond plus à
+  la sortie du générateur et `test/tokens_test.dart` échoue. Remède : `dart run tool/generate_tokens.dart`.
+- `flutter analyze` sans argument dans `example/` peut rester bloqué (dossiers de build) : analyser `lib test` (`flutter analyze lib test`).
+- Dans les captures de test, Flutter dessine les ombres en aplat (`debugDisableShadows`) : la bande grise sous un dialogue n'est pas le rendu réel.
+- Build Android de la galerie : JDK 17 requis (`export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home`), le JDK par défaut de la machine (14) échoue.
+
 - Pousser vers GitHub : ce dépôt est configuré en `http.version=HTTP/1.1` (+ `postBuffer`),
   sinon le premier envoi échouait (« l'hôte distant a fermé la connexion »). Réglage local à
   refaire sur un nouveau clone si l'erreur revient.
@@ -84,9 +102,9 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 ## 5. Vérification
 
 - `cd flutter && flutter analyze && flutter test` ;
-  `cd flutter/example && flutter analyze && flutter test` (6 captures : 3 pages × clair/sombre).
+  `cd flutter/example && flutter analyze lib test && flutter test` (14 captures : desktop 3 pages × clair/sombre, mobile 4 écrans × clair/sombre, plus des contrôles de dimensions mobiles).
 - Captures : polices réelles chargées depuis `$FLUTTER_ROOT/bin/cache/artifacts/material_fonts`
-  (Roboto + MaterialIcons). Rendu dépendant de la plateforme : générer et vérifier sur macOS.
+  (Roboto + MaterialIcons) ; pour le mobile, Material Symbols Outlined chargée depuis le paquet `material_symbols_icons`. Rendu dépendant de la plateforme : générer et vérifier sur macOS.
   Après un changement visuel voulu : `flutter test --update-goldens`, puis **regarder** les images.
 - Le flou natif de la fenêtre et la barre d'outils macOS ne se voient qu'en lançant la galerie
   (`cd flutter/example && flutter run -d macos`).
@@ -160,3 +178,4 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 08/11/2026 | **0.4.1 publiée** (tag `v0.4.1`, poussé) ; Quittances montée dessus. Artifact « ColDay Design System » mis à jour (version 21) : `bg-top` / `bg-bottom` rétablis (desktop), usages et contrastes d'accent recalés, page Palette (ramps et colonne « Retenue » recalés), README, règles desktop et mobile (tableau : ligne « Fond »), version `bundle.css`. |
 | 09/11/2026 | **Publié en 0.5.0** (mineure ; `pubspec.yaml`, `CHANGELOG.md`, `MIGRATION.md` 0.4.1 → 0.5.0, ref `v0.5.0` du README, tag `v0.5.0`, artifact Claude version 22) : `color.overlay.border.light` de `tokens/tokens.mobile.json` `#CCFFFFFF` (blanc 80 %) → `#2923262B` (encre schiste ~16 %) — retour du premier essai réel sur le Moto G : en thème clair, les éléments flottants sur la carte avaient un anneau blanc épais autour d'un fond gris très clair ; le liseré est désormais discret et légèrement plus foncé que le fond, comme en sombre. `android/res` régénéré, règle ajoutée à `docs/regles-ux-ui-mobile.md`. Reporté dans l'artifact (token `overlay-border`). |
 | 09/11/2026 | Non publié : **famille d'icônes unique, Material Symbols Outlined (Google, Apache 2.0)**, décidée par le propriétaire pour toutes les applis (section « 3 bis. Iconographie » de `docs/regles-ux-ui.md`) — d'abord Material Icons (celles du SDK Flutter), puis Material Symbols car c'est la collection de fonts.google.com/icons que le propriétaire utilise comme référence (roue crantée différente, ex.). Première application : FiiDrive (`tools/material_icons.*`, police variable téléchargée du dépôt google/material-design-icons, figée en contour / graisse 400 / grade 0 / taille optique 24). **Flutter : le package utilise encore `Icons.*` (Material Icons) ; migration vers un paquet Material Symbols à faire.** À reporter dans l'artifact (section Iconographie du README) à la prochaine publication. |
+| 11/11/2026 | **Publié en 0.6.0** (validée par le propriétaire sur les captures mobiles ; branche `v0.6-flutter-mobile` fusionnée dans `main`, tag `v0.6.0`) : **famille mobile dans le package Flutter**, pour DiRecLy. `TokensMobile` généré (socle + surcharges), `DesignMetrics` / `DesignFamily`, `vbTheme(…, family:)`, composants communs adaptés (liste, section, dialogue, interrupteur, fond), nouveaux composants `MobilePage`, `GlassSheet`, `SectionLabel`, `AppChip`, `RoundButton`, `SelectionMark`, `GlassDisclosure`, `promptName`, `Glass(shadow:)` ; `sliderTheme` et `bottomSheetTheme` ; dépendance `material_symbols_icons` ; tokens mobiles `size.selectionMark` et `size.sheetHandle` (`android/res` régénéré, `--check` OK) ; galerie mobile, 8 captures mobiles, plateforme Android de la galerie. **Vérifié** : `flutter analyze`, `flutter test` (package : 4 ; galerie : 16), 6 captures desktop identiques octet pour octet, galerie construite et lancée sur émulateur Android 14 (thème clair). **Non vérifié** : appareil réel, iOS, thème sombre sur émulateur, feuille basse avec clavier ouvert. **Reste à faire** : artifact Claude (rendu mobile, nouveaux composants, tokens) ; plus tard, migration des trois `Icons.*` desktop vers Material Symbols. |

@@ -1,3 +1,15 @@
+# Migration 0.5.0 → 0.6.0
+
+**Appli desktop** : rien à faire. Monter `ref: v0.6.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.
+Le package tire une dépendance de plus (`material_symbols_icons`, polices d'icônes élaguées à la compilation en release).
+
+**Appli Android native** : recopier `android/res` (deux dimensions ajoutées, `ds_size_selection_mark` et
+`ds_size_sheet_handle` ; rien d'autre ne change).
+
+**Nouvelle appli Flutter mobile** : voir « Appli mobile » dans [`README.md`](README.md).
+
+---
+
 # Migration 0.4.1 → 0.5.0
 
 Rien à faire pour une appli Flutter desktop : monter `ref: v0.5.0` puis `flutter pub upgrade vb_design` suffit

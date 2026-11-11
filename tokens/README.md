@@ -9,7 +9,7 @@ rangé par catégorie.
 - Opacités : entre 0 et 1.
 - Paires clair / sombre : clés `light` / `dark`.
 
-Nom généré = chemin en camelCase : `color.accent.light` → `Tokens.colorAccentLight` (Flutter),
+Nom généré = chemin en camelCase : `color.accent.light` → `Tokens.colorAccentLight` (Flutter desktop ; `TokensMobile.…` pour la famille mobile),
 `--color-accent-light` (web, à venir).
 
 ## Familles de plateformes

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'design_scope.dart';
+import 'metrics.dart';
 import 'tokens.g.dart';
 
 /// Fond de l'appli : dégradé neutre (en diagonale) qui porte tout le relief ;
@@ -17,9 +18,9 @@ class AppBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final colors = dark
-        ? const [Tokens.colorBackgroundDarkTop, Tokens.colorBackgroundDarkBottom]
-        : const [Tokens.colorBackgroundLightTop, Tokens.colorBackgroundLightBottom];
+    // Le sens du dégradé dépend de la famille : plus clair en haut sur desktop, plus foncé en haut sur mobile.
+    final metrics = DesignMetrics.of(context);
+    final colors = dark ? metrics.backgroundDark : metrics.backgroundLight;
     final alpha = (translucent ?? DesignScope.nativeWindowOf(context))
         ? (dark ? Tokens.opacityBackgroundTranslucentDark : Tokens.opacityBackgroundTranslucentLight)
         : 1.0;

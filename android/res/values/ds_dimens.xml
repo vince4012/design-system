@@ -45,12 +45,16 @@
     <dimen name="ds_size_list_icon">24dp</dimen>
     <!-- Hauteur minimale d'une ligne de liste (contrôle + 8). -->
     <dimen name="ds_size_list_row">56dp</dimen>
-    <!-- Boutons ronds posés sur une carte ou un contenu plein écran (contrôle + 8). -->
+    <!-- Boutons ronds flottants (enregistrer, arrêter) ou posés sur une carte / un contenu plein écran (contrôle + 8). -->
     <dimen name="ds_size_map_button">56dp</dimen>
     <!-- Hauteur de la barre de titre compacte d'un écran (desktop : 40). -->
     <dimen name="ds_size_page_toolbar">56dp</dimen>
     <!-- Largeur de la barre de progression verticale d'un trajet. -->
     <dimen name="ds_size_progress_bar">14dp</dimen>
+    <!-- Coche ronde d'une ligne en mode sélection multiple (dans une zone tactile de 48). -->
+    <dimen name="ds_size_selection_mark">22dp</dimen>
+    <!-- Largeur de la poignée d'une feuille basse (4 de haut). -->
+    <dimen name="ds_size_sheet_handle">36dp</dimen>
     <!-- Largeur de la barre latérale. -->
     <dimen name="ds_size_sidebar_width">210dp</dimen>
     <!-- Hauteur de l'interrupteur. -->

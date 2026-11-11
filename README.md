@@ -7,7 +7,7 @@ et code de thème réutilisable.
 |---|---|
 | [`docs/`](docs/regles-ux-ui.md) | Règles UX/UI communes à toutes les applis (principes, couleurs, typographie, mise en page, composants, rédaction). |
 | [`tokens/`](tokens/tokens.json) | Valeurs de design, **source unique** : couleurs, opacités, flou, rayons, tailles de texte, tailles, espacements. |
-| [`flutter/`](flutter/README.md) | Package Flutter `vb_design` : thème, composants en verre, coquille d'appli façon Finder, intégration fenêtre macOS, galerie. |
+| [`flutter/`](flutter/README.md) | Package Flutter `vb_design` : thème **desktop et mobile**, composants en verre, coquille d'appli façon Finder, composants tactiles, intégration fenêtre macOS, galeries. |
 | [`android/`](android/README.md) | Ressources Android natif (famille mobile) **générées** depuis les tokens : couleurs clair / sombre, tailles, textes, opacités. |
 | `web/` | Plus tard : thème web (variables CSS) généré depuis les mêmes tokens. |
 
@@ -24,7 +24,7 @@ dependencies:
     git:
       url: https://github.com/vince4012/design-system.git
       path: flutter
-      ref: v0.5.0
+      ref: v0.6.0
 ```
 
 Mise en place : voir [`flutter/README.md`](flutter/README.md).

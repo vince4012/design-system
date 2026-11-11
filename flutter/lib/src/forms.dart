@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'glass.dart';
+import 'metrics.dart';
 import 'tokens.g.dart';
 
 /// Validateur : champ obligatoire.
@@ -107,7 +108,7 @@ class AppSwitch extends StatelessWidget {
   Widget build(BuildContext context) {
     final switchWidget = Switch(value: value, onChanged: onChanged);
     return SizedBox(
-      width: Tokens.sizeSwitchWidth,
+      width: DesignMetrics.of(context).switchWidth,
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: hoverHalo
@@ -136,8 +137,9 @@ class AppSwitchTile extends StatelessWidget {
     return InkWell(
       onTap: onChanged == null ? null : () => onChanged!(!value),
       mouseCursor: WidgetStateMouseCursor.clickable,
-      borderRadius: BorderRadius.circular(Tokens.radiusControl),
-      child: Padding(
+      borderRadius: BorderRadius.circular(DesignMetrics.of(context).radiusControl),
+      child: Container(
+        constraints: BoxConstraints(minHeight: DesignMetrics.of(context).touchMin),
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
           children: [
@@ -207,11 +209,15 @@ class GlassDialog extends StatelessWidget {
   Widget build(BuildContext context) => Dialog(
     backgroundColor: Colors.transparent,
     elevation: 0,
+    // Mobile : le dialogue prend la largeur de l'écran moins une marge de 20.
+    insetPadding: DesignMetrics.of(context).isMobile
+        ? const EdgeInsets.symmetric(horizontal: 20, vertical: 24)
+        : const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
     child: SizedBox(
       width: width,
       child: Glass(
         strong: true,
-        radius: Tokens.radiusDialog,
+        radius: DesignMetrics.of(context).radiusDialog,
         padding: const EdgeInsets.all(Tokens.spaceXl),
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -8,6 +8,8 @@ export 'src/background.dart';
 export 'src/design_scope.dart';
 export 'src/forms.dart';
 export 'src/glass.dart';
+export 'src/metrics.dart';
+export 'src/mobile.dart';
 export 'src/native_window.dart';
 export 'src/page.dart';
 export 'src/shell.dart';

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'metrics.dart';
 import 'tokens.g.dart';
 
 /// Panneau « verre » : flou d'arrière-plan, remplissage translucide uni
@@ -14,6 +15,7 @@ class Glass extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.strong = false,
     this.tint,
+    this.shadow = true,
     this.onTap,
   });
 
@@ -26,6 +28,10 @@ class Glass extends StatelessWidget {
 
   /// Teinte colorée du verre (par défaut blanc).
   final Color? tint;
+
+  /// Ombre portée. À couper pour un élément posé au bord de l'écran (feuille basse, panneau du
+  /// bas) ou sur un contenu plein écran : l'ombre, coupée par le bord, y dessine une bande sombre.
+  final bool shadow;
 
   final VoidCallback? onTap;
 
@@ -46,7 +52,7 @@ class Glass extends StatelessWidget {
         borderRadius: shape,
         // Ombre diffuse et rentrée : sous un verre translucide, une ombre
         // marquée se verrait à travers.
-        boxShadow: tint != null
+        boxShadow: tint != null || !shadow
             ? null
             : [
                 BoxShadow(
@@ -113,13 +119,14 @@ class GlassBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final metrics = DesignMetrics.of(context);
     return SizedBox(
-      width: Tokens.sizeListIcon,
-      height: Tokens.sizeListIcon,
+      width: metrics.listIconZone,
+      height: metrics.listIconZone,
       // Alignée à gauche : le bord gauche de l'icône est celui du filet séparateur.
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Icon(icon, size: 22, color: muted ? scheme.outline : scheme.primary),
+        child: Icon(icon, size: metrics.listIcon, color: muted ? scheme.outline : scheme.primary),
       ),
     );
   }
@@ -175,19 +182,24 @@ class GlassGroup extends StatelessWidget {
   final List<Widget> children;
 
   @override
-  Widget build(BuildContext context) => Glass(
-    radius: Tokens.radiusGroup,
-    padding: const EdgeInsets.symmetric(vertical: 4),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        for (final (i, child) in children.indexed) ...[
-          if (i > 0) const Divider(height: 1, indent: 12, endIndent: 12),
-          child,
+  Widget build(BuildContext context) {
+    final metrics = DesignMetrics.of(context);
+    // Le filet court du bord gauche de l'icône au bord droit, avec la même marge que les lignes.
+    final inset = metrics.listPadding.left;
+    return Glass(
+      radius: metrics.radiusGroup,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (final (i, child) in children.indexed) ...[
+            if (i > 0) Divider(height: 1, indent: inset, endIndent: inset),
+            child,
+          ],
         ],
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
 
 /// Liste défilante dans un seul panneau de verre.
@@ -230,14 +242,17 @@ class GlassListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
+    final metrics = DesignMetrics.of(context);
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
         onTap: onTap,
         mouseCursor: WidgetStateMouseCursor.clickable,
-        borderRadius: BorderRadius.circular(Tokens.radiusControl),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+        borderRadius: BorderRadius.circular(metrics.radiusControl),
+        child: Container(
+          // Mobile : ligne d'au moins 56 (cible tactile) ; desktop : hauteur du contenu.
+          constraints: BoxConstraints(minHeight: metrics.listRow),
+          padding: metrics.listPadding,
           child: Row(
             children: [
               GlassBadge(icon: icon, muted: muted),
@@ -278,26 +293,29 @@ class GlassSection extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) => Glass(
-    radius: Tokens.radiusSection,
-    padding: const EdgeInsets.fromLTRB(18, 14, 18, 18),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            if (icon != null) ...[
-              Icon(icon, size: 17, color: Theme.of(context).colorScheme.primary),
-              const SizedBox(width: 8),
+  Widget build(BuildContext context) {
+    final metrics = DesignMetrics.of(context);
+    return Glass(
+      radius: metrics.radiusSection,
+      padding: metrics.isMobile ? EdgeInsets.all(metrics.card) : const EdgeInsets.fromLTRB(18, 14, 18, 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              if (icon != null) ...[
+                Icon(icon, size: metrics.isMobile ? 22 : 17, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 8),
+              ],
+              Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
             ],
-            Text(title, style: Theme.of(context).textTheme.titleMedium),
-          ],
-        ),
-        const SizedBox(height: 12),
-        child,
-      ],
-    ),
-  );
+          ),
+          const SizedBox(height: 12),
+          child,
+        ],
+      ),
+    );
+  }
 }
 
 /// Couleurs d'état communes, pour [StatusPill] notamment. Elles dépendent du thème.

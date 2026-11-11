@@ -1,3 +1,26 @@
+## 0.6.0
+
+**Famille mobile dans le package Flutter** (première appli cliente : DiRecLy). **Aucun changement de rendu pour une appli
+desktop** : les 6 captures de référence desktop sont identiques octet pour octet.
+
+- `vbTheme(brightness, family: DesignFamily.mobile)` : thème tactile (texte 17, contrôles 48, cartes de rayon 20, segments
+  pleins en accent, icônes 24 dans une zone de 48, bandeau de message pleine largeur). Sans `family`, le thème desktop, inchangé.
+- `TokensMobile` : classe générée (socle + `tokens/tokens.mobile.json`, fusion par chemin), à côté de `Tokens`.
+- `DesignMetrics` (extension du thème) : tailles, rayons, textes et dégradé de fond selon la famille. `AppBackground`, `GlassGroup`,
+  `GlassListTile`, `GlassBadge`, `GlassSection`, `GlassDialog`, `AppSwitch`, `AppSwitchTile` les lisent : les mêmes composants
+  servent aux deux familles (ligne de liste de 56 au moins sur mobile, dégradé de fond inversé).
+- Nouveaux composants (`src/mobile.dart`) : `MobilePage` (grand titre, actions, panneau flottant du bas), `showGlassSheet` /
+  `GlassSheet` (feuille basse), `SectionLabel`, `AppChip` (puce à cocher, sous-libellé, appui long), `RoundButton` (bouton rond
+  de 56 : flottant, accent, rouge), `SelectionMark` (coche de sélection multiple), `GlassDisclosure` (carte dépliable),
+  `promptName` (dialogue « renommer »).
+- `Glass(shadow: false)` : coupe l'ombre d'un élément posé au bord de l'écran ou sur un contenu plein écran.
+- Thème (les deux familles) : `sliderTheme` (curseur de lecture) et `bottomSheetTheme` ; sans effet tant qu'on n'utilise ni l'un ni l'autre.
+- Icônes : les nouveaux composants utilisent **Material Symbols Outlined** (nouvelle dépendance `material_symbols_icons`).
+  Les composants desktop gardent pour l'instant leurs trois `Icons.*` (étoile, effacer, calendrier) : les changer modifie les captures desktop.
+- Tokens mobiles ajoutés : `size.selectionMark` (22), `size.sheetHandle` (36) ; `android/res` régénéré (2 dimensions de plus).
+- Galerie : écran mobile (`example/lib/mobile_gallery.dart`, lancé sur Android / iOS), 8 captures de référence mobiles
+  (390 × 844, clair et sombre), plateforme Android ajoutée à `example/`.
+
 ## 0.5.0
 
 Retours du premier essai réel sur mobile (FiiDrive, Moto G) ; **aucun changement pour une appli Flutter desktop**.

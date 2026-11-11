@@ -72,7 +72,7 @@ l'interface.
 - Les anciennes **Material Icons** (les `Icons.*` de Flutter) sont une collection plus ancienne au dessin différent
   (ex. la roue crantée « réglages ») : ne pas les mélanger aux Material Symbols.
 - **Android natif** : dessins vectoriels extraits de la police variable Material Symbols Outlined (`tools/material_icons.*`
-  de FiiDrive). **Flutter** : à faire, passer de `Icons.*` à un paquet Material Symbols. Attribution de la licence
+  de FiiDrive). **Flutter** : paquet `material_symbols_icons` (`Symbols.*`), utilisé par les composants mobiles depuis la 0.6.0 ; les composants desktop gardent encore trois `Icons.*` (étoile, effacer, calendrier), à migrer avec leurs captures. Attribution de la licence
   dans l'appli (Réglages ou À propos).
 - Tailles : 18 pt en navigation et dans les boutons, 22 pt dans les lignes de liste (desktop) ; 24 dp sur mobile.
   Une icône dessinée petite dans sa grille (ex. `stop`) peut être agrandie pour paraître du même poids que les autres.

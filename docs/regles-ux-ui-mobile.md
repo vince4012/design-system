@@ -6,7 +6,7 @@ Android natif, Flutter mobile. Tout ce que ce document ne dit pas reste régi pa
 [`tokens/tokens.mobile.json`](../tokens/tokens.mobile.json), superposé à `tokens/tokens.json` ; en cas d'écart,
 les fichiers de tokens font foi.
 
-Première appli cliente : FiiDrive (Android natif). Référence visuelle : captures Saracroche
+Applis clientes : FiiDrive (Android natif), DiRecLy (Flutter, `vbTheme(…, family: DesignFamily.mobile)`). Référence visuelle : captures Saracroche
 (`docs/exemples-apps-screenshots/`).
 
 ## 1. Ce qui change par rapport au desktop
@@ -48,7 +48,19 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Ligne de liste** : hauteur ≥ 56 dp, icône brute d'accent (24 dp), titre 17 sp, sous-titre 14 sp en gris,
   élément de fin (interrupteur, chevron) ; filet séparateur fin entre les lignes.
 - **Interrupteur** : 46 × 28 dp, piste **bleu d'accent** (pas de jaune, moins lisible), pouce blanc rond de 22 dp **à l'intérieur** de la piste (3 dp de marge), **contour fin et discret** (encre à ~18 % sur la piste, ~22 % sur le pouce) : sans lui, le pouce blanc se fond dans une carte claire.
-- **Dialogue / feuille basse** : verre opaque, rayon 24 ; boutons empilés pleine largeur ou à droite selon l'espace.
+- **Dialogue** : verre opaque, rayon 24, à 20 dp des bords ; boutons à droite (Annuler, puis l'action).
+- **Feuille basse** (réglages, choix) : verre opaque, rayon 24, **flottante** à la marge d'écran (12 dp), poignée de 36 × 4 en haut, titre,
+  contenu défilant, 80 % de la hauteur au plus ; se ferme en la tirant ou en touchant le voile. **Sans ombre** (voir § 4).
+- **Écran** : grand titre de 28 sp en haut à gauche, actions en icônes à droite (zone de 48 dp) ; un panneau d'action peut flotter en bas,
+  à la marge d'écran, le contenu défilant gardant une marge basse pour ne pas rester caché dessous.
+- **Puce à cocher** (canaux, format, débit) : 48 dp de haut et de large au moins, rayon 12 ; choisie : pleine en accent, texte `onAccent` ;
+  non choisie : remplissage et bordure d'un champ ; désactivée : atténuée à 40 %. Une seconde ligne de 12 sp peut porter un nom ; l'appui
+  long sert à une action secondaire (renommer), toujours annoncée par une phrase d'aide.
+- **Bouton rond** (56 dp) : une icône, toujours nommée par une bulle d'aide. Trois aspects : flottant (fond d'élément flottant, icône
+  d'accent), accent (action principale), rouge (enregistrer, arrêter ; icône pleine).
+- **Carte dépliable** : en-tête (titre demi-gras, sous-titre gris, actions, chevron qui pivote) ; les lignes se déplient sous un filet.
+- **Sélection multiple** : coche ronde de 22 dp à gauche de la ligne, vide puis pleine en accent ; toute la ligne reste la cible tactile.
+- **Curseur** (lecture) : piste de 4 dp, partie parcourue et pouce en accent.
 - **Message bref** : bandeau flottant en bas, une phrase, au-dessus de la zone de gestes du système.
 
 ## 4. Éléments flottants sur une carte ou un contenu plein écran
@@ -63,6 +75,8 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Tracé** : `color.route.line` ; contour `color.route.casing` (blanc en sombre, gris translucide en clair).
 - **Barre de progression** : 14 dp de large, remplie en `color.route.line`, même contour que le tracé.
 - Ne jamais poser un élément flottant sur la zone de gestes du système : respecter les marges d'écran.
+- **Pas d'ombre** sous un élément en verre posé sur un contenu plein écran ou collé au bord de l'écran (feuille basse, panneau du bas) :
+  elle transparaît sous le fond translucide ou se fait couper par le bord (`Glass(shadow: false)` en Flutter).
 
 ## 5. Thème
 

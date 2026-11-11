@@ -5,9 +5,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vb_design/vb_design.dart';
 
 import 'gallery.dart';
+import 'mobile_gallery.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Téléphone : galerie de la famille mobile (thème suivant le système).
+  if (Platform.isAndroid || Platform.isIOS) {
+    runApp(const MobileGalleryRoot(themeMode: ThemeMode.system));
+    return;
+  }
   final nativeWindow = Platform.isMacOS;
   if (nativeWindow) {
     await NativeWindow.setUp();
