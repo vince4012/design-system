@@ -61,6 +61,8 @@
     <dimen name="ds_size_switch_height">28dp</dimen>
     <!-- Largeur de l'interrupteur ; hauteur 28, pouce 22. -->
     <dimen name="ds_size_switch_width">46dp</dimen>
+    <!-- Hauteur de la barre d'onglets flottante (capsule) : icône 24 et libellé 12 dans des onglets de 50, marge de 4. -->
+    <dimen name="ds_size_tab_bar">58dp</dimen>
     <!-- Hauteur de la barre d'outils native macOS (unifiée). -->
     <dimen name="ds_size_toolbar">52dp</dimen>
     <!-- Cible tactile minimale de tout élément cliquable, y compris icône seule. -->
@@ -74,6 +76,8 @@
     <dimen name="ds_space_s">8dp</dimen>
     <!-- Marge d'écran identique sur les quatre bords, y compris pour les éléments flottants sur une carte. -->
     <dimen name="ds_space_screen">12dp</dimen>
+    <!-- Marge latérale de la barre d'onglets flottante (plus large que la marge d'écran, comme sur iOS) ; en bas : la marge d'écran. -->
+    <dimen name="ds_space_tab_bar_side">24dp</dimen>
     <dimen name="ds_space_xl">20dp</dimen>
     <dimen name="ds_space_xs">4dp</dimen>
 </resources>

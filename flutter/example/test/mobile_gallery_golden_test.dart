@@ -63,6 +63,11 @@ void main() {
       await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/mobile_feuille_$suffix.png'));
     });
 
+    testWidgets('mobile navigation $suffix', (tester) async {
+      await pump(tester, brightness, 3);
+      await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/mobile_navigation_$suffix.png'));
+    });
+
     testWidgets('mobile dialogue $suffix', (tester) async {
       await pump(tester, brightness, 2);
       await tester.tap(find.text('Supprimer…'));
@@ -70,6 +75,15 @@ void main() {
       await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/mobile_dialogue_$suffix.png'));
     });
   }
+
+  testWidgets('barre d\'onglets : capsule de 58, onglets de 50, marges de 24', (tester) async {
+    await pump(tester, Brightness.light, 3);
+    final bar = tester.getRect(find.byType(FloatingTabBar));
+    expect(bar.height, 58);
+    expect(bar.left, 24);
+    expect(390 - bar.right, 24);
+    expect(tester.getSize(find.text('Réglages').last).height, lessThan(20));
+  });
 
   testWidgets('dimensions mobiles : contrôles de 48, bouton rond de 56, cibles tactiles de 48', (tester) async {
     await pump(tester, Brightness.light, 1);

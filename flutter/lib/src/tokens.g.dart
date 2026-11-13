@@ -338,11 +338,15 @@ abstract final class TokensMobile {
   static const sizeSheetHandle = 36.0;
   /// Largeur de la barre de progression verticale d'un trajet.
   static const sizeProgressBar = 14.0;
+  /// Hauteur de la barre d'onglets flottante (capsule) : icône 24 et libellé 12 dans des onglets de 50, marge de 4.
+  static const sizeTabBar = 58.0;
   static const spaceXs = 4.0;
   static const spaceS = 8.0;
   static const spaceM = 12.0;
   static const spaceL = 16.0;
   static const spaceXl = 20.0;
+  /// Marge latérale de la barre d'onglets flottante (plus large que la marge d'écran, comme sur iOS) ; en bas : la marge d'écran.
+  static const spaceTabBarSide = 24.0;
   /// Marge d'écran identique sur les quatre bords, y compris pour les éléments flottants sur une carte.
   static const spaceScreen = 12.0;
   /// Marge intérieure d'une carte.

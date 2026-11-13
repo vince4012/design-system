@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 import 'metrics.dart';
 import 'tokens.g.dart';
@@ -217,6 +218,9 @@ class GlassListView extends StatelessWidget {
 }
 
 /// Ligne de liste (à placer dans un [GlassGroup]) : icône, titre, sous-titre, éléments à droite.
+///
+/// Ligne de réglage façon iOS (depuis la 0.8.0) : [value] affiche la valeur actuelle en gris à droite, [chevron]
+/// ajoute un chevron qui annonce un sous-écran.
 class GlassListTile extends StatelessWidget {
   const GlassListTile({
     super.key,
@@ -227,7 +231,15 @@ class GlassListTile extends StatelessWidget {
     this.muted = false,
     this.favorite = false,
     this.onTap,
+    this.value,
+    this.chevron = false,
   });
+
+  /// Valeur actuelle du réglage, en gris avant les éléments de droite (une ligne, coupée si trop longue).
+  final String? value;
+
+  /// Chevron en fin de ligne : la ligne ouvre un sous-écran.
+  final bool chevron;
 
   final IconData icon;
   final String title;
@@ -275,7 +287,25 @@ class GlassListTile extends StatelessWidget {
                 const SizedBox(width: 8),
                 Icon(Icons.star_rounded, size: 16, color: Signature.fill(context)),
               ],
+              if (value != null) ...[
+                const SizedBox(width: 8),
+                // Le titre garde la place ; une valeur trop longue est coupée.
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 170),
+                  child: Text(
+                    value!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                    style: text.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),
+              ],
               for (final widget in trailing) ...[const SizedBox(width: 8), widget],
+              if (chevron) ...[
+                const SizedBox(width: 4),
+                Icon(Symbols.chevron_right, size: 22, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ],
             ],
           ),
         ),

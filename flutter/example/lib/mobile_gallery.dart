@@ -4,7 +4,7 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:vb_design/vb_design.dart';
 
 /// Galerie de la famille mobile : les composants tactiles du design system, en clair et en sombre.
-/// Trois écrans (liste, contrôles, feuille basse), choisis par les segments du haut.
+/// Quatre écrans (liste, contrôles, feuille basse, navigation), choisis par les segments du haut.
 class MobileGalleryRoot extends StatelessWidget {
   const MobileGalleryRoot({super.key, required this.themeMode, this.initialIndex = 0});
 
@@ -44,12 +44,30 @@ class _MobileHomeState extends State<_MobileHome> {
     final page = switch (_index) {
       0 => const _ListPage(),
       1 => const _ControlsPage(),
-      _ => const _SheetPage(),
+      2 => const _SheetPage(),
+      _ => const _NavPage(),
     };
     return MobilePage(
-      title: const ['Listes', 'Contrôles', 'Feuille basse'][_index],
-      actions: [IconButton(icon: const Icon(Symbols.settings), tooltip: 'Réglages', onPressed: () {})],
-      bottomBar: _index == 0 ? const _RecordBar() : null,
+      title: const ['Listes', 'Contrôles', 'Feuille basse', 'Sortie audio'][_index],
+      onBack: _index == 3 ? () {} : null,
+      actions: [if (_index < 3) IconButton(icon: const Icon(Symbols.settings), tooltip: 'Réglages', onPressed: () {})],
+      bottomBar: switch (_index) {
+        0 => const _RecordBar(),
+        // La barre d'onglets a des marges latérales de 24 (la page en a déjà 12).
+        3 => Padding(
+          padding: EdgeInsets.symmetric(horizontal: TokensMobile.spaceTabBarSide - metrics.screen),
+          child: FloatingTabBar(
+            items: const [
+              TabBarItem(icon: Symbols.graphic_eq, label: 'Sessions'),
+              TabBarItem(icon: Symbols.queue_music, label: 'Morceaux'),
+              TabBarItem(icon: Symbols.settings, label: 'Réglages'),
+            ],
+            index: 2,
+            onChanged: (_) {},
+          ),
+        ),
+        _ => null,
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -57,8 +75,9 @@ class _MobileHomeState extends State<_MobileHome> {
             showSelectedIcon: false,
             segments: const [
               ButtonSegment(value: 0, label: Text('Listes')),
-              ButtonSegment(value: 1, label: Text('Contrôles')),
+              ButtonSegment(value: 1, label: Text('Contr.')),
               ButtonSegment(value: 2, label: Text('Feuille')),
+              ButtonSegment(value: 3, label: Text('Nav.')),
             ],
             selected: {_index},
             onSelectionChanged: (s) => setState(() => _index = s.first),
@@ -390,4 +409,37 @@ class _SheetPage extends StatelessWidget {
       ),
     ],
   );
+}
+
+/// Sous-écran de réglages (flèche retour, lignes avec valeur et chevron) et barre d'onglets flottante.
+class _NavPage extends StatelessWidget {
+  const _NavPage();
+
+  @override
+  Widget build(BuildContext context) => ListView(
+    padding: EdgeInsets.only(bottom: FloatingTabBar.reserve(context)),
+    children: [
+      const SectionLabel('Périphérique'),
+      const SizedBox(height: 8),
+      GlassGroup(
+        children: [
+          GlassListTile(icon: Symbols.usb, title: 'X18/XR18', subtitle: '18 sorties', trailing: [_check(context)], onTap: () {}),
+          GlassListTile(icon: Symbols.headphones, title: 'Casque filaire', onTap: () {}),
+          GlassListTile(icon: Symbols.phone_android, title: 'Haut-parleur du téléphone', onTap: () {}),
+        ],
+      ),
+      const SectionLabel('Réglages', top: 20),
+      const SizedBox(height: 8),
+      GlassGroup(
+        children: [
+          GlassListTile(icon: Symbols.timer, title: 'Clic', value: 'Clave', chevron: true, onTap: () {}),
+          GlassListTile(icon: Symbols.groups, title: 'Groupes', value: 'Les Zèbres', chevron: true, onTap: () {}),
+          GlassListTile(icon: Symbols.contrast, title: 'Apparence', value: 'Auto', chevron: true, onTap: () {}),
+        ],
+      ),
+    ],
+  );
+
+  static Widget _check(BuildContext context) =>
+      Icon(Symbols.check, color: Theme.of(context).colorScheme.primary, semanticLabel: 'Choisi');
 }

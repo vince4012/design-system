@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -9,14 +11,27 @@ import 'tokens.g.dart';
 /// Écran mobile : grand titre en haut à gauche, actions à droite, puis le contenu.
 /// Pas de barre latérale ni de barre d'outils (voir docs/regles-ux-ui-mobile.md).
 ///
+/// Sous-écran (depuis la 0.8.0) : [onBack] ajoute une flèche retour seule, à gauche du titre (jamais le nom de
+/// l'écran précédent).
+///
 /// [bottomBar] flotte en bas, au-dessus du contenu (panneau d'action, bouton principal) ; le
 /// contenu défilant doit alors prévoir une marge basse pour ne pas rester caché dessous.
 /// À placer sous un `AppBackground`.
 class MobilePage extends StatelessWidget {
-  const MobilePage({super.key, required this.title, this.actions = const [], required this.child, this.bottomBar});
+  const MobilePage({
+    super.key,
+    required this.title,
+    this.actions = const [],
+    required this.child,
+    this.bottomBar,
+    this.onBack,
+  });
 
   final String title;
   final List<Widget> actions;
+
+  /// Retour à l'écran précédent ; null sur un écran racine (onglet).
+  final VoidCallback? onBack;
   final Widget child;
   final Widget? bottomBar;
 
@@ -37,7 +52,14 @@ class MobilePage extends StatelessWidget {
                     constraints: const BoxConstraints(minHeight: TokensMobile.sizePageToolbar),
                     child: Row(
                       children: [
-                        const SizedBox(width: Tokens.spaceXs),
+                        if (onBack != null)
+                          IconButton(
+                            icon: Icon(Symbols.arrow_back, color: Theme.of(context).colorScheme.primary),
+                            tooltip: 'Retour',
+                            onPressed: onBack,
+                          )
+                        else
+                          const SizedBox(width: Tokens.spaceXs),
                         Expanded(
                           child: Text(
                             title,
@@ -576,4 +598,149 @@ class AppToggleGroup<T> extends StatelessWidget {
     selected: {value},
     onSelectionChanged: onChanged == null ? null : (s) => onChanged!(s.first),
   );
+}
+
+/// Onglet d'une [FloatingTabBar].
+class TabBarItem {
+  const TabBarItem({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+}
+
+/// Barre d'onglets flottante (façon iOS, depuis la 0.8.0) : capsule posée en bas de l'écran, au-dessus du contenu qui
+/// défile dessous. Une icône et un libellé court par onglet ; l'onglet choisi a une pastille, une icône pleine et la
+/// couleur d'accent. Fond opaque à ~90 % (`color.overlay.*`), flou en plus là où il existe ; pas d'ombre.
+///
+/// À placer dans un `Stack` avec [FloatingTabBar.positioned] ; le contenu défilant garde une marge basse de
+/// [FloatingTabBar.reserve] pour ne pas rester caché dessous.
+class FloatingTabBar extends StatelessWidget {
+  const FloatingTabBar({super.key, required this.items, required this.index, required this.onChanged});
+
+  final List<TabBarItem> items;
+  final int index;
+  final ValueChanged<int> onChanged;
+
+  /// Durée et courbe du glissement de la pastille ; l'appli peut faire glisser ses pages de la même façon.
+  static const slideDuration = Duration(milliseconds: 320);
+  static const slideCurve = Curves.easeOutCubic;
+
+  /// Hauteur que la barre occupe en bas de l'écran (barre + marge), hors zone de gestes du système.
+  static double reserve(BuildContext context) => TokensMobile.sizeTabBar + 2 * DesignMetrics.of(context).screen;
+
+  /// La barre à sa place dans un `Stack` plein écran : marges latérales de 24, marge d'écran au-dessus de la zone de
+  /// gestes du système.
+  static Widget positioned(BuildContext context, {required Widget bar}) => Positioned(
+    left: TokensMobile.spaceTabBarSide,
+    right: TokensMobile.spaceTabBarSide,
+    bottom: MediaQuery.paddingOf(context).bottom + DesignMetrics.of(context).screen,
+    child: bar,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    const radius = BorderRadius.all(Radius.circular(TokensMobile.sizeTabBar / 2));
+    return ClipRRect(
+      borderRadius: radius,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Container(
+          height: TokensMobile.sizeTabBar,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: dark ? TokensMobile.colorOverlayFillDark : TokensMobile.colorOverlayFillLight,
+            borderRadius: radius,
+            border: Border.all(color: dark ? TokensMobile.colorOverlayBorderDark : TokensMobile.colorOverlayBorderLight),
+          ),
+          // La pastille de l'onglet choisi glisse d'un onglet à l'autre (immédiate si les animations sont coupées).
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final width = constraints.maxWidth / items.length;
+              return Stack(
+                children: [
+                  AnimatedPositioned(
+                    duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : slideDuration,
+                    curve: slideCurve,
+                    left: index * width,
+                    top: 0,
+                    bottom: 0,
+                    width: width,
+                    child: DecoratedBox(
+                      decoration: ShapeDecoration(
+                        shape: const StadiumBorder(),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      for (final (i, item) in items.indexed)
+                        Expanded(
+                          child: _Tab(item: item, selected: i == index, onTap: () => onChanged(i)),
+                        ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Tab extends StatelessWidget {
+  const _Tab({required this.item, required this.selected, required this.onTap});
+
+  final TabBarItem item;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Semantics(
+      selected: selected,
+      button: true,
+      label: item.label,
+      excludeSemantics: true,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap,
+          customBorder: const StadiumBorder(),
+          mouseCursor: WidgetStateMouseCursor.clickable,
+          // Couleur et remplissage de l'icône suivent la pastille en fondu.
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(end: selected ? 1 : 0),
+            duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : FloatingTabBar.slideDuration,
+            curve: FloatingTabBar.slideCurve,
+            builder: (context, t, _) {
+              final c = Color.lerp(scheme.onSurface, scheme.primary, t);
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(item.icon, size: 24, fill: t, color: c),
+                  const SizedBox(height: 1),
+                  Text(
+                    item.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.2,
+                      fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                      color: c,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
 }

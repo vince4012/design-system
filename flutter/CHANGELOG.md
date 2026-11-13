@@ -1,3 +1,18 @@
+## 0.8.0
+
+Navigation par onglets, pour la version 2 de DiRecLy. **Aucun changement pour une appli desktop** (captures desktop identiques).
+
+- Nouveau `FloatingTabBar` (+ `TabBarItem`) : barre d'onglets flottante façon iOS, capsule de 58 (onglets de 50, icône 24,
+  libellé 12 sp), marges latérales de 24, fond `color.overlay.*` avec flou, sans ombre ; onglet choisi : pastille, icône pleine,
+  accent. `FloatingTabBar.positioned` la place dans un `Stack`, `FloatingTabBar.reserve` donne la marge basse du contenu.
+  La pastille glisse d'un onglet à l'autre (320 ms, `easeOutCubic`, `FloatingTabBar.slideDuration` / `slideCurve` pour que l'appli
+  fasse glisser ses pages pareil), couleur et remplissage de l'icône en fondu ; immédiat quand les animations sont coupées.
+- Tokens mobiles `size.tabBar` (58) et `space.tabBarSide` (24).
+- `MobilePage(onBack:)` : sous-écran, flèche retour seule à gauche du titre.
+- `GlassListTile(value:, chevron:)` : ligne de réglage façon iOS (valeur actuelle en gris, chevron vers un sous-écran).
+- Galerie mobile : écran « Navigation » (2 captures) ; les segments du haut passent à 4 (6 captures mobiles régénérées).
+- `android/res` régénéré (rattrape aussi les couleurs `hero` de la 0.7.0).
+
 ## 0.7.0
 
 Retours du premier écran réel de DiRecLy. **Aucun changement pour une appli desktop** (captures desktop identiques) ; mobile : le fond sombre change.
