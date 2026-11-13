@@ -1,3 +1,8 @@
+# Migration 0.7.0 → 0.8.0
+
+**Appli desktop** : rien à faire. Monter `ref: v0.8.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.
+**Appli mobile** : nouveaux `FloatingTabBar`, `MobilePage(onBack:)`, `GlassListTile(value:, chevron:)` ; rien n'est cassé.
+
 # Migration 0.5.0 → 0.6.0
 
 **Appli desktop** : rien à faire. Monter `ref: v0.6.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.

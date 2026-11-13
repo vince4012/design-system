@@ -98,9 +98,17 @@
     "pageToolbar": {
       "$value": 56,
       "$description": "Hauteur de la barre de titre compacte d'un écran (desktop : 40)."
+    },
+    "tabBar": {
+      "$value": 58,
+      "$description": "Hauteur de la barre d'onglets flottante (capsule) : icône 24 et libellé 12 dans des onglets de 50, marge de 4."
     }
   },
   "space": {
+    "tabBarSide": {
+      "$value": 24,
+      "$description": "Marge latérale de la barre d'onglets flottante (plus large que la marge d'écran, comme sur iOS) ; en bas : la marge d'écran."
+    },
     "screen": {
       "$value": 12,
       "$description": "Marge d'écran identique sur les quatre bords, y compris pour les éléments flottants sur une carte."

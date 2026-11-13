@@ -3,8 +3,8 @@
 <resources>
     <!-- Bleu électrique, thème sombre (bleu vif de Saracroche). 5,2:1 sur le fond ardoise. -->
     <color name="ds_color_accent">#FF0091FF</color>
-    <!-- Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée. -->
-    <color name="ds_color_background_bottom">#FF1D232D</color>
+    <!-- Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée (0.7.0 : #1D232D assombri, la partie claire du dégradé était trop présente). -->
+    <color name="ds_color_background_bottom">#FF171C24</color>
     <!-- Fond d'appli mobile, haut du dégradé (sombre) : ardoise très foncée. -->
     <color name="ds_color_background_top">#FF090B0E</color>
     <!-- Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent. -->
@@ -13,6 +13,10 @@
     <color name="ds_color_glass_highlight">#FFAAC3F0</color>
     <!-- Couleur de base du verre, sombre : bleu-ardoise. -->
     <color name="ds_color_glass_tint">#FF8CA5D7</color>
+    <!-- Pastille d'icône de la carte d'accueil, sombre : l'accent. -->
+    <color name="ds_color_hero_badge">#FF0091FF</color>
+    <!-- Carte d'accueil teintée, sombre : bleu nuit. -->
+    <color name="ds_color_hero_fill">#FF021627</color>
     <!-- Texte courant et titres, sombre : sable clair. -->
     <color name="ds_color_ink">#FFE8E6E1</color>
     <!-- Texte secondaire, sombre (7,1:1 sur le fond). -->

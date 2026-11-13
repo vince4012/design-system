@@ -53,6 +53,15 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
   contenu défilant, 80 % de la hauteur au plus ; se ferme en la tirant ou en touchant le voile. **Sans ombre** (voir § 4).
 - **Écran** : grand titre de 28 sp en haut à gauche, actions en icônes à droite (zone de 48 dp) ; un panneau d'action peut flotter en bas,
   à la marge d'écran, le contenu défilant gardant une marge basse pour ne pas rester caché dessous.
+- **Sous-écran** : flèche retour **seule** à gauche du titre (jamais le nom de l'écran précédent), titre en haut ; le geste retour du système
+  fait de même.
+- **Barre d'onglets** (2 à 5 onglets) : capsule flottante façon iOS, 58 dp de haut, marges latérales de 24 dp, à la marge d'écran au-dessus de
+  la zone de gestes ; fond `color.overlay.*` (flou en plus si disponible), sans ombre ; par onglet une icône de 24 dp et un libellé court de
+  12 sp ; onglet choisi : pastille discrète, icône pleine et libellé en accent. Le contenu défile dessous, avec une marge basse. Cachée quand
+  une tâche prend tout l'écran (enregistrement en cours, par exemple). Au changement d'onglet, la pastille glisse et les pages glissent
+  latéralement avec elle (même durée, même courbe), sans perdre leur état ; rien ne bouge quand les animations sont coupées.
+- **Ligne de réglage** (liste de réglages façon iOS) : icône, titre, valeur actuelle en gris à droite, chevron vers le sous-écran ; les lignes
+  sont groupées en cartes sous un petit titre de section.
 - **Puce à cocher** (canaux, format, débit) : 48 dp de haut et de large au moins, rayon 12 ; choisie : pleine en accent, texte `onAccent` ;
   non choisie : remplissage et bordure d'un champ ; désactivée : atténuée à 40 %. Une seconde ligne de 12 sp peut porter un nom ; l'appui
   long sert à une action secondaire (renommer), toujours annoncée par une phrase d'aide.

@@ -13,6 +13,10 @@
     <color name="ds_color_glass_highlight">#FFFFFFFF</color>
     <!-- Couleur de base du verre, clair : blanc. -->
     <color name="ds_color_glass_tint">#FFFFFFFF</color>
+    <!-- Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#006AC7, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible. -->
+    <color name="ds_color_hero_badge">#FF007AFF</color>
+    <!-- Carte d'accueil teintée (HeroCard), clair : bleu très pâle, comme la carte d'état de Saracroche. -->
+    <color name="ds_color_hero_fill">#FFD9EAFD</color>
     <!-- Texte courant et titres, clair : schiste. -->
     <color name="ds_color_ink">#FF23262B</color>
     <!-- Texte secondaire, clair (5,2:1 sur le fond). -->
