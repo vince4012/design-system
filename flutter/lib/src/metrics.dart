@@ -24,6 +24,7 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     required this.radiusDialog,
     required this.fontHeadline,
     required this.fontTitle,
+    required this.fontPageTitle,
     required this.fontSubtitle,
     required this.fontBody,
     required this.fontBodySmall,
@@ -58,6 +59,7 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
   final double radiusDialog;
   final double fontHeadline;
   final double fontTitle;
+  final double fontPageTitle;
   final double fontSubtitle;
   final double fontBody;
   final double fontBodySmall;
@@ -110,6 +112,8 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     radiusDialog: Tokens.radiusDialog,
     fontHeadline: Tokens.fontSizeHeadline,
     fontTitle: Tokens.fontSizeTitle,
+    // Pas de titre de page en script sur desktop : PageScaffold garde titleLarge.
+    fontPageTitle: Tokens.fontSizeTitle,
     fontSubtitle: Tokens.fontSizeSubtitle,
     fontBody: Tokens.fontSizeBody,
     fontBodySmall: Tokens.fontSizeBodySmall,
@@ -141,6 +145,7 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     radiusDialog: TokensMobile.radiusDialog,
     fontHeadline: TokensMobile.fontSizeHeadline,
     fontTitle: TokensMobile.fontSizeTitle,
+    fontPageTitle: TokensMobile.fontSizePageTitle,
     fontSubtitle: TokensMobile.fontSizeSubtitle,
     fontBody: TokensMobile.fontSizeBody,
     fontBodySmall: TokensMobile.fontSizeBodySmall,

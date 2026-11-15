@@ -17,6 +17,20 @@
     <color name="ds_color_hero_badge">#FF0091FF</color>
     <!-- Carte d'accueil teintée, sombre : bleu nuit. -->
     <color name="ds_color_hero_fill">#FF021627</color>
+    <!-- Illustrations : carte du fond (sombre). -->
+    <color name="ds_color_illustration_back">#FF10151C</color>
+    <!-- Illustrations : bordure de la carte du fond (sombre). -->
+    <color name="ds_color_illustration_back_border">#FF232B37</color>
+    <!-- Illustrations : carte de devant (sombre). -->
+    <color name="ds_color_illustration_front">#FF1A2029</color>
+    <!-- Illustrations : bordure de la carte de devant (sombre). -->
+    <color name="ds_color_illustration_front_border">#FF34404F</color>
+    <!-- Illustrations : carte du milieu (sombre). -->
+    <color name="ds_color_illustration_mid">#FF151B24</color>
+    <!-- Illustrations : bordure de la carte du milieu (sombre). -->
+    <color name="ds_color_illustration_mid_border">#FF2C3441</color>
+    <!-- Illustrations : lignes et barres grises du contenu des cartes (sombre). -->
+    <color name="ds_color_illustration_skeleton">#FF6F7D90</color>
     <!-- Texte courant et titres, sombre : sable clair. -->
     <color name="ds_color_ink">#FFE8E6E1</color>
     <!-- Texte secondaire, sombre (7,1:1 sur le fond). -->
@@ -27,6 +41,10 @@
     <color name="ds_color_overlay_border">#2EAAC3F0</color>
     <!-- Idem, sombre (ardoise à ~88 %). -->
     <color name="ds_color_overlay_fill">#E01D232D</color>
+    <!-- Titre de page, début du dégradé (sombre) : l'accent, à gauche. -->
+    <color name="ds_color_page_title_from">#FF0091FF</color>
+    <!-- Titre de page, fin du dégradé (sombre) : bleu ciel, à droite. -->
+    <color name="ds_color_page_title_to">#FF62C8FF</color>
     <!-- Contour du tracé, sombre : blanc. -->
     <color name="ds_color_route_casing">#FFFFFFFF</color>
     <!-- Tracé / progression d'un itinéraire, sombre. -->

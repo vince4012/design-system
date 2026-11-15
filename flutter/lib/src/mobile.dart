@@ -60,14 +60,7 @@ class MobilePage extends StatelessWidget {
                           )
                         else
                           const SizedBox(width: Tokens.spaceXs),
-                        Expanded(
-                          child: Text(
-                            title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
+                        Expanded(child: PageTitle(title)),
                         ...actions,
                       ],
                     ),
@@ -82,6 +75,112 @@ class MobilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Titre de page de la famille mobile (depuis la 0.9.0) : Kaushan Script (embarquée dans le paquet, une seule graisse :
+/// jamais de gras), 32 sp, hauteur de ligne 1,1 pour que les hampes ne soient pas coupées, en dégradé léger de gauche à
+/// droite (`color.pageTitle`, une paire par thème). Réservé aux titres de page : le texte courant et les titres de carte
+/// restent en police du système. Le dégradé couvre la largeur du texte, pas celle de la ligne.
+class PageTitle extends StatelessWidget {
+  const PageTitle(this.text, {super.key});
+
+  final String text;
+
+  /// Famille déclarée dans le pubspec du paquet (fonts/KaushanScript-Regular.ttf, licence SIL OFL).
+  static const family = 'KaushanScript';
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final from = dark ? TokensMobile.colorPageTitleDarkFrom : TokensMobile.colorPageTitleLightFrom;
+    final to = dark ? TokensMobile.colorPageTitleDarkTo : TokensMobile.colorPageTitleLightTo;
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Semantics(
+        header: true,
+        child: ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) => LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [from, to],
+          ).createShader(bounds),
+          // Marge : les traits de la script (queue du dernier « s », hampes) dépassent la boîte du texte ; hors du
+          // dégradé ils resteraient blancs.
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(2, 6, 12, 6),
+            child: Text(
+              text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: family,
+                package: 'vb_design',
+                fontSize: DesignMetrics.of(context).fontPageTitle,
+                fontWeight: FontWeight.w400,
+                height: 1.1,
+                // La couleur est remplacée par le dégradé ; blanc pour que srcIn la prenne en entier.
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Estompe le haut d'une liste qui défile (depuis la 0.9.0) : à mesure que le contenu monte sous le titre de la page, ses
+/// premiers [height] dp deviennent transparents au lieu d'être coupés net par une ligne. Au repos (liste tout en haut) rien
+/// n'est estompé : la première carte reste entière. À poser **directement autour du défilant** (pas autour d'un champ de
+/// recherche ni d'une barre flottante, qui s'estomperaient aussi) ; c'est le pendant du fondu du bas d'écran des applis.
+/// Le premier défilant vertical sous lui commande l'effet.
+class ScrollFade extends StatefulWidget {
+  const ScrollFade({super.key, this.height = 28, required this.child});
+
+  /// Hauteur de la zone qui s'estompe, en haut.
+  final double height;
+  final Widget child;
+
+  @override
+  State<ScrollFade> createState() => _ScrollFadeState();
+}
+
+class _ScrollFadeState extends State<ScrollFade> {
+  /// 0 au repos, 1 dès que le contenu a défilé de [ScrollFade.height].
+  double _strength = 0;
+
+  bool _onScroll(ScrollNotification n) {
+    if (n.depth != 0 || n.metrics.axis != Axis.vertical) return false;
+    final s = (n.metrics.pixels / widget.height).clamp(0.0, 1.0);
+    if (s != _strength) setState(() => _strength = s);
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) => NotificationListener<ScrollNotification>(
+    onNotification: _onScroll,
+    child: ShaderMask(
+      blendMode: BlendMode.dstIn,
+      shaderCallback: (rect) {
+        final end = (widget.height / (rect.height <= 0 ? 1 : rect.height)).clamp(0.0, 1.0);
+        final s = _strength;
+        return LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.white.withValues(alpha: 1 - s),
+            Colors.white.withValues(alpha: 1 - s * 0.55),
+            Colors.white.withValues(alpha: 1 - s * 0.2),
+            Colors.white,
+            Colors.white,
+          ],
+          stops: [0, end * 0.35, end * 0.7, end, 1],
+        ).createShader(rect);
+      },
+      child: widget.child,
+    ),
+  );
 }
 
 /// Ouvre une feuille basse en verre au-dessus d'un voile (réglages, choix).
@@ -651,7 +750,9 @@ class FloatingTabBar extends StatelessWidget {
           decoration: BoxDecoration(
             color: dark ? TokensMobile.colorOverlayFillDark : TokensMobile.colorOverlayFillLight,
             borderRadius: radius,
-            border: Border.all(color: dark ? TokensMobile.colorOverlayBorderDark : TokensMobile.colorOverlayBorderLight),
+            border: Border.all(
+              color: dark ? TokensMobile.colorOverlayBorderDark : TokensMobile.colorOverlayBorderLight,
+            ),
           ),
           // La pastille de l'onglet choisi glisse d'un onglet à l'autre (immédiate si les animations sont coupées).
           child: LayoutBuilder(

@@ -1,3 +1,13 @@
+# Migration 0.8.1 → 0.9.0
+
+**Appli desktop** : rien à faire. Monter `ref: v0.9.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.
+**Appli mobile** : les titres de page (`MobilePage`) passent en Kaushan Script (police embarquée dans le paquet, rien à déclarer
+dans l'appli) avec un dégradé léger, et la bande du titre passe à 74 dp ; les captures de référence de l'appli changeront.
+Nouveautés facultatives : `ScrollFade` (haut de liste estompé, à poser autour du défilant), `StackedCardsIllustration` et
+`EmptyState(illustration:, title:, action:)` pour les écrans vides, tokens `color.pageTitle.*` et `color.illustration.*`.
+**Piège** : une police ajoutée à un paquet branché par `path` n'est embarquée qu'après `rm -rf .dart_tool/flutter_build`
+(branché par `ref` Git, rien à faire). **Appli Android native** : recopier `android/res` (couleurs et une dimension changées).
+
 # Migration 0.7.0 → 0.8.0
 
 **Appli desktop** : rien à faire. Monter `ref: v0.8.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.

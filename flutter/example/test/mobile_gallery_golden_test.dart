@@ -20,6 +20,10 @@ Future<void> _loadFonts() async {
         ..addFont(load('$fonts/Roboto-Medium.ttf'))
         ..addFont(load('$fonts/Roboto-Bold.ttf')))
       .load();
+  // Titres de page : Kaushan Script, embarquée dans le paquet (famille « packages/vb_design/KaushanScript »).
+  await (FontLoader(
+    'packages/vb_design/${PageTitle.family}',
+  )..addFont(load('../fonts/KaushanScript-Regular.ttf'))).load();
   // Icônes Material Symbols (contour) : la police est dans le paquet material_symbols_icons.
   final packages = jsonDecode(File('.dart_tool/package_config.json').readAsStringSync())['packages'] as List;
   final symbols = packages.firstWhere((p) => p['name'] == 'material_symbols_icons')['rootUri'] as String;

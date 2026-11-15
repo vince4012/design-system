@@ -13,9 +13,11 @@
     <dimen name="ds_font_size_headline">34sp</dimen>
     <!-- Étiquettes de statut, unités (km/h) (desktop : 11). -->
     <dimen name="ds_font_size_micro">12sp</dimen>
+    <!-- Titre de page, en haut de l'écran, en Kaushan Script (une seule graisse, jamais de gras) avec un dégradé léger (color.pageTitle). Les hampes demandent une hauteur de ligne de 1,1. -->
+    <dimen name="ds_font_size_page_title">32sp</dimen>
     <!-- Titres de carte et de dialogue (desktop : 14). -->
     <dimen name="ds_font_size_subtitle">19sp</dimen>
-    <!-- Titre de page, en haut de l'écran (desktop : 17). -->
+    <!-- Titre de carte large, de feuille (desktop : 17). Les titres de page ont leur propre style : voir pageTitle. -->
     <dimen name="ds_font_size_title">28sp</dimen>
     <!-- Opacité du fond avec la fenêtre native (macOS, clair) : 1 = opaque, le bureau ne transparaît pas. Baisser pour retrouver le flou natif. -->
     <item name="ds_opacity_background_translucent" format="float" type="dimen">1</item>
@@ -47,8 +49,8 @@
     <dimen name="ds_size_list_row">56dp</dimen>
     <!-- Boutons ronds flottants (enregistrer, arrêter) ou posés sur une carte / un contenu plein écran (contrôle + 8). -->
     <dimen name="ds_size_map_button">56dp</dimen>
-    <!-- Hauteur de la barre de titre compacte d'un écran (desktop : 40). -->
-    <dimen name="ds_size_page_toolbar">56dp</dimen>
+    <!-- Hauteur minimale de la bande de titre d'un écran (desktop : 40). 0.9.0 : 56 → 74 = une carte dépliable repliée (ligne de liste + 8 = 64) plus l'écart entre deux cartes (10), pour que le titre en script respire. -->
+    <dimen name="ds_size_page_toolbar">74dp</dimen>
     <!-- Largeur de la barre de progression verticale d'un trajet. -->
     <dimen name="ds_size_progress_bar">14dp</dimen>
     <!-- Coche ronde d'une ligne en mode sélection multiple (dans une zone tactile de 48). -->

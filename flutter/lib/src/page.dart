@@ -65,23 +65,64 @@ class PageScaffold extends StatelessWidget {
   }
 }
 
-/// État vide centré : icône et message.
+/// État vide centré : icône et message ; ou, avec une [illustration] (depuis la 0.9.0), l'illustration, un [title], le
+/// message et une [action] facultative (un bouton). Le bloc ne défile pas : trop haut pour son conteneur, il rétrécit.
 class EmptyState extends StatelessWidget {
-  const EmptyState({super.key, required this.icon, required this.message});
+  const EmptyState({super.key, required this.icon, required this.message, this.illustration, this.title, this.action});
 
   final IconData icon;
   final String message;
 
+  /// Remplace l'icône (voir [StackedCardsIllustration]).
+  final Widget? illustration;
+
+  /// Titre court sous l'illustration, en police normale semi-grasse (pas en script : réservé aux titres de page).
+  final String? title;
+
+  /// Bouton d'invitation sous le message.
+  final Widget? action;
+
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.onSurfaceVariant;
+    final theme = Theme.of(context);
+    final color = theme.colorScheme.onSurfaceVariant;
+    if (illustration != null) {
+      return Center(
+        // Sans défilement (il volerait le geste de « tirer pour actualiser » du conteneur) : si l'écran est trop bas,
+        // le bloc rétrécit.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 340),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  illustration!,
+                  const SizedBox(height: 14),
+                  if (title != null) Text(title!, textAlign: TextAlign.center, style: theme.textTheme.titleMedium),
+                  if (title != null) const SizedBox(height: 6),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(color: color),
+                  ),
+                  if (action != null) ...[const SizedBox(height: 18), action!],
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(icon, size: 40, color: color.withValues(alpha: 0.5)),
           const SizedBox(height: 10),
-          Text(message, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: color)),
+          Text(message, style: theme.textTheme.bodyMedium?.copyWith(color: color)),
         ],
       ),
     );

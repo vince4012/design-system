@@ -17,6 +17,20 @@
     <color name="ds_color_hero_badge">#FF007AFF</color>
     <!-- Carte d'accueil teintée (HeroCard), clair : bleu très pâle, comme la carte d'état de Saracroche. -->
     <color name="ds_color_hero_fill">#FFD9EAFD</color>
+    <!-- Illustrations : carte du fond (clair). -->
+    <color name="ds_color_illustration_back">#FFF1EEE8</color>
+    <!-- Illustrations : bordure de la carte du fond (clair). -->
+    <color name="ds_color_illustration_back_border">#FFE2DED6</color>
+    <!-- Illustrations : carte de devant (clair). -->
+    <color name="ds_color_illustration_front">#FFFBFAF8</color>
+    <!-- Illustrations : bordure de la carte de devant (clair). -->
+    <color name="ds_color_illustration_front_border">#FFD3CFC6</color>
+    <!-- Illustrations : carte du milieu (clair). -->
+    <color name="ds_color_illustration_mid">#FFF6F3EE</color>
+    <!-- Illustrations : bordure de la carte du milieu (clair). -->
+    <color name="ds_color_illustration_mid_border">#FFDCD8D0</color>
+    <!-- Illustrations : lignes et barres grises du contenu des cartes (clair). -->
+    <color name="ds_color_illustration_skeleton">#FFA3ACB8</color>
     <!-- Texte courant et titres, clair : schiste. -->
     <color name="ds_color_ink">#FF23262B</color>
     <!-- Texte secondaire, clair (5,2:1 sur le fond). -->
@@ -27,6 +41,10 @@
     <color name="ds_color_overlay_border">#2923262B</color>
     <!-- Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité). -->
     <color name="ds_color_overlay_fill">#E6FAF8F4</color>
+    <!-- Titre de page, début du dégradé (clair) : bleu profond, à gauche. -->
+    <color name="ds_color_page_title_from">#FF00479E</color>
+    <!-- Titre de page, fin du dégradé (clair) : bleu vif, à droite (3,2:1 sur le haut du fond sable, assez pour un grand titre). -->
+    <color name="ds_color_page_title_to">#FF0F7FE6</color>
     <!-- Contour du tracé et de sa barre de progression, clair : gris moyen translucide (blanc invisible sur carte claire). -->
     <color name="ds_color_route_casing">#B3707070</color>
     <!-- Tracé / progression d'un itinéraire, clair. -->

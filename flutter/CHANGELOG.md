@@ -1,3 +1,19 @@
+## 0.9.0
+
+Personnalité des titres de page (famille mobile). **Aucun changement pour une appli desktop** (captures desktop identiques).
+
+- Nouveau `PageTitle` (utilisé par `MobilePage`, donc par tous les écrans et sous-écrans) : **Kaushan Script** embarquée dans le paquet
+  (`fonts/KaushanScript-Regular.ttf`, licence SIL OFL dans `fonts/OFL.txt`, déclarée dans le `pubspec.yaml` du paquet : hors ligne, pas de
+  `google_fonts`), 32 sp, hauteur de ligne 1,1, une seule graisse (jamais de gras), **dégradé léger** de gauche à droite.
+- Tokens mobiles : `font.size.pageTitle` (32) et `color.pageTitle.{light,dark}.{from,to}` (clair : #00479E → #0F7FE6, sombre : #0091FF →
+  #62C8FF ; fin de dégradé à 3,2:1 au moins sur le fond, assez pour un grand titre). `DesignMetrics.fontPageTitle`.
+- `size.pageToolbar` mobile 56 → 74 : la bande du titre a la hauteur d'une carte dépliable repliée (64) plus l'écart entre deux cartes (10).
+- Nouveau `ScrollFade` : le haut d'une liste qui défile s'estompe (28 dp) à mesure que le contenu monte sous le titre, au lieu d'être coupé net ; rien n'est estompé au repos. À poser directement autour du défilant. Mesuré sur Pixel 4a (release) : 0 image perdue au défilement.
+- Système d'illustration, premier volet : `StackedCardsIllustration(IllustrationKind.record | idea)` (trois cartes de verre empilées, un contenu simple sur celle de devant, à droite une pastille d'état aux anneaux qui s'élargissent en boucle comme les ondes du bouton d'enregistrement ; immobile si les animations sont coupées) et `EmptyState(illustration:, title:, action:)` (illustration, titre en police normale semi-grasse, message, bouton ; le bloc rétrécit s'il est trop haut au lieu de défiler). Dessinées en code aux couleurs des tokens `color.illustration.*` (cartes, bordures, lignes grises), du rouge de l'enregistrement et du jaune d'« Idée » du thème ; l'ampoule est le glyphe `lightbulb` de l'état « Idée ». Tests `illustrations_test.dart`.
+- `font.size.title` (28) reste pour les titres de feuille et de carte large ; `PageScaffold` (desktop) garde `titleLarge`.
+- 8 captures mobiles régénérées (le titre) ; la galerie de test charge la police du paquet.
+- Hors thème Flutter par défaut : le reste du `TextTheme` n'a pas bougé.
+
 ## 0.8.1
 
 Fluidité sur mobile. **Aucun changement pour une appli desktop** (captures desktop identiques).

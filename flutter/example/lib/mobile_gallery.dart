@@ -423,7 +423,13 @@ class _NavPage extends StatelessWidget {
       const SizedBox(height: 8),
       GlassGroup(
         children: [
-          GlassListTile(icon: Symbols.usb, title: 'X18/XR18', subtitle: '18 sorties', trailing: [_check(context)], onTap: () {}),
+          GlassListTile(
+            icon: Symbols.usb,
+            title: 'X18/XR18',
+            subtitle: '18 sorties',
+            trailing: [_check(context)],
+            onTap: () {},
+          ),
           GlassListTile(icon: Symbols.headphones, title: 'Casque filaire', onTap: () {}),
           GlassListTile(icon: Symbols.phone_android, title: 'Haut-parleur du téléphone', onTap: () {}),
         ],

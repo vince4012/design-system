@@ -236,6 +236,42 @@ abstract final class TokensMobile {
   static const colorTooltipLight = Color(0xEE23262B);
   /// Fond des bulles d'aide (sombre), texte blanc.
   static const colorTooltipDark = Color(0xF22B2E33);
+  /// Illustrations : carte du fond (clair).
+  static const colorIllustrationLightBack = Color(0xFFF1EEE8);
+  /// Illustrations : bordure de la carte du fond (clair).
+  static const colorIllustrationLightBackBorder = Color(0xFFE2DED6);
+  /// Illustrations : carte du milieu (clair).
+  static const colorIllustrationLightMid = Color(0xFFF6F3EE);
+  /// Illustrations : bordure de la carte du milieu (clair).
+  static const colorIllustrationLightMidBorder = Color(0xFFDCD8D0);
+  /// Illustrations : carte de devant (clair).
+  static const colorIllustrationLightFront = Color(0xFFFBFAF8);
+  /// Illustrations : bordure de la carte de devant (clair).
+  static const colorIllustrationLightFrontBorder = Color(0xFFD3CFC6);
+  /// Illustrations : lignes et barres grises du contenu des cartes (clair).
+  static const colorIllustrationLightSkeleton = Color(0xFFA3ACB8);
+  /// Illustrations : carte du fond (sombre).
+  static const colorIllustrationDarkBack = Color(0xFF10151C);
+  /// Illustrations : bordure de la carte du fond (sombre).
+  static const colorIllustrationDarkBackBorder = Color(0xFF232B37);
+  /// Illustrations : carte du milieu (sombre).
+  static const colorIllustrationDarkMid = Color(0xFF151B24);
+  /// Illustrations : bordure de la carte du milieu (sombre).
+  static const colorIllustrationDarkMidBorder = Color(0xFF2C3441);
+  /// Illustrations : carte de devant (sombre).
+  static const colorIllustrationDarkFront = Color(0xFF1A2029);
+  /// Illustrations : bordure de la carte de devant (sombre).
+  static const colorIllustrationDarkFrontBorder = Color(0xFF34404F);
+  /// Illustrations : lignes et barres grises du contenu des cartes (sombre).
+  static const colorIllustrationDarkSkeleton = Color(0xFF6F7D90);
+  /// Titre de page, début du dégradé (clair) : bleu profond, à gauche.
+  static const colorPageTitleLightFrom = Color(0xFF00479E);
+  /// Titre de page, fin du dégradé (clair) : bleu vif, à droite (3,2:1 sur le haut du fond sable, assez pour un grand titre).
+  static const colorPageTitleLightTo = Color(0xFF0F7FE6);
+  /// Titre de page, début du dégradé (sombre) : l'accent, à gauche.
+  static const colorPageTitleDarkFrom = Color(0xFF0091FF);
+  /// Titre de page, fin du dégradé (sombre) : bleu ciel, à droite.
+  static const colorPageTitleDarkTo = Color(0xFF62C8FF);
   /// Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité).
   static const colorOverlayFillLight = Color(0xE6FAF8F4);
   /// Idem, sombre (ardoise à ~88 %).
@@ -298,7 +334,7 @@ abstract final class TokensMobile {
   static const radiusDialog = 24.0;
   /// Grand titre d'écran (rare), comme Saracroche.
   static const fontSizeHeadline = 34.0;
-  /// Titre de page, en haut de l'écran (desktop : 17).
+  /// Titre de carte large, de feuille (desktop : 17). Les titres de page ont leur propre style : voir pageTitle.
   static const fontSizeTitle = 28.0;
   /// Titres de carte et de dialogue (desktop : 14).
   static const fontSizeSubtitle = 19.0;
@@ -310,6 +346,8 @@ abstract final class TokensMobile {
   static const fontSizeCaption = 13.0;
   /// Étiquettes de statut, unités (km/h) (desktop : 11).
   static const fontSizeMicro = 12.0;
+  /// Titre de page, en haut de l'écran, en Kaushan Script (une seule graisse, jamais de gras) avec un dégradé léger (color.pageTitle). Les hampes demandent une hauteur de ligne de 1,1.
+  static const fontSizePageTitle = 32.0;
   /// Hauteur des contrôles tactiles : boutons capsule, champs, segments (desktop : 38). Cible tactile minimale.
   static const sizeControl = 48.0;
   /// Zone de l'icône brute d'une ligne de liste (desktop : 30 ; l'icône mobile est plus grande à l'écran mais sans zone dédiée).
@@ -322,8 +360,8 @@ abstract final class TokensMobile {
   static const sizeSidebarWidth = 210.0;
   /// Hauteur de la barre d'outils native macOS (unifiée).
   static const sizeToolbar = 52.0;
-  /// Hauteur de la barre de titre compacte d'un écran (desktop : 40).
-  static const sizePageToolbar = 56.0;
+  /// Hauteur minimale de la bande de titre d'un écran (desktop : 40). 0.9.0 : 56 → 74 = une carte dépliable repliée (ligne de liste + 8 = 64) plus l'écart entre deux cartes (10), pour que le titre en script respire.
+  static const sizePageToolbar = 74.0;
   /// Cible tactile minimale de tout élément cliquable, y compris icône seule.
   static const sizeTouchMin = 48.0;
   /// Hauteur minimale d'une ligne de liste (contrôle + 8).

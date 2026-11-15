@@ -26,7 +26,11 @@
       },
       "title": {
         "$value": 28,
-        "$description": "Titre de page, en haut de l'écran (desktop : 17)."
+        "$description": "Titre de carte large, de feuille (desktop : 17). Les titres de page ont leur propre style : voir pageTitle."
+      },
+      "pageTitle": {
+        "$value": 32,
+        "$description": "Titre de page, en haut de l'écran, en Kaushan Script (une seule graisse, jamais de gras) avec un dégradé léger (color.pageTitle). Les hampes demandent une hauteur de ligne de 1,1."
       },
       "subtitle": {
         "$value": 19,
@@ -96,8 +100,8 @@
       "$description": "Largeur de la barre de progression verticale d'un trajet."
     },
     "pageToolbar": {
-      "$value": 56,
-      "$description": "Hauteur de la barre de titre compacte d'un écran (desktop : 40)."
+      "$value": 74,
+      "$description": "Hauteur minimale de la bande de titre d'un écran (desktop : 40). 0.9.0 : 56 → 74 = une carte dépliable repliée (ligne de liste + 8 = 64) plus l'écart entre deux cartes (10), pour que le titre en script respire."
     },
     "tabBar": {
       "$value": 58,
@@ -142,6 +146,48 @@
         "bottom": {
           "$value": "#171C24",
           "$description": "Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée (0.7.0 : #1D232D assombri, la partie claire du dégradé était trop présente)."
+        }
+      }
+    },
+    "illustration": {
+      "light": {
+        "back": { "$value": "#F1EEE8", "$description": "Illustrations : carte du fond (clair)." },
+        "backBorder": { "$value": "#E2DED6", "$description": "Illustrations : bordure de la carte du fond (clair)." },
+        "mid": { "$value": "#F6F3EE", "$description": "Illustrations : carte du milieu (clair)." },
+        "midBorder": { "$value": "#DCD8D0", "$description": "Illustrations : bordure de la carte du milieu (clair)." },
+        "front": { "$value": "#FBFAF8", "$description": "Illustrations : carte de devant (clair)." },
+        "frontBorder": { "$value": "#D3CFC6", "$description": "Illustrations : bordure de la carte de devant (clair)." },
+        "skeleton": { "$value": "#A3ACB8", "$description": "Illustrations : lignes et barres grises du contenu des cartes (clair)." }
+      },
+      "dark": {
+        "back": { "$value": "#10151C", "$description": "Illustrations : carte du fond (sombre)." },
+        "backBorder": { "$value": "#232B37", "$description": "Illustrations : bordure de la carte du fond (sombre)." },
+        "mid": { "$value": "#151B24", "$description": "Illustrations : carte du milieu (sombre)." },
+        "midBorder": { "$value": "#2C3441", "$description": "Illustrations : bordure de la carte du milieu (sombre)." },
+        "front": { "$value": "#1A2029", "$description": "Illustrations : carte de devant (sombre)." },
+        "frontBorder": { "$value": "#34404F", "$description": "Illustrations : bordure de la carte de devant (sombre)." },
+        "skeleton": { "$value": "#6F7D90", "$description": "Illustrations : lignes et barres grises du contenu des cartes (sombre)." }
+      }
+    },
+    "pageTitle": {
+      "light": {
+        "from": {
+          "$value": "#00479E",
+          "$description": "Titre de page, début du dégradé (clair) : bleu profond, à gauche."
+        },
+        "to": {
+          "$value": "#0F7FE6",
+          "$description": "Titre de page, fin du dégradé (clair) : bleu vif, à droite (3,2:1 sur le haut du fond sable, assez pour un grand titre)."
+        }
+      },
+      "dark": {
+        "from": {
+          "$value": "#0091FF",
+          "$description": "Titre de page, début du dégradé (sombre) : l'accent, à gauche."
+        },
+        "to": {
+          "$value": "#62C8FF",
+          "$description": "Titre de page, fin du dégradé (sombre) : bleu ciel, à droite."
         }
       }
     },

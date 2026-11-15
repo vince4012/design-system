@@ -17,7 +17,7 @@ Applis clientes : FiiDrive (Android natif), DiRecLy (Flutter, `vbTheme(…, fami
 | Contrôles | 38 pt | **48 dp** |
 | Texte courant | 13 pt | **17 sp** |
 | Texte secondaire | 12 pt | **14 sp** |
-| Titre de page | 17 pt, dans la barre d'outils | **28 sp**, en haut de l'écran |
+| Titre de page | 17 pt, dans la barre d'outils | **32 sp en Kaushan Script**, dégradé léger, en haut de l'écran |
 | Rayon des cartes | 14–16 pt | **20 dp** |
 | Fond | dégradé plus clair en haut, plus foncé en bas | dégradé **inversé** : plus foncé en haut, plus clair en bas (surcharge `color.background.*`) |
 | Navigation | barre latérale flottante | pas de barre latérale (barre d'onglets ou écran unique selon l'appli) |
@@ -51,8 +51,11 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Dialogue** : verre opaque, rayon 24, à 20 dp des bords ; boutons à droite (Annuler, puis l'action).
 - **Feuille basse** (réglages, choix) : verre opaque, rayon 24, **flottante** à la marge d'écran (12 dp), poignée de 36 × 4 en haut, titre,
   contenu défilant, 80 % de la hauteur au plus ; se ferme en la tirant ou en touchant le voile. **Sans ombre** (voir § 4).
-- **Écran** : grand titre de 28 sp en haut à gauche, actions en icônes à droite (zone de 48 dp) ; un panneau d'action peut flotter en bas,
+- **Écran** : grand titre de 32 sp en haut à gauche (`PageTitle` : Kaushan Script, une seule graisse donc **jamais de gras**, hauteur de ligne 1,1, dégradé léger de gauche à droite, une paire de couleurs par thème ; réservé aux titres de page, le reste du texte garde la police du système), actions en icônes à droite (zone de 48 dp) ; un panneau d'action peut flotter en bas,
   à la marge d'écran, le contenu défilant gardant une marge basse pour ne pas rester caché dessous.
+- **Écran vide** (`EmptyState(illustration:)`) : une illustration, un titre court (police normale semi-grasse, jamais en script : le script est réservé aux titres de page), une phrase qui dit quoi faire, et un bouton quand l'action est sur la page (pas quand le bouton principal est juste en dessous, comme l'enregistrement).
+- **Illustrations** (`StackedCardsIllustration`) : formes simples et arrondies, trois cartes de verre empilées, couleurs des tokens (`color.illustration.*`) plus le rouge de l'enregistrement et le jaune d'« Idée » du thème, trait fin, ni flou ni ombre, dessinées en code (nettes à toute taille, deux thèmes sans fichier). Le mouvement est celui du vrai bouton (anneaux qui s'élargissent, 2,4 s) et s'arrête quand les animations sont coupées ; une seule animation par écran, dans une zone de repeinture à part.
+- **Défilement sous le titre** : le contenu qui monte sous le titre s'estompe (`ScrollFade`, 28 dp, seulement une fois la liste défilée) au lieu d'être coupé par une ligne ; même effet en bas d'écran sous une barre flottante. Pas de flou en mouvement : il fait ramer un téléphone moyen.
 - **Sous-écran** : flèche retour **seule** à gauche du titre (jamais le nom de l'écran précédent), titre en haut ; le geste retour du système
   fait de même.
 - **Barre d'onglets** (2 à 5 onglets) : capsule flottante façon iOS, 58 dp de haut, marges latérales de 24 dp, à la marge d'écran au-dessus de

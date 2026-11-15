@@ -15,15 +15,17 @@ docs/regles-ux-ui-mobile.md  règles UX/UI mobiles (complément, 0.4 en prépara
 tokens/tokens.json      valeurs de design — SOCLE (couleurs, verre, valeurs desktop)
 tokens/tokens.mobile.json  surcharges de la famille MOBILE (fusion par chemin, voir tokens/README.md)
 flutter/                package Flutter vb_design
+  fonts/KaushanScript-Regular.ttf, OFL.txt   police des titres de page mobile (SIL OFL), famille KaushanScript
   lib/vb_design.dart    exports publics
   lib/src/tokens.g.dart GÉNÉRÉ (ne pas éditer NI FORMATER) : Tokens (tokens.json) et TokensMobile (+ tokens.mobile.json)
   lib/src/metrics.dart  DesignFamily, DesignMetrics (dimensions selon la famille, posées dans le thème)
   lib/src/theme.dart    vbTheme(Brightness, family:), ThemeModeStore
-  lib/src/mobile.dart   MobilePage, showGlassSheet, GlassSheet, SectionLabel, AppChip, RoundButton, SelectionMark, GlassDisclosure, promptName, HeroCard, AppToggleGroup, FloatingTabBar
+  lib/src/mobile.dart   MobilePage, PageTitle (Kaushan Script + dégradé), ScrollFade (haut de liste estompé), showGlassSheet, GlassSheet, SectionLabel, AppChip, RoundButton, SelectionMark, GlassDisclosure, promptName, HeroCard, AppToggleGroup, FloatingTabBar
   lib/src/design_scope.dart  DesignScope (fenêtre native active ?)
   lib/src/background.dart    AppBackground
   lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
   lib/src/forms.dart    AppTextField, DateField, AppSwitch, AppSwitchTile, FieldRow, requiredField, GlassDialog, showGlassDialog, FormDialog, confirm, showMessage
+  lib/src/illustrations.dart  StackedCardsIllustration (écrans vides, tokens color.illustration.*)
   lib/src/page.dart     PageScaffold, EmptyState
   lib/src/shell.dart    GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch
   lib/src/native_window.dart  NativeWindow (macOS), ToolbarItem
@@ -187,3 +189,10 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 13/11/2026 | **Publié en 0.8.0** (validée par le propriétaire sur DiRecLy) : branche `v0.8-tab-bar` fusionnée dans `main`, tag `v0.8.0`, ref du README, `MIGRATION.md` (0.7.0 → 0.8.0). **Reste à faire** : mettre à jour l'artifact Claude (aperçus `FloatingTabBar`, ligne de réglage, sous-écran ; tokens `size.tabBar`, `space.tabBarSide`). |
 | 15/11/2026 | **0.8.1 (non publiée)** pour DiRecLy : `Glass(blur:)`, flou et ombre coupés par défaut sur les cartes du mobile (le flou reste sur desktop, feuilles et dialogues) ; cause d'un lag mesuré sur Pixel 4a (25 à 50 % d'images perdues au changement d'onglet, 0 à 2 % sans flou). Analyse, tests package et galerie OK, 6 captures mobiles régénérées. **Reste à faire** : validation du propriétaire, tag `v0.8.1`, ref du README. Rien n'est commité. |
 | 15/11/2026 | **Publié en 0.8.1** (validée par le propriétaire sur le Pixel 4a : 0 à 2 % d'images perdues au changement d'onglet) : tag `v0.8.1`, ref du README. Reste : artifact Claude (rien de visible à y changer). |
+| 15/11/2026 | **0.9.0 (non publiée)** pour DiRecLy, premier volet du chantier « en-têtes » : titres de page en Kaushan Script (`PageTitle`, police embarquée dans le paquet depuis le dépôt google/fonts, OFL), 32 sp, dégradé léger par thème (tokens mobiles `color.pageTitle.*`, `font.size.pageTitle`), marge autour du texte pour que la queue des lettres reste dans le dégradé. Tests package 4, galerie 19 OK, 8 captures mobiles régénérées. Piège : après avoir ajouté une police à un paquet branché par `path`, l'appli doit nettoyer `.dart_tool/flutter_build` (sinon l'APK ne l'embarque pas). **Reste à faire** : validation du propriétaire sur le Pixel, tag `v0.9.0`, ref du README, `MIGRATION.md`. Rien n'est commité. |
+| 15/11/2026 | 0.9.0 (non publiée) : sur demande du propriétaire, `size.pageToolbar` mobile 56 → 64 (hauteur d'une carte dépliable repliée : ligne de liste + 8). Tests package 4, galerie 19 OK, captures mobiles régénérées, vérifié sur le Pixel. |
+| 15/11/2026 | 0.9.0 (non publiée) : `ScrollFade` (haut d'une liste estompé selon le défilement, pendant du fondu du bas des applis), test `scroll_fade_test.dart` ; appliqué dans DiRecLy à Sessions, Morceaux, Réglages et sous-écrans. Pixel 4a release : 0 image perdue (repos, défilement, onglets). |
+| 15/11/2026 | 0.9.0 (non publiée) : `size.pageToolbar` mobile 74 (56 → 64 → 74 : une carte repliée + l'écart entre deux cartes), captures mobiles régénérées, tests OK. |
+| 15/11/2026 | Essayé puis **abandonné** à la demande du propriétaire (rien n'est gardé) : une grande icône de page en filigrane en haut à droite, sous le titre (`MobilePage(icon:)`). Sur Sessions elle était discrète et jolie ; sur Morceaux elle rendait confuse la zone des actions, sur Réglages l'engrenage était massif. Ne pas le reproposer tel quel. |
+| 15/11/2026 | 0.9.0 (non publiée) : système d'illustration, premier volet pour les écrans vides de DiRecLy (maquettes validées par le propriétaire : cartes empilées, forme d'onde + point rouge aux ondes animées pour Sessions, ligne de liste + ampoule jaune aux halos animés pour Morceaux) : `StackedCardsIllustration`, `EmptyState(illustration:, title:, action:)`, tokens `color.illustration.*`, règles mobiles. Tests package 11 OK. |
+| 15/11/2026 | **Publié en 0.9.0** (validée par le propriétaire sur DiRecLy, Pixel 4a) : titres en Kaushan Script avec dégradé léger (`PageTitle`), bande du titre 74 dp, `ScrollFade`, système d'illustration et écrans vides (`StackedCardsIllustration`, `EmptyState(illustration:)`), tokens `color.pageTitle.*` / `color.illustration.*`. Tag `v0.9.0`, ref du README, `MIGRATION.md` (0.8.1 → 0.9.0). Essayées puis abandonnées : icône de page en filigrane. **Reste à faire** : mettre à jour l'artifact Claude (titres, écrans vides). |
