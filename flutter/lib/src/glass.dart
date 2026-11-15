@@ -17,6 +17,7 @@ class Glass extends StatelessWidget {
     this.strong = false,
     this.tint,
     this.shadow = true,
+    this.blur,
     this.onTap,
   });
 
@@ -34,11 +35,17 @@ class Glass extends StatelessWidget {
   /// bas) ou sur un contenu plein écran : l'ombre, coupée par le bord, y dessine une bande sombre.
   final bool shadow;
 
+  /// Flou d'arrière-plan. Par défaut : actif sur desktop et pour les éléments au premier plan (`strong` : feuilles,
+  /// dialogues), coupé pour les cartes du mobile (fond en dégradé : le flou s'y voit à peine, mais il est recalculé à
+  /// chaque image dès que la page bouge, et fait ramer un téléphone moyen). Sans flou, l'ombre est coupée aussi.
+  final bool? blur;
+
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
+    final blurred = blur ?? (strong || !DesignMetrics.of(context).isMobile);
     final shape = BorderRadius.circular(radius);
     final highlight = dark ? Tokens.colorGlassHighlightDark : Tokens.colorGlassHighlightLight;
     final color = tint ?? (dark ? Tokens.colorGlassTintDark : Tokens.colorGlassTintLight);
@@ -48,12 +55,32 @@ class Glass extends StatelessWidget {
         ? (dark ? Tokens.opacityGlassFillStrongDark : Tokens.opacityGlassFillStrongLight)
         : (dark ? Tokens.opacityGlassFillDark : Tokens.opacityGlassFillLight);
 
+    final panel = Container(
+      decoration: BoxDecoration(
+        borderRadius: shape,
+        // Remplissage uni : le relief vient du dégradé du fond, pas de la carte.
+        color: color.withValues(alpha: alpha),
+        border: Border.all(
+          color: highlight.withValues(alpha: dark ? Tokens.opacityGlassBorderDark : Tokens.opacityGlassBorderLight),
+        ),
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onTap,
+          mouseCursor: WidgetStateMouseCursor.clickable,
+          borderRadius: shape,
+          child: Padding(padding: padding, child: child),
+        ),
+      ),
+    );
+
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: shape,
         // Ombre diffuse et rentrée : sous un verre translucide, une ombre
         // marquée se verrait à travers.
-        boxShadow: tint != null || !shadow
+        boxShadow: tint != null || !shadow || !blurred
             ? null
             : [
                 BoxShadow(
@@ -66,30 +93,12 @@ class Glass extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: shape,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: Tokens.blurGlass, sigmaY: Tokens.blurGlass),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: shape,
-              // Remplissage uni : le relief vient du dégradé du fond, pas de la carte.
-              color: color.withValues(alpha: alpha),
-              border: Border.all(
-                color: highlight.withValues(
-                  alpha: dark ? Tokens.opacityGlassBorderDark : Tokens.opacityGlassBorderLight,
-                ),
-              ),
-            ),
-            child: Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: onTap,
-                mouseCursor: WidgetStateMouseCursor.clickable,
-                borderRadius: shape,
-                child: Padding(padding: padding, child: child),
-              ),
-            ),
-          ),
-        ),
+        child: blurred
+            ? BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: Tokens.blurGlass, sigmaY: Tokens.blurGlass),
+                child: panel,
+              )
+            : panel,
       ),
     );
   }

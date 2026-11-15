@@ -1,3 +1,10 @@
+## 0.8.1
+
+Fluidité sur mobile. **Aucun changement pour une appli desktop** (captures desktop identiques).
+
+- `Glass(blur:)` : flou d'arrière-plan réglable. Par défaut, actif sur desktop et pour les éléments au premier plan (`strong` : feuilles, dialogues) ; **coupé pour les cartes du mobile** (`GlassDisclosure`, `GlassGroup`, `GlassSection`…), ombre comprise. Mesuré sur un Pixel 4a en release : le flou de 24 px de chaque carte, recalculé à chaque image pendant le glissement entre onglets, faisait perdre 25 à 50 % des images (cadence 30 i/s) ; sans lui, 0 à 2 %. Le rendu change à peine (le fond est un dégradé).
+- 6 captures mobiles régénérées (ombre des cartes).
+
 ## 0.8.0
 
 Navigation par onglets, pour la version 2 de DiRecLy. **Aucun changement pour une appli desktop** (captures desktop identiques).
