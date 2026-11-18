@@ -1,3 +1,12 @@
+## 0.9.1
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas le nouveau paramètre.
+
+- `RoundButton(loading:, loadingTooltip:)` : pendant qu'une action se prépare (un morceau qui se charge…), l'icône se fond en un cercle de
+  progression **dans le bouton**, de la couleur de l'icône ; le bouton reste en place et garde sa taille et sa couleur (pas de
+  disparition ni de réapparition), les appuis sont ignorés, la bulle d'aide devient « Chargement » (`loadingTooltip`). Demandé pour
+  le lecteur de DiRecLy, à reprendre dans les autres applis pour que les états de chargement se ressemblent. Test `round_button_test.dart`.
+
 ## 0.9.0
 
 Personnalité des titres de page (famille mobile). **Aucun changement pour une appli desktop** (captures desktop identiques).

@@ -1,3 +1,8 @@
+# Migration 0.9.0 → 0.9.1
+
+Rien à faire : monter `ref: v0.9.1` puis `flutter pub upgrade vb_design` ; le rendu ne change pas. Facultatif : `RoundButton(loading: true)`
+affiche un cercle de progression à la place de l'icône, dans le bouton (à utiliser pour tout bouton rond dont l'action se prépare).
+
 # Migration 0.8.1 → 0.9.0
 
 **Appli desktop** : rien à faire. Monter `ref: v0.9.0` puis `flutter pub upgrade vb_design` ; le rendu ne change pas.

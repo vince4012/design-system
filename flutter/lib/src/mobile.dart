@@ -366,6 +366,10 @@ enum RoundButtonStyle {
 }
 
 /// Bouton rond flottant (56 sur mobile) : une icône, toujours avec une bulle d'aide qui la nomme.
+///
+/// [loading] (depuis la 0.9.1) : une action est en cours de préparation (un morceau qui se charge, un envoi…) ; l'icône se fond en un
+/// cercle de progression **dans le bouton**, qui reste en place (pas de disparition ni de réapparition), de la couleur de l'icône ;
+/// les appuis sont ignorés et la bulle d'aide devient [loadingTooltip].
 class RoundButton extends StatelessWidget {
   const RoundButton({
     super.key,
@@ -375,6 +379,8 @@ class RoundButton extends StatelessWidget {
     this.style = RoundButtonStyle.overlay,
     this.filled = false,
     this.size,
+    this.loading = false,
+    this.loadingTooltip = 'Chargement',
   });
 
   final IconData icon;
@@ -390,6 +396,12 @@ class RoundButton extends StatelessWidget {
   /// Diamètre ; par défaut celui de la famille.
   final double? size;
 
+  /// Une action est en préparation : l'icône devient un cercle de progression, les appuis sont ignorés.
+  final bool loading;
+
+  /// Bulle d'aide et libellé d'accessibilité pendant [loading].
+  final String loadingTooltip;
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -404,21 +416,41 @@ class RoundButton extends StatelessWidget {
       RoundButtonStyle.accent => (scheme.primary, scheme.onPrimary, Colors.transparent),
       RoundButtonStyle.danger => (scheme.error, scheme.onError, Colors.transparent),
     };
+    final inactive = onPressed == null || loading;
     return Tooltip(
-      message: tooltip,
+      message: loading ? loadingTooltip : tooltip,
       child: Opacity(
+        // Atténué seulement quand il est désactivé : en chargement il garde sa couleur
         opacity: onPressed == null ? 0.4 : 1,
         child: Material(
           color: fill,
           shape: CircleBorder(side: BorderSide(color: border)),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
-            onTap: onPressed,
-            mouseCursor: onPressed == null ? SystemMouseCursors.basic : SystemMouseCursors.click,
+            onTap: loading ? null : onPressed,
+            mouseCursor: inactive ? SystemMouseCursors.basic : SystemMouseCursors.click,
             customBorder: const CircleBorder(),
             child: SizedBox.square(
               dimension: diameter,
-              child: Icon(icon, size: diameter * 0.46, fill: filled ? 1 : 0, color: ink, semanticLabel: tooltip),
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 150),
+                  child: loading
+                      ? SizedBox.square(
+                          key: const ValueKey('loading'),
+                          dimension: diameter * 0.4,
+                          child: CircularProgressIndicator(strokeWidth: 3, color: ink, semanticsLabel: loadingTooltip),
+                        )
+                      : Icon(
+                          icon,
+                          key: ValueKey(icon),
+                          size: diameter * 0.46,
+                          fill: filled ? 1 : 0,
+                          color: ink,
+                          semanticLabel: tooltip,
+                        ),
+                ),
+              ),
             ),
           ),
         ),
