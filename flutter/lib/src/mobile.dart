@@ -589,6 +589,7 @@ class GlassDisclosure extends StatelessWidget {
     this.subtitle,
     required this.expanded,
     required this.onToggle,
+    this.onLongPress,
     this.trailing = const [],
     this.chevronLeading = false,
     this.insetChildren = false,
@@ -599,6 +600,10 @@ class GlassDisclosure extends StatelessWidget {
   final String? subtitle;
   final bool expanded;
   final VoidCallback onToggle;
+
+  /// Appui long sur l'en-tête (depuis la 0.9.3) : un raccourci vers une action (renommer), sans effet sur l'état ouvert / fermé. Pas de
+  /// double appui : il retarderait l'appui simple qui déplie la carte, et le second appui la replierait.
+  final VoidCallback? onLongPress;
 
   /// Actions à droite de l'en-tête, avant le chevron.
   final List<Widget> trailing;
@@ -634,6 +639,7 @@ class GlassDisclosure extends StatelessWidget {
             expanded: expanded,
             child: InkWell(
               onTap: onToggle,
+              onLongPress: onLongPress,
               mouseCursor: SystemMouseCursors.click,
               child: Container(
                 constraints: BoxConstraints(minHeight: metrics.isMobile ? metrics.listRow + 8 : 44),

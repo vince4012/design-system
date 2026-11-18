@@ -1,3 +1,7 @@
+# Migration 0.9.2 → 0.9.3
+
+Rien à faire : monter `ref: v0.9.3` puis `flutter pub upgrade vb_design`. Facultatif : `GlassDisclosure(onLongPress:)`.
+
 # Migration 0.9.1 → 0.9.2
 
 Rien à faire : monter `ref: v0.9.2` puis `flutter pub upgrade vb_design` ; le rendu ne change pas. Facultatif : entourer d'un

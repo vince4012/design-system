@@ -1,3 +1,9 @@
+## 0.9.3
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel.**
+
+- `GlassDisclosure(onLongPress:)` : appui long sur l'en-tête de la carte, pour un raccourci (renommer la session dans DiRecLy) ; il ne déplie ni ne replie la carte. Pas de double appui proposé : Flutter retarde alors l'appui simple d'environ 300 ms, et le second appui d'un double appui replierait la carte aussitôt dépliée.
+
 ## 0.9.2
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas le nouveau composant.
