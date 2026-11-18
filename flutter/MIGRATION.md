@@ -1,3 +1,7 @@
+# Migration 0.9.3 → 0.9.4
+
+Rien à faire : monter `ref: v0.9.4`. Facultatif : `FlashOutline(borderRadius:, outset:)`.
+
 # Migration 0.9.2 → 0.9.3
 
 Rien à faire : monter `ref: v0.9.3` puis `flutter pub upgrade vb_design`. Facultatif : `GlassDisclosure(onLongPress:)`.

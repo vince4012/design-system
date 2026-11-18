@@ -1,3 +1,7 @@
+## 0.9.4
+
+Ajout sans rupture. `FlashOutline(borderRadius:, outset:)` : coins par côté et dépassement du contour, pour entourer une ligne qui touche le bord d'une carte à marge interne (le contour va jusqu'au bord de la carte, avec ses coins). `FlashOutline(joinTop:, joinBottom:)` : plusieurs éléments contigus (trois pistes ajoutées d'un coup) n'ont qu'**un seul contour** d'un seul tenant ; chaque ligne en trace sa part (les côtés, plus le haut pour la première, le bas pour la dernière), toutes au même rythme. Implémentation : un calque `Stack` non rogné au-dessus de l'élément (pointeurs ignorés), et un `CustomPainter` (le rectangle arrondi, agrandi du côté joint puis rogné à la ligne) au lieu d'une décoration d'avant-plan. Limite : les éléments du groupe doivent être contigus (c'est le cas des pistes ajoutées, toujours en fin de liste).
+
 ## 0.9.3
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel.**

@@ -377,6 +377,10 @@ class FlashOutline extends StatefulWidget {
     required this.play,
     required this.child,
     this.radius = 12,
+    this.borderRadius,
+    this.outset = EdgeInsets.zero,
+    this.joinTop = false,
+    this.joinBottom = false,
     this.delay = Duration.zero,
     this.duration = const Duration(milliseconds: 2600),
   });
@@ -384,6 +388,20 @@ class FlashOutline extends StatefulWidget {
   final bool play;
   final Widget child;
   final double radius;
+
+  /// Coins différents selon le côté (depuis la 0.9.4) ; remplace [radius]. Pour une ligne en haut ou en bas d'une carte : les coins
+  /// de la carte du côté du bord, ceux d'une ligne de l'autre.
+  final BorderRadius? borderRadius;
+
+  /// Dépassement du contour hors de l'élément (depuis la 0.9.4) : une ligne au bord d'une carte à marge interne y est entourée
+  /// jusqu'au bord de la carte, sans espace. Le parent ne doit pas rogner ce dépassement.
+  final EdgeInsets outset;
+
+  /// Le contour continue au-dessus / en dessous (depuis la 0.9.4) : cet élément est une ligne d'un groupe d'éléments contigus qui n'ont
+  /// qu'un contour, d'un seul tenant. Chaque ligne n'en trace que sa part (les côtés, plus le haut pour la première, le bas pour la
+  /// dernière) ; toutes ont les mêmes [play], [delay] et [duration], donc le tracé est synchrone.
+  final bool joinTop;
+  final bool joinBottom;
 
   /// Attente avant le tracé (le temps que la liste ait fini de défiler jusqu'à l'élément).
   final Duration delay;
@@ -441,24 +459,94 @@ class _FlashOutlineState extends State<FlashOutline> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
-    return AnimatedBuilder(
-      animation: _c,
-      child: widget.child,
-      builder: (context, child) {
-        final ms = _c.value * _total.inMilliseconds - widget.delay.inMilliseconds;
-        final a = ms <= 0 || ms >= widget.duration.inMilliseconds ? 0.0 : _alpha(ms / widget.duration.inMilliseconds);
-        // Always the same wrapper (no border at rest): the child keeps its state when the outline comes and goes
-        return DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.radius),
-            border: a == 0 ? null : Border.all(color: color.withValues(alpha: a), width: 2),
+    final o = widget.outset;
+    // Always the same tree (no border at rest): the child keeps its state when the outline comes and goes
+    return Stack(
+      fit: StackFit.passthrough,
+      clipBehavior: Clip.none,
+      children: [
+        widget.child,
+        Positioned(
+          left: -o.left,
+          top: -o.top,
+          right: -o.right,
+          bottom: -o.bottom,
+          child: IgnorePointer(
+            child: AnimatedBuilder(
+              animation: _c,
+              builder: (context, _) {
+                final ms = _c.value * _total.inMilliseconds - widget.delay.inMilliseconds;
+                final a = ms <= 0 || ms >= widget.duration.inMilliseconds
+                    ? 0.0
+                    : _alpha(ms / widget.duration.inMilliseconds);
+                return CustomPaint(
+                  painter: _FlashPainter(
+                    alpha: a,
+                    color: color,
+                    radius: widget.borderRadius ?? BorderRadius.circular(widget.radius),
+                    joinTop: widget.joinTop,
+                    joinBottom: widget.joinBottom,
+                  ),
+                );
+              },
+            ),
           ),
-          child: child,
-        );
-      },
+        ),
+      ],
     );
   }
+}
+
+/// Trace le contour de [FlashOutline] (2 dp, à l'intérieur de la zone). Pour une ligne qui prolonge un groupe, le rectangle arrondi est
+/// agrandi du côté joint puis rogné à la zone : seuls les côtés (et le haut / le bas non joints) restent visibles.
+class _FlashPainter extends CustomPainter {
+  _FlashPainter({
+    required this.alpha,
+    required this.color,
+    required this.radius,
+    required this.joinTop,
+    required this.joinBottom,
+  });
+
+  final double alpha;
+  final Color color;
+  final BorderRadius radius;
+  final bool joinTop;
+  final bool joinBottom;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (alpha == 0) return;
+    const width = 2.0;
+    // Past the corners' radius, so that the joined side shows no corner
+    final reach = size.height + 64;
+    final zone = Offset.zero & size;
+    final rect = Rect.fromLTRB(
+      zone.left + width / 2,
+      zone.top + width / 2 - (joinTop ? reach : 0),
+      zone.right - width / 2,
+      zone.bottom - width / 2 + (joinBottom ? reach : 0),
+    );
+    canvas
+      ..save()
+      ..clipRect(zone)
+      ..drawRRect(
+        radius.toRRect(rect),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = width
+          ..color = color.withValues(alpha: alpha),
+      )
+      ..restore();
+  }
+
+  @override
+  bool shouldRepaint(_FlashPainter old) =>
+      old.alpha != alpha ||
+      old.color != color ||
+      old.radius != radius ||
+      old.joinTop != joinTop ||
+      old.joinBottom != joinBottom;
 }
 
 /// Bouton rond flottant (56 sur mobile) : une icône, toujours avec une bulle d'aide qui la nomme.
