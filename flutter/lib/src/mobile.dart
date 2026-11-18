@@ -365,6 +365,102 @@ enum RoundButtonStyle {
   danger,
 }
 
+/// Contour d'accent qui se trace autour d'un élément qui vient d'apparaître (une prise qu'on vient d'enregistrer, une piste ajoutée)
+/// et s'efface ensuite : il attire l'œil une fois que la liste a défilé jusqu'à lui, sans rien laisser de permanent.
+///
+/// [play] passe à vrai (ou est vrai dès la création de l'élément) : le contour se joue une fois, [delay] puis [duration]. Le
+/// contour apparaît en 15 % de [duration], reste, puis s'efface en fondu. Rien n'est joué si le système a coupé les animations.
+/// [radius] : celui de l'élément entouré. Depuis la 0.9.2.
+class FlashOutline extends StatefulWidget {
+  const FlashOutline({
+    super.key,
+    required this.play,
+    required this.child,
+    this.radius = 12,
+    this.delay = Duration.zero,
+    this.duration = const Duration(milliseconds: 2600),
+  });
+
+  final bool play;
+  final Widget child;
+  final double radius;
+
+  /// Attente avant le tracé (le temps que la liste ait fini de défiler jusqu'à l'élément).
+  final Duration delay;
+  final Duration duration;
+
+  @override
+  State<FlashOutline> createState() => _FlashOutlineState();
+}
+
+class _FlashOutlineState extends State<FlashOutline> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(vsync: this);
+  bool _started = false;
+
+  Duration get _total => widget.delay + widget.duration;
+
+  @override
+  void initState() {
+    super.initState();
+    _c.duration = _total;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Not in initState: the media query is read
+    if (widget.play && !_started) _start();
+  }
+
+  @override
+  void didUpdateWidget(FlashOutline old) {
+    super.didUpdateWidget(old);
+    _c.duration = _total;
+    if (widget.play && !old.play) {
+      _start();
+    } else if (!widget.play) {
+      _started = false;
+    }
+  }
+
+  void _start() {
+    _started = true;
+    if (MediaQuery.disableAnimationsOf(context)) return;
+    _c.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  /// 0 → 1 in the first 15 %, held until 70 %, then back to 0.
+  static double _alpha(double t) => t < 0.15 ? t / 0.15 : (t < 0.7 ? 1 : (1 - (t - 0.7) / 0.3).clamp(0, 1));
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+    return AnimatedBuilder(
+      animation: _c,
+      child: widget.child,
+      builder: (context, child) {
+        final ms = _c.value * _total.inMilliseconds - widget.delay.inMilliseconds;
+        final a = ms <= 0 || ms >= widget.duration.inMilliseconds ? 0.0 : _alpha(ms / widget.duration.inMilliseconds);
+        // Always the same wrapper (no border at rest): the child keeps its state when the outline comes and goes
+        return DecoratedBox(
+          position: DecorationPosition.foreground,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(widget.radius),
+            border: a == 0 ? null : Border.all(color: color.withValues(alpha: a), width: 2),
+          ),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
 /// Bouton rond flottant (56 sur mobile) : une icône, toujours avec une bulle d'aide qui la nomme.
 ///
 /// [loading] (depuis la 0.9.1) : une action est en cours de préparation (un morceau qui se charge, un envoi…) ; l'icône se fond en un

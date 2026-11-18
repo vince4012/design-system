@@ -1,3 +1,8 @@
+# Migration 0.9.1 → 0.9.2
+
+Rien à faire : monter `ref: v0.9.2` puis `flutter pub upgrade vb_design` ; le rendu ne change pas. Facultatif : entourer d'un
+`FlashOutline(play: estNouveau, delay: …)` l'élément d'une liste qu'on vient de créer, pour le signaler une fois.
+
 # Migration 0.9.0 → 0.9.1
 
 Rien à faire : monter `ref: v0.9.1` puis `flutter pub upgrade vb_design` ; le rendu ne change pas. Facultatif : `RoundButton(loading: true)`

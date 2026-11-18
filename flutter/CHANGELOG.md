@@ -1,3 +1,13 @@
+## 0.9.2
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas le nouveau composant.
+
+- `FlashOutline(play:, child:, radius:, delay:, duration:)` : un contour d'accent (2 dp, couleur primaire) se trace autour d'un élément qui
+  vient d'apparaître (prise qu'on vient d'enregistrer, piste ajoutée), reste environ 2 s puis s'efface ; rien de permanent (pas de
+  pastille « Nouveau » : les listes sont déjà triées de la plus récente à la plus ancienne). Se joue une fois quand `play` devient vrai (ou
+  l'est dès la création), après `delay` (le temps que la liste ait défilé jusqu'à l'élément). Rien n'est joué si le système a coupé les
+  animations. Demandé pour DiRecLy, à reprendre dans les autres applis. Test `flash_outline_test.dart`.
+
 ## 0.9.1
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas le nouveau paramètre.
