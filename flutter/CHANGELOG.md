@@ -1,3 +1,12 @@
+## 0.9.6
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas les nouveaux composants.
+
+- `RotaryKnob(fraction:, text:, onChanged:, onChangeEnd:, onReset:)` : rond de réglage de 40 dp, arc ouvert vers le bas qui se remplit, valeur au centre. Glisser vertical (haut = plus), double appui = remise à zéro. Ne connaît pas l'échelle : l'appli convertit la fraction en valeur. Le glisser ne gagne que sur le rond, une liste verticale défile partout ailleurs. Lecteurs d'écran : curseur (`slider`) avec augmenter / diminuer.
+- `PanBar(value:)` : barre de panoramique en lecture seule, L C R et un point.
+- `MiniCurve(values:)` : petite courbe en dB (réponse d'égaliseur) sur ±12 dB, ligne pointillée à 0 dB, mêmes marges que `PanBar` pour s'aligner avec lui.
+- Demandés pour les lignes de pistes de DiRecLy (volume, pan, aperçu d'égaliseur sur une ligne), à reprendre dans les autres applis.
+
 ## 0.9.5
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas les nouveaux éléments.
