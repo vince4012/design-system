@@ -1,3 +1,10 @@
+## 0.9.5
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas les nouveaux éléments.
+
+- `InfoLine(items: [InfoItem(texte, icon:)])` : ligne de détail faite d'informations séparées, chacune précédée d'un petit picto (13 dp, atténué), qui passe à la ligne au lieu de tronquer. Demandé pour DiRecLy (durée, poids, réglages d'une piste), à reprendre dans les autres applis.
+- `GlassDisclosure(subtitleWidget:)` : un sous-titre composé (une `InfoLine`) à la place du texte `subtitle`.
+
 ## 0.9.4
 
 Ajout sans rupture. `FlashOutline(borderRadius:, outset:)` : coins par côté et dépassement du contour, pour entourer une ligne qui touche le bord d'une carte à marge interne (le contour va jusqu'au bord de la carte, avec ses coins). `FlashOutline(joinTop:, joinBottom:)` : plusieurs éléments contigus (trois pistes ajoutées d'un coup) n'ont qu'**un seul contour** d'un seul tenant ; chaque ligne en trace sa part (les côtés, plus le haut pour la première, le bas pour la dernière), toutes au même rythme. Implémentation : un calque `Stack` non rogné au-dessus de l'élément (pointeurs ignorés), et un `CustomPainter` (le rectangle arrondi, agrandi du côté joint puis rogné à la ligne) au lieu d'une décoration d'avant-plan. Limite : les éléments du groupe doivent être contigus (c'est le cas des pistes ajoutées, toujours en fin de liste).

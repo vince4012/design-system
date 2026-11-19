@@ -667,6 +667,50 @@ class SelectionMark extends StatelessWidget {
   }
 }
 
+/// Une information d'une [InfoLine] : un texte, précédé d'un petit picto s'il y en a un.
+class InfoItem {
+  const InfoItem(this.text, {this.icon});
+
+  final String text;
+  final IconData? icon;
+}
+
+/// Ligne de détail sous un titre (durée, poids, réglages…) : des informations séparées, chacune avec son petit picto
+/// (13 dp, atténué) pour structurer le texte. Passe à la ligne quand la place manque au lieu de tronquer.
+class InfoLine extends StatelessWidget {
+  const InfoLine({super.key, required this.items, this.color});
+
+  final List<InfoItem> items;
+
+  /// Couleur du texte ; par défaut le texte secondaire du thème.
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final ink = color ?? theme.colorScheme.onSurfaceVariant;
+    final style = theme.textTheme.bodySmall?.copyWith(color: ink);
+    return Wrap(
+      spacing: 10,
+      runSpacing: 1,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        for (final item in items)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (item.icon != null) ...[
+                Icon(item.icon, size: 13, color: ink.withValues(alpha: 0.75)),
+                const SizedBox(width: 3),
+              ],
+              Flexible(child: Text(item.text, style: style)),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
 /// Carte dépliable : un en-tête (titre, sous-titre, actions, chevron) qu'on touche pour montrer
 /// ou cacher ses lignes, séparées par un filet comme dans un [GlassGroup].
 /// L'état ouvert / fermé appartient à l'appli ([expanded], [onToggle]).
@@ -675,6 +719,7 @@ class GlassDisclosure extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle,
+    this.subtitleWidget,
     required this.expanded,
     required this.onToggle,
     this.onLongPress,
@@ -686,6 +731,9 @@ class GlassDisclosure extends StatelessWidget {
 
   final String title;
   final String? subtitle;
+
+  /// Sous-titre composé (une [InfoLine]) à la place de [subtitle] (depuis la 0.9.5).
+  final Widget? subtitleWidget;
   final bool expanded;
   final VoidCallback onToggle;
 
@@ -747,7 +795,9 @@ class GlassDisclosure extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: theme.textTheme.titleSmall),
-                          if (subtitle != null)
+                          if (subtitleWidget != null)
+                            subtitleWidget!
+                          else if (subtitle != null)
                             Text(
                               subtitle!,
                               maxLines: 1,
