@@ -140,6 +140,40 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 - Alternative écartée : synchronisation vers claude.ai/design (`/design-sync`), car Claude Design
   autonome ferme le 14/12/2026.
 
+## 6 ter. Procédure : publier une version, puis aligner l'artifact
+
+À suivre dans cet ordre (rodée pour la 0.7.0, 11/11/2026). Une demande du propriétaire (« pousse », « publie ») est nécessaire avant
+l'étape 5 ; les étapes 1 à 4 se font en local.
+
+1. **Code** : modifier `tokens/tokens.json` / `tokens.mobile.json` et `flutter/lib`, puis `cd flutter && dart run tool/generate_tokens.dart`
+   **et** `dart run android/tool/generate_tokens.dart` (racine). Ne jamais `dart format` `tokens.g.dart` (§ 4) : si on a formaté `lib`, relancer le générateur.
+2. **Vérifier** : `flutter analyze`, `flutter test` ; dans `example/` : `flutter test --update-goldens` puis **regarder** les images changées
+   (un changement desktop imprévu = régression : les captures desktop doivent rester identiques si la version ne les touche pas). Un test de
+   dimensions qui cherche une bulle d'aide (`find.byTooltip`) échoue si la galerie en montre deux du même nom : donner un nom distinct à l'ajout.
+3. **Documents** : `flutter/pubspec.yaml` (version), `flutter/CHANGELOG.md` (entrée de la version, avec ce qui change pour une appli desktop),
+   `flutter/MIGRATION.md` si une appli doit modifier son code, journal (§ 7).
+4. **Essai par l'appli cliente** avant de publier : dans l'appli, un `pubspec_overrides.yaml` local (`dependency_overrides: vb_design: path: ../design-system/flutter`),
+   **jamais commité**. Le retirer, et passer `ref` de `pubspec.yaml` au nouveau tag, une fois la version taguée.
+5. **Publier** (sur demande) : commit, `git tag vX.Y.Z`, `git push origin main` et `git push origin vX.Y.Z`. Puis, dans l'appli cliente : `ref: vX.Y.Z`,
+   suppression de l'override, `flutter pub get`, `flutter analyze`, `flutter test`, commit.
+6. **Aligner l'artifact** (voir ci-dessous), puis une ligne au journal (§ 7) et un commit « Journal ».
+
+### Mettre à jour l'artifact « ColDay Design System »
+
+- Le type d'artifact fournit la page ; on ne publie que les fichiers sous `project/` (tokens, README, règles, `components/`). Lire d'abord les
+  fichiers à modifier depuis l'artifact (`Artifact` action `read`, `paths`, `out_dir` dans le scratchpad), les éditer dans une **copie** (un
+  script Python qui `assert` la présence de chaque texte à remplacer évite les remplacements aveugles), puis republier.
+- Publication : `Artifact` avec `url`, **`file_path`** (obligatoire : un des fichiers de données, par exemple `project/design-system.json`), `root` (le dossier
+  de la copie) et `files` (`{"project/chemin": "project/chemin"}` pour chaque fichier modifié ou ajouté ; les autres sont conservés). Un fichier non lu
+  avant d'être remplacé est refusé : le relire, ou le nommer dans `overwrite_unread`. Mettre à jour `lastChange.note` de `project/design-system.json`.
+- Contenu à aligner : `tokens.json` (un token par entrée `{name, value: {light, dark}, usage}` ; le nom devient la variable CSS `--nom` ; **un nom ne peut servir
+  qu'une fois**, d'où l'absence du dégradé mobile en token séparé), `README.md` (version, composants, règles), `components/bundle.css` (classes `vb-…` des aperçus,
+  valeurs tirées des variables), un dossier `components/<Nom>/` par composant avec `README.md` (première phrase = résumé ; « Équivalent Flutter : … ») et
+  `preview.html` (première ligne `<!-- @dsCard group="…" height=… subtitle="…" -->`).
+- Les aperçus sont des **HTML statiques**, avec des icônes SVG dessinées à la main (substituts des Material Symbols : ne pas les confondre avec l'icône réelle
+  de l'appli ; un propriétaire a déjà relevé un faux USB) ; ils ne sont pas vérifiables sans ouvrir la page : le dire dans le journal. Les aperçus d'un composant
+  non touché gardent l'ancien rendu (les tokens `bg-*` de l'artifact sont ceux du desktop).
+
 ## 7. Journal
 
 | Date | Changement |
@@ -201,3 +235,4 @@ https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
 | 18/11/2026 | **0.9.2** (locale, non publiée) : `FlashOutline(play:, child:, radius:, delay:, duration:)`, contour d'accent qui se trace une fois autour d'un élément qui vient d'apparaître puis s'efface (maquette option 4 choisie par le propriétaire, pas de pastille persistante) ; rien si les animations sont coupées ; test `flash_outline_test.dart`, `CHANGELOG.md`, `MIGRATION.md`. À taguer `v0.9.2` après validation de DiRecLy. |
 | 18/11/2026 | **0.9.3** (locale, non publiée) : `GlassDisclosure(onLongPress:)`, appui long sur l'en-tête (renommer la session dans DiRecLy), sans effet sur l'état ouvert / fermé ; pas de double appui (retarde l'appui simple et replie la carte aussitôt dépliée). `CHANGELOG.md`, `MIGRATION.md`. À taguer `v0.9.3` après validation. |
 | 18/11/2026 | **0.9.4** (locale, non publiée) : `FlashOutline(borderRadius:, outset:)`, contour qui déborde jusqu'au bord d'une carte à marge interne et en suit les coins (demandé sur la page Morceau de DiRecLy) ; calque `Stack` non rogné + `CustomPainter` ; `joinTop` / `joinBottom` : un seul contour pour un groupe de lignes contiguës (chaque ligne en trace sa part). Tests d'`outset` et de jonction. À taguer `v0.9.4` après validation. |
+| 20/11/2026 | Procédure de publication d'une version et de mise à jour de l'artifact écrite (§ 6 ter), tirée de la 0.7.0 : ordre des étapes, essai par `pubspec_overrides.yaml`, pièges (bulle d'aide en double dans la galerie, `file_path` obligatoire à la publication de l'artifact, icônes d'aperçu dessinées à la main). Documentation seule ; non commité. |
