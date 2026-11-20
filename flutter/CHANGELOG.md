@@ -1,3 +1,11 @@
+## 0.9.7
+
+Correction sans rupture (famille mobile). **Aucun changement visuel.**
+
+- `MobilePage` : l'infobulle (et le libellé pour les lecteurs d'écran) de la flèche de retour vient de `MaterialLocalizations.backButtonTooltip`
+  au lieu de « Retour » écrit en dur : elle suit la langue de l'appli (« Retour » en français, « Back » en anglais…). Demandé par la
+  traduction de DiRecLy en 13 langues.
+
 ## 0.9.6
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui n'utilise pas les nouveaux composants.

@@ -55,7 +55,7 @@ class MobilePage extends StatelessWidget {
                         if (onBack != null)
                           IconButton(
                             icon: Icon(Symbols.arrow_back, color: Theme.of(context).colorScheme.primary),
-                            tooltip: 'Retour',
+                            tooltip: MaterialLocalizations.of(context).backButtonTooltip,
                             onPressed: onBack,
                           )
                         else
