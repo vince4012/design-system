@@ -77,6 +77,19 @@ l'interface.
 - Tailles : 18 pt en navigation et dans les boutons, 22 pt dans les lignes de liste (desktop) ; 24 dp sur mobile.
   Une icône dessinée petite dans sa grille (ex. `stop`) peut être agrandie pour paraître du même poids que les autres.
 
+## 3 ter. Icône d'application
+
+L'icône du lanceur est un dessin propre à chaque appli (l'interdiction d'icônes dessinées à la main du § 3 bis ne vise que les
+icônes de l'interface). Ce que les icônes de la série ColDay ont en commun :
+
+- **Fond : l'ardoise du thème sombre**, en dégradé diagonal de `#1D232D` à `#090B0E`, pour toutes les applis de la série.
+- **Le nom ColDay n'apparaît pas sur l'icône** : la marque ne se lit pas dans le dessin, elle se lit dans ce que les icônes ont en commun.
+- **Construction** (Android) : icône *adaptive* (fond et premier plan séparés) avec un calque monochrome pour les icônes
+  thématiques ; le dessin occupe environ 70 dp des 72 dp du rond que montre le lanceur Pixel (le canevas fait 108 dp, la « zone sûre »
+  de 66 dp n'est qu'un minimum pour tous les masques) ; une icône de 512 px, carrée, pour la fiche de la boutique.
+- **Un script génère tout depuis une seule géométrie** (icône adaptive, calque monochrome, PNG des anciens Android, icône de la
+  boutique, source SVG) : on ne dessine pas chaque fichier à la main. Modèle : `tool/make_icon.py` de DiRecLy (`vince4012/direcly`).
+
 ## 4. Mise en page
 
 - **Coquille** : barre latérale flottante en verre (210 pt de large, rayon 18, à 8 pt des bords)
