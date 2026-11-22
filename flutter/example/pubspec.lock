@@ -368,7 +368,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.9.6"
+    version: "0.9.8"
   vector_math:
     dependency: transitive
     description:

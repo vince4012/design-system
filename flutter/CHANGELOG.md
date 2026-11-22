@@ -1,3 +1,11 @@
+## 0.9.8
+
+Changement visuel limité au **mobile, thème sombre** (aucun changement pour une appli desktop : captures desktop identiques).
+
+- Le verre « fort » (feuilles basses, dialogues, panneaux) est un peu plus sombre sur mobile : `opacity.glass.fillStrong.dark` vaut 0,09 au lieu de 0,14
+  dans `tokens.mobile.json` (surcharge mobile ; `TokensMobile.opacityGlassFillStrongDark`, `android/res/values-night`). `Glass(strong: true)` lit la valeur
+  mobile quand `DesignMetrics.isMobile`. Demandé par DiRecLy (panneau d'entrée / sortie validé le 22/11/2026). Trois captures sombres mobiles régénérées.
+
 ## 0.9.7
 
 Correction sans rupture (famille mobile). **Aucun changement visuel.**

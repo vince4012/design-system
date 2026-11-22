@@ -7,8 +7,8 @@
     <item name="ds_opacity_glass_border" format="float" type="dimen">0.16</item>
     <!-- Remplissage du verre (sombre), couleur glass.tint. -->
     <item name="ds_opacity_glass_fill" format="float" type="dimen">0.08</item>
-    <!-- Verre au premier plan : dialogues (sombre). -->
-    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.14</item>
+    <!-- Verre au premier plan : feuilles basses et panneaux (sombre), un peu plus sombre qu'au socle (0,14) sur mobile. Demande du propriétaire de DiRecLy, 22/11/2026. -->
+    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.09</item>
     <!-- Verre teinté d'une couleur (sombre). -->
     <item name="ds_opacity_glass_tint" format="float" type="dimen">0.22</item>
 </resources>

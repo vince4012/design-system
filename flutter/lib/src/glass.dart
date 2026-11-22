@@ -52,7 +52,11 @@ class Glass extends StatelessWidget {
     final alpha = tint != null
         ? (dark ? Tokens.opacityGlassTintDark : Tokens.opacityGlassTintLight)
         : strong
-        ? (dark ? Tokens.opacityGlassFillStrongDark : Tokens.opacityGlassFillStrongLight)
+        ? (dark
+              ? (DesignMetrics.of(context).isMobile
+                    ? TokensMobile.opacityGlassFillStrongDark
+                    : Tokens.opacityGlassFillStrongDark)
+              : Tokens.opacityGlassFillStrongLight)
         : (dark ? Tokens.opacityGlassFillDark : Tokens.opacityGlassFillLight);
 
     final panel = Container(

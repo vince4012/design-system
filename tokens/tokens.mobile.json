@@ -1,5 +1,15 @@
 {
   "$description": "Surcharges pour la famille MOBILE (téléphones, usage tactile : Android natif, Flutter mobile). Même schéma que tokens.json ; seules les valeurs qui diffèrent du socle ou propres au mobile figurent ici. Fusion : chemin identique = valeur mobile remplace celle du socle ; chemin absent du socle = ajout. Couleurs, opacités du verre et flou viennent du socle. Tailles en dp/sp (= points logiques de tokens.json). Valeurs validées par le propriétaire sur maquette FiiDrive le 08/11/2026.",
+  "opacity": {
+    "glass": {
+      "fillStrong": {
+        "dark": {
+          "$value": 0.09,
+          "$description": "Verre au premier plan : feuilles basses et panneaux (sombre), un peu plus sombre qu'au socle (0,14) sur mobile. Demande du propriétaire de DiRecLy, 22/11/2026."
+        }
+      }
+    }
+  },
   "radius": {
     "control": {
       "$value": 12,

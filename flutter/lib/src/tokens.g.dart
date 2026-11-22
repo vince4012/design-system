@@ -306,8 +306,8 @@ abstract final class TokensMobile {
   static const opacityGlassFillDark = 0.08;
   /// Verre au premier plan : dialogues (clair).
   static const opacityGlassFillStrongLight = 0.78;
-  /// Verre au premier plan : dialogues (sombre).
-  static const opacityGlassFillStrongDark = 0.14;
+  /// Verre au premier plan : feuilles basses et panneaux (sombre), un peu plus sombre qu'au socle (0,14) sur mobile. Demande du propriétaire de DiRecLy, 22/11/2026.
+  static const opacityGlassFillStrongDark = 0.09;
   /// Verre teinté d'une couleur (clair).
   static const opacityGlassTintLight = 0.18;
   /// Verre teinté d'une couleur (sombre).
