@@ -1,3 +1,11 @@
+## 0.9.9
+
+Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui ne passe pas le nouveau paramètre ; aucun changement pour une appli desktop.
+
+- `promptName(fieldAction:)` : un bouton à droite dans le champ du dialogue de saisie d'un nom, construit avec le contrôleur du champ
+  (`Widget Function(BuildContext, TextEditingController)`). Le bouton vit autant que le dialogue (son `dispose` est appelé à la fermeture,
+  par Enregistrer comme par Annuler). Demandé par DiRecLy pour dicter un nom à la voix (le micro bascule en « stop » pendant la dictée).
+
 ## 0.9.8
 
 Changement visuel limité au **mobile, thème sombre** (aucun changement pour une appli desktop : captures desktop identiques).

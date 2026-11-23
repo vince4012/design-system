@@ -840,6 +840,10 @@ class GlassDisclosure extends StatelessWidget {
 
 /// Dialogue de saisie d'un nom (renommer) : un champ, Annuler / Enregistrer. Rend le texte saisi,
 /// ou null si on annule. [allowEmpty] accepte un nom vide (pour l'effacer).
+///
+/// [fieldAction] (depuis la 0.9.9) : un bouton à droite, dans le champ (un micro de dictée, par exemple). Il reçoit le
+/// contrôleur du champ (texte et sélection) et vit autant que le dialogue : son `dispose` est appelé quand le dialogue se
+/// ferme, que ce soit par Enregistrer ou par Annuler, de quoi arrêter ce qu'il fait.
 Future<String?> promptName(
   BuildContext context, {
   required String title,
@@ -848,6 +852,7 @@ Future<String?> promptName(
   bool allowEmpty = false,
   String saveLabel = 'Enregistrer',
   String cancelLabel = 'Annuler',
+  Widget Function(BuildContext context, TextEditingController controller)? fieldAction,
 }) {
   final controller = TextEditingController(text: initial)
     ..selection = TextSelection(baseOffset: 0, extentOffset: initial.length);
@@ -872,7 +877,7 @@ Future<String?> promptName(
           textCapitalization: TextCapitalization.sentences,
           validator: allowEmpty ? null : requiredField,
           onFieldSubmitted: (_) => submit(),
-          decoration: InputDecoration(labelText: label),
+          decoration: InputDecoration(labelText: label, suffixIcon: fieldAction?.call(context, controller)),
         ),
       ),
     );
