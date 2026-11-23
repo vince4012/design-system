@@ -5,7 +5,7 @@ Captures de l'appli **Saracroche** (blocage d'appels, iOS), gardées comme réf�
 bouton capsule assorti, barre d'onglets flottante, listes de réglages sobres, icônes brutes.
 
 Les couleurs d'accent, de succès, d'attention et d'erreur du design system en sont tirées
-(voir `MAINTENANCE.md`, journal du 08/11/2026).
+(voir [`../journal.md`](../journal.md), 08/11/2026).
 
 | Fichier | Contenu |
 |---|---|

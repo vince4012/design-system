@@ -1,241 +1,83 @@
-# ColDay Design System — dossier de maintenance
+# ColDay Design System — Maintenance guide
 
-Document de référence pour reprendre la maintenance (humain ou IA). **À tenir à jour à
-chaque session de travail** (voir § 7, Journal).
+Common design system of the apps published as ColDay: UX/UI rules, design values (tokens), Flutter package `vb_design`, native Android
+resources. **Public** repository: https://github.com/vince4012/design-system, owner Vincent Bros (`vince4012`). This file is the **entry
+point**: where everything is and where the project stands. The owner writes in French; UI texts (default texts of the components) are French;
+code comments are French as they stand; documents are English, with the exceptions listed in D-35 ([decisions.md](docs/decisions.md)).
 
-- Dépôt **public** : https://github.com/vince4012/design-system — propriétaire Vincent Bros (`vince4012`).
-- Applis clientes : Quittances (desktop, https://github.com/vince4012/quittances), FiiDrive (Android natif), DiRecLy (Flutter mobile, en cours).
-- Langue : français (docs, commentaires, textes par défaut des composants).
+Documentation structure: `doc-structure v1` (the owner's official structure, a global Claude skill; to migrate, tell the assistant that the structure changed).
 
-## 1. Organisation
+## Where to find what
 
-```
-docs/regles-ux-ui.md    règles UX/UI communes (référence pour toute techno)
-docs/regles-ux-ui-mobile.md  règles UX/UI mobiles (complément, 0.4 en préparation)
-tokens/tokens.json      valeurs de design — SOCLE (couleurs, verre, valeurs desktop)
-tokens/tokens.mobile.json  surcharges de la famille MOBILE (fusion par chemin, voir tokens/README.md)
-flutter/                package Flutter vb_design
-  fonts/KaushanScript-Regular.ttf, OFL.txt   police des titres de page mobile (SIL OFL), famille KaushanScript
-  lib/vb_design.dart    exports publics
-  lib/src/tokens.g.dart GÉNÉRÉ (ne pas éditer NI FORMATER) : Tokens (tokens.json) et TokensMobile (+ tokens.mobile.json)
-  lib/src/metrics.dart  DesignFamily, DesignMetrics (dimensions selon la famille, posées dans le thème)
-  lib/src/theme.dart    vbTheme(Brightness, family:), ThemeModeStore
-  lib/src/mobile.dart   MobilePage, PageTitle (Kaushan Script + dégradé), ScrollFade (haut de liste estompé), showGlassSheet, GlassSheet, SectionLabel, AppChip, RoundButton, FlashOutline (contour d'accent d'un nouvel élément), SelectionMark, GlassDisclosure, promptName, HeroCard, AppToggleGroup, FloatingTabBar
-  lib/src/design_scope.dart  DesignScope (fenêtre native active ?)
-  lib/src/background.dart    AppBackground
-  lib/src/glass.dart    Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
-  lib/src/forms.dart    AppTextField, DateField, AppSwitch, AppSwitchTile, FieldRow, requiredField, GlassDialog, showGlassDialog, FormDialog, confirm, showMessage
-  lib/src/illustrations.dart  StackedCardsIllustration (écrans vides, tokens color.illustration.*)
-  lib/src/page.dart     PageScaffold, EmptyState
-  lib/src/shell.dart    GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch
-  lib/src/native_window.dart  NativeWindow (macOS), ToolbarItem
-  tool/generate_tokens.dart   générateur tokens.json (+ tokens.mobile.json) → tokens.g.dart
-  test/tokens_test.dart       tokens à jour, thème
-  example/              galerie desktop (macOS / Windows) et mobile (Android ; lib/mobile_gallery.dart) + captures de référence (test/goldens)
-android/                Android natif (famille mobile), ressources GÉNÉRÉES
-  tool/generate_tokens.dart   générateur socle + tokens.mobile.json → res/ (--check pour vérifier)
-  res/values{,-night}/ds_colors.xml, ds_dimens.xml   (ne pas éditer)
-web/                    réservé (variables CSS générées depuis les tokens)
-```
-
-Support visuel : artifact « ColDay Design System » (type Design System de Claude), lien
-https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7 — voir § 6 bis.
-
-## 2. Tokens
-
-- Format : objets `{"$value", "$description"}` rangés par catégorie ; paires `light` / `dark`.
-- Nom généré = chemin en camelCase (`radius.dialog` → `Tokens.radiusDialog`).
-- Après toute modification : `cd flutter && dart run tool/generate_tokens.dart` **et** `dart run android/tool/generate_tokens.dart` (racine du dépôt ; `--check` pour contrôler).
-  `test/tokens_test.dart` régénère et échoue si le fichier n'était pas à jour.
-- Le générateur gère couleurs (`#RRGGBB`, `#AARRGGBB` → `Color`) et nombres (→ `double`).
-  Un nouveau type de valeur demande d'étendre `_dart()` dans le générateur.
-
-## 3. Package Flutter
-
-- Aucune dépendance à un gestionnaire d'état : l'appli fournit le `ThemeMode` et le rappel
-  de changement ; `ThemeModeStore` mémorise dans `shared_preferences` (clé `themeMode`).
-- `DesignScope(nativeWindow:)` doit envelopper l'appli (dans `MaterialApp.builder`) :
-  `AppBackground`, `GlassShell` et `PageScaffold` en dépendent pour la translucidité et les
-  marges de la barre d'outils macOS.
-- `NativeWindow` (macOS uniquement, `macos_window_utils`) : `setUp()` (vitrage, barre
-  d'outils unifiée 52 pt, options plein écran), `maximize()`, `syncBrightness()`,
-  `fullscreen` (ValueNotifier). `ToolbarItem` rend un bouton cliquable dans la bande de la
-  barre d'outils.
-- Textes par défaut en français (« Annuler », « Supprimer », « Enregistrer »,
-  « Champ obligatoire »), surchargeables là où c'est utile.
-
-## 3 bis. Famille mobile (depuis la 0.6.0)
-
-- Un seul package pour les deux familles. `vbTheme(…, family:)` pose un `DesignMetrics` dans le thème (`ThemeExtension`) ; les
-  composants lisent `DesignMetrics.of(context)` (desktop par défaut). **Ne plus écrire `Tokens.size…` / `Tokens.radius…` en dur dans
-  un composant commun** : passer par `DesignMetrics`, sinon le mobile garde la valeur desktop.
-- `DesignMetrics.desktop` reprend, pour ce que les tokens desktop n'ont pas, les constantes historiques des composants : c'est ce qui
-  garde les captures desktop identiques. Toute retouche d'un composant commun se vérifie sur les 6 captures desktop **et** les 8 mobiles.
-- Couleurs propres au mobile (`colorOverlay*`, `colorBanner*`, `colorRoute*`) : seulement dans `TokensMobile`.
-- Pas de `GlassShell` ni de `PageScaffold` sur mobile : `MobilePage`. `AppBackground` se pose dans `MaterialApp.builder`.
-
-## 4. Pièges connus (hérités de Quittances, ne pas réintroduire)
-
-- Ne jamais ajouter / retirer la barre d'outils native pendant une transition plein écran
-  (plantage AppKit) : `NativeWindow` utilise `autoHideToolbar`.
-- `SegmentedButton` : `selectedBackgroundColor` **et** `foregroundColor` dans le thème.
-- Bulles d'aide en sombre : texte blanc forcé dans le thème.
-- `PageScaffold` : sous-titre en `Expanded` (sinon les actions se décalent).
-- Sous la barre d'outils native, les clics démarrent un déplacement de fenêtre : passer par
-  `ToolbarItem` (c'est fait dans `PageScaffold`).
-
-- Curseur « main » : sur desktop, `InkWell` retombe sur la flèche par défaut (`adaptiveClickable`) ; toujours
-  passer `mouseCursor: WidgetStateMouseCursor.clickable`. `GestureDetector` n'a aucun curseur : l'envelopper
-  dans un `MouseRegion(cursor: click)`. `test/cursor_test.dart` vérifie les composants.
-
-- Interrupteur : Material passe le pouce actif en `primaryContainer` au survol et au clic ; dans notre palette
-  c'est presque le bleu de la piste (`#1493FF` sur `#0091FF`), le pouce disparaît. Le thème force `onPrimary`.
-
-- **Ne pas lancer `dart format` sur `lib/src/tokens.g.dart`** (ni `dart format lib` en bloc) : le fichier reformaté ne correspond plus à
-  la sortie du générateur et `test/tokens_test.dart` échoue. Remède : `dart run tool/generate_tokens.dart`.
-- `flutter analyze` sans argument dans `example/` peut rester bloqué (dossiers de build) : analyser `lib test` (`flutter analyze lib test`).
-- Dans les captures de test, Flutter dessine les ombres en aplat (`debugDisableShadows`) : la bande grise sous un dialogue n'est pas le rendu réel.
-- Build Android de la galerie : JDK 17 requis (`export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home`), le JDK par défaut de la machine (14) échoue.
-
-- Pousser vers GitHub : ce dépôt est configuré en `http.version=HTTP/1.1` (+ `postBuffer`),
-  sinon le premier envoi échouait (« l'hôte distant a fermé la connexion »). Réglage local à
-  refaire sur un nouveau clone si l'erreur revient.
-
-## 5. Vérification
-
-- `cd flutter && flutter analyze && flutter test` ;
-  `cd flutter/example && flutter analyze lib test && flutter test` (14 captures : desktop 3 pages × clair/sombre, mobile 4 écrans × clair/sombre, plus des contrôles de dimensions mobiles).
-- Captures : polices réelles chargées depuis `$FLUTTER_ROOT/bin/cache/artifacts/material_fonts`
-  (Roboto + MaterialIcons) ; pour le mobile, Material Symbols Outlined chargée depuis le paquet `material_symbols_icons`. Rendu dépendant de la plateforme : générer et vérifier sur macOS.
-  Après un changement visuel voulu : `flutter test --update-goldens`, puis **regarder** les images.
-- Le flou natif de la fenêtre et la barre d'outils macOS ne se voient qu'en lançant la galerie
-  (`cd flutter/example && flutter run -d macos`).
-
-## 6. Versions et applis clientes
-
-- Version dans `flutter/pubspec.yaml` + `flutter/CHANGELOG.md` ; tag Git `vX.Y.Z` à chaque
-  version publiée. Les applis dépendent d'un tag précis (`ref: vX.Y.Z`) : une évolution ne
-  les touche que lorsqu'elles montent de version.
-- Applis clientes : Quittances. Guide de montée de version : `flutter/MIGRATION.md` (0.3.x → 0.4.0, puis 0.2.x → 0.3.0, puis 0.1.0 → 0.2.0). Applis clientes mobiles : FiiDrive (Android natif, ressources copiées depuis `android/res`).
-- Conventions avec le propriétaire : français ; une étape manuelle à la fois ; enregistrer et
-  pousser sur Git uniquement à sa demande. Identité Git locale : Vincent Bros <colday@hotmail.fr>.
-
-## 6 bis. Support visuel (artifact Claude)
-
-- Miroir visuel, **pas une seconde source** : la source reste `tokens/tokens.json` et le code Flutter.
-  L'artifact contient `tokens.json` (format du type : listes, clair/sombre), le README, les règles
-  UX/UI, 11 composants en **aperçus HTML statiques** (rendus des widgets Flutter via `bundle.css`)
-  et une couverture. Aucun code n'y est exécuté ni généré.
-- Depuis la 0.4.1, `bg-top` / `bg-bottom` de l'artifact sont ceux du desktop (haut plus clair) ; le dégradé inversé du mobile y est décrit en texte (pas de token séparé : un nom ne peut servir qu'une fois). Depuis la 0.4.0, l'artifact reflète une famille de tokens `mobile` (24 tokens en px = dp / sp), 5 couleurs mobiles (`overlay-fill`, `overlay-border`, `banner`, `route-line`, `route-casing`), les règles `regles-ux-ui.md` et `regles-ux-ui-mobile.md` (nouvelle section). Les aperçus de composants ne montrent pas encore de rendu mobile. (Depuis la 0.6.0 : groupe Mobile, 4 aperçus.)
-- Depuis la 0.3.0, l'artifact reflète la palette Saracroche, le fond en dégradé, les contrôles de 38 pt, les icônes de liste brutes, et a un composant `Switch` (interrupteur) ; la page Palette (contrastes mesurés par script) est régénérée. Les aperçus HTML ne gèrent ni le curseur ni le survol.
-- Depuis la 0.2.0, couleurs d'états et neutres sont dans `tokens/tokens.json` (plus de valeurs
-  approchées côté artifact, sauf `shadow-*`, `glass-*`, `field-*`, `divider`, `outline`, `select-fill`,
-  `scrim`, qui restent calées sur le code Dart).
-- Cycle d'évolution : on modifie un token ou un composant dans l'artifact (page ou demande à Claude),
-  puis Claude **reporte** le changement dans `tokens/tokens.json`, régénère et vérifie les captures.
-  À l'inverse, après un changement dans le dépôt, Claude met l'artifact à jour. Ne jamais éditer les
-  deux sans reporter.
-- Contrastes : 4,5:1 (texte) et 3:1 (icônes) tenus, sauf teintes vives or (1,4:1) et vert (1,9:1) en icône
-  seule sur fond clair, toujours avec libellé. Page Palette de l'artifact = détail mesuré.
-- Alternative écartée : synchronisation vers claude.ai/design (`/design-sync`), car Claude Design
-  autonome ferme le 14/12/2026.
-
-## 6 ter. Procédure : publier une version, puis aligner l'artifact
-
-À suivre dans cet ordre (rodée pour la 0.7.0, 11/11/2026). Une demande du propriétaire (« pousse », « publie ») est nécessaire avant
-l'étape 5 ; les étapes 1 à 4 se font en local.
-
-1. **Code** : modifier `tokens/tokens.json` / `tokens.mobile.json` et `flutter/lib`, puis `cd flutter && dart run tool/generate_tokens.dart`
-   **et** `dart run android/tool/generate_tokens.dart` (racine). Ne jamais `dart format` `tokens.g.dart` (§ 4) : si on a formaté `lib`, relancer le générateur.
-2. **Vérifier** : `flutter analyze`, `flutter test` ; dans `example/` : `flutter test --update-goldens` puis **regarder** les images changées
-   (un changement desktop imprévu = régression : les captures desktop doivent rester identiques si la version ne les touche pas). Un test de
-   dimensions qui cherche une bulle d'aide (`find.byTooltip`) échoue si la galerie en montre deux du même nom : donner un nom distinct à l'ajout.
-3. **Documents** : `flutter/pubspec.yaml` (version), `flutter/CHANGELOG.md` (entrée de la version, avec ce qui change pour une appli desktop),
-   `flutter/MIGRATION.md` si une appli doit modifier son code, journal (§ 7).
-4. **Essai par l'appli cliente** avant de publier : dans l'appli, un `pubspec_overrides.yaml` local (`dependency_overrides: vb_design: path: ../design-system/flutter`),
-   **jamais commité**. Le retirer, et passer `ref` de `pubspec.yaml` au nouveau tag, une fois la version taguée.
-5. **Publier** (sur demande) : commit, `git tag vX.Y.Z`, `git push origin main` et `git push origin vX.Y.Z`. Puis, dans l'appli cliente : `ref: vX.Y.Z`,
-   suppression de l'override, `flutter pub get`, `flutter analyze`, `flutter test`, commit.
-6. **Aligner l'artifact** (voir ci-dessous), puis une ligne au journal (§ 7) et un commit « Journal ».
-
-### Mettre à jour l'artifact « ColDay Design System »
-
-- Le type d'artifact fournit la page ; on ne publie que les fichiers sous `project/` (tokens, README, règles, `components/`). Lire d'abord les
-  fichiers à modifier depuis l'artifact (`Artifact` action `read`, `paths`, `out_dir` dans le scratchpad), les éditer dans une **copie** (un
-  script Python qui `assert` la présence de chaque texte à remplacer évite les remplacements aveugles), puis republier.
-- Publication : `Artifact` avec `url`, **`file_path`** (obligatoire : un des fichiers de données, par exemple `project/design-system.json`), `root` (le dossier
-  de la copie) et `files` (`{"project/chemin": "project/chemin"}` pour chaque fichier modifié ou ajouté ; les autres sont conservés). Un fichier non lu
-  avant d'être remplacé est refusé : le relire, ou le nommer dans `overwrite_unread`. Mettre à jour `lastChange.note` de `project/design-system.json`.
-- Contenu à aligner : `tokens.json` (un token par entrée `{name, value: {light, dark}, usage}` ; le nom devient la variable CSS `--nom` ; **un nom ne peut servir
-  qu'une fois**, d'où l'absence du dégradé mobile en token séparé), `README.md` (version, composants, règles), `components/bundle.css` (classes `vb-…` des aperçus,
-  valeurs tirées des variables), un dossier `components/<Nom>/` par composant avec `README.md` (première phrase = résumé ; « Équivalent Flutter : … ») et
-  `preview.html` (première ligne `<!-- @dsCard group="…" height=… subtitle="…" -->`).
-- Les aperçus sont des **HTML statiques**, avec des icônes SVG dessinées à la main (substituts des Material Symbols : ne pas les confondre avec l'icône réelle
-  de l'appli ; un propriétaire a déjà relevé un faux USB) ; ils ne sont pas vérifiables sans ouvrir la page : le dire dans le journal. Les aperçus d'un composant
-  non touché gardent l'ancien rendu (les tokens `bg-*` de l'artifact sont ceux du desktop).
-
-## 7. Journal
-
-| Date | Changement |
+| I need… | Read |
 |---|---|
-| 29/10/2026 | Création : règles UX/UI, tokens, package Flutter `vb_design` 0.1.0 extrait de Quittances, galerie et captures de référence. |
-| 01/11/2026 | Support visuel : artifact Claude « ColDay Design System » (tokens, règles, 11 aperçus de composants, couverture), miroir du dépôt ; voir § 6 bis. |
-| 01/11/2026 | Renommage en « ColDay Design System » (applis publiées sous le nom ColDay) : README, MAINTENANCE, artifact. Package `vb_design` inchangé. |
-| 01/11/2026 | Palette minérale (0.2.0, non taguée) : sable (inchangé) / ardoise bleutée avec verre teinté, bleu électrique `#1450E8` / `#4A8BFF`, états or / vert minéral / brique (rouge vif en sombre) ; tokens `glass.tint`, `glass.highlight` ; or de signature ambre (filet de rubrique active, compteur `ShellDestination.count`, étoile `GlassListTile.favorite`) ; tokens `ink`, `inkMuted`, `surface`, `onAccent`, `status.*.{fill,ink}` ; `StatusColors` devient des méthodes (`StatusStyle`), changement incompatible ; thème, galerie, captures, règles UX/UI et artifact mis à jour. |
-| 01/11/2026 | Préparation de la publication 0.2.0 : description du package (ColDay), ref `v0.2.0` dans le README, guide `flutter/MIGRATION.md` pour Quittances ; tag `v0.2.0`. |
-| 08/11/2026 | Branche `v0.3-refonte` : accent sombre `#4A8BFF` → `#0091FF` (bleu du bouton de Saracroche, plus lumineux) ; texte sur accent inchangé (`#08162E`, 5,6:1). Accent clair `#1450E8` → `#006AC7` (le `#0088FF` de Saracroche assombri : 4,5:1 sur sable, 5,4:1 avec texte blanc ; le `#0088FF` brut ne fait que 3,0:1 / 3,5:1). Un essai de verre à la Infomaniak (liseré 1 px, fond uni) a été testé puis abandonné. |
-| 08/11/2026 | Branche `v0.3-refonte` : vert de succès aligné sur Saracroche — teinte vive `#1E9E78`/`#3FCB9B` → `#36C759`/`#2ED158`, encre `#075A43`/`#3FCB9B` → `#0D6E2C`/`#2ED158` (4,9:1 clair, 6,3:1 sombre sur fond d'étiquette) ; la teinte vive reste réservée aux icônes avec libellé (1,9:1 sur sable). |
-| 08/11/2026 | Branche `v0.3-refonte` : or de signature et teinte « attention » alignés sur le jaune de l'interrupteur Saracroche, `#FEC600` dans les deux thèmes (avant `#F0B429` / `#E3B94E`) ; encre d'attention `#7A5800` (clair, 5,2:1) / `#FEC600` (sombre) ; texte sur or inchangé (9,6:1 / 11,4:1). Or toujours réservé aux détails de signature et aux états, jamais en texte sur fond clair. |
-| 08/11/2026 | Branche `v0.3-refonte` : étiquette d'attention pleine en clair (`StatusStyle.solid`, fond `#FEC600`, sans bordure, encre `#4A3600` 7,3:1) — teintée à 14 % sur le sable le jaune virait au beige terne. Sombre inchangé. |
-| 08/11/2026 | Branche `v0.3-refonte` : rouge d'erreur aligné sur Saracroche — teinte vive `#CC4125`/`#FF5E57` → `#E5262B` (clair, le `#FF383C` assombri : 4,5:1 avec texte blanc ; le brut ne fait que 3,6:1) / `#FF4144` (sombre, exact) ; encre `#98291A` → `#A8121A` (clair), `#FF5E57` → `#FF5C5F` (sombre, 4,6:1 sur fond teinté). |
-| 08/11/2026 | Branche `v0.3-refonte` : relief inversé — le fond d'appli porte le dégradé (diagonale, haut `#FAF8F4`/`#1D232D`, bas `#EAE6DF`/`#090B0E`), les cartes `Glass` sont unies (plus de dégradé de remplissage ni de reflet ; token `opacity.glass.sheen` retiré), bordure, ombre et flou inchangés. À juger sur la fenêtre macOS réelle. |
-| 08/11/2026 | Branche `v0.3-refonte` : icônes de liste brutes (plus de pastille en dégradé bleu) — `GlassBadge` garde son nom mais n'affiche que l'icône (accent, grise si inactif) ; tokens `color.badge.*` et `radius.badge` supprimés, `size.badge` → `size.listIcon` ; captures Saracroche de référence ajoutées dans `docs/exemples-apps-screenshots/` (pour la partie mobile). |
-| 08/11/2026 | Branche `v0.3-refonte` : filet séparateur des listes du bord gauche de l'icône (retrait 12 pt, comme à droite) au lieu de partir sous le texte (54 pt) ; icône alignée à gauche de sa zone. Icônes de liste gardées en couleur d'accent. |
-| 08/11/2026 | Branche `v0.3-refonte` : fond d'appli opaque sur la fenêtre macOS (`opacity.background.translucent` 0,68 / 0,72 → 1) ; le flou natif du bureau ne transparaît plus. Mécanisme conservé : rebaisser le token pour le retrouver. |
-| 08/11/2026 | Branche `v0.3-refonte` : hauteur des contrôles homogène à 38 pt (`size.control` 32 → 38) : boutons (plein, contour, texte), champs de saisie (`InputDecoration.constraints`, icône de fin du champ date réduite), segments. Avant : boutons ~24 pt visibles (densité compacte), champ ~37, segments ~36, champ date 40. |
-| 08/11/2026 | Branche `v0.3-refonte` : correction des hauteurs de champs — le cadre visible d'un champ (hors libellé flottant, qui déborde au-dessus) mesurait 37 pt (texte) et 35 pt (date) au lieu de 38 : `contentPadding` vertical 12,5, icône de fin et bouton « effacer » du champ date réduits ; cadre des champs, boutons et segments mesurés égaux à 38 pt dans les captures. |
-| 08/11/2026 | Branche `v0.3-refonte` : rubriques de la barre latérale (`_NavItem`, y compris « À propos ») et sélecteur Auto / Clair / Sombre à la même hauteur de 38 pt que les contrôles (avant ~30 pt et ~46 pt). |
-| 08/11/2026 | Branche `v0.3-refonte` : filet doré de la rubrique active sur toute la hauteur de la rubrique (jusqu'aux limites de son arrondi, 38 pt) au lieu de ~12 pt ; `_NavItem` restructuré (`Stack` extérieur, le filet ne dépend plus de la hauteur de la ligne). |
-| 08/11/2026 | Branche `v0.3-refonte` : filet doré de la rubrique active recalé — il commence en bas de l'arrondi du haut et finit en haut de l'arrondi du bas (retrait de 9 pt, soit 20 pt de long sur 38) ; la version pleine hauteur (précédente ligne) est remplacée. |
-| 08/11/2026 | Branche `v0.3-refonte` : interrupteur réduit — nouveaux `AppSwitch` (le `Switch` Material à l'échelle, environ 43 pt visibles au lieu de 52, token `size.switchWidth`) et `AppSwitchTile` (remplace `SwitchListTile`) ; galerie migrée. Les applis doivent les utiliser à la place de `Switch` / `SwitchListTile` pour profiter de la taille réduite. |
-| 08/11/2026 | Branche `v0.3-refonte` : curseur « main » sur tous les éléments cliquables — rubriques de la barre latérale (aucun curseur avant), `InkWell` de `Glass`, `GlassListTile`, `DateField`, `AppSwitchTile` (flèche sur desktop avant), boutons, segments, interrupteur (explicites dans le thème) ; flèche pour les éléments désactivés. Nouveau `test/cursor_test.dart`. |
-| 08/11/2026 | Branche `v0.3-refonte` : bug de survol de l'interrupteur — le pouce actif prenait la teinte `primaryContainer` (quasi identique à la piste) ; `switchTheme.thumbColor` le garde en `onPrimary`. `AppSwitchTile` coupe en plus le halo rond du pouce (`AppSwitch.hoverHalo: false`), la ligne ayant déjà sa surbrillance de survol. |
-| 08/11/2026 | Branche `v0.3-refonte` : espacement vertical entre rangées de champs (`FieldRow`) 10 → 20 pt (marge de 5 → 10 de chaque côté) ; le libellé flottant en mangeait la moitié. |
-| 08/11/2026 | **Publication 0.3.0** (validée par le propriétaire) : version `0.3.0` dans `pubspec.yaml`, `CHANGELOG.md`, guide `MIGRATION.md` (0.2.x → 0.3.0), ref `v0.3.0` dans le README ; tag `v0.3.0`. L'artifact Claude est mis à jour le même jour (ci-dessous). |
-| 08/11/2026 | Artifact « ColDay Design System » régénéré pour la 0.3.0 (version 19) : `tokens.json` (couleurs, tailles 38 pt, `size-list-icon`, `size-switch-width`, fond opaque ; retrait de `badge-*`, `glass-sheen`, `radius-badge`), README, `regles-ux-ui.md` (copie à jour du dépôt, l'ancienne datait de la 0.1), `bundle.css`, aperçus des composants, nouveau composant `Switch`, page Palette (contrastes recalculés : le bleu d'accent fait 4,3:1 en texte posé directement sur le bas du dégradé clair ; jaune 1,5:1 et vert 2,1:1 en icône seule sur fond clair). |
-| 08/11/2026 | **Branche `v0.4-mobile` (partie mobile, première fois)** : décision du propriétaire d'étendre le design system au mobile, pour Android natif (FiiDrive, première appli cliente mobile) puis Flutter mobile et d'autres technos. Structure retenue : `tokens.json` = socle, `tokens/tokens.mobile.json` = surcharges mobiles (fusion par chemin). Valeurs validées sur maquette interactive FiiDrive (clair et sombre) : contrôles 48 dp, texte courant 17 sp (16 jugé trop petit), secondaire 14 sp, titre 28 sp, rayon des cartes 20 dp, interrupteur à piste bleue d'accent (le jaune de Saracroche écarté, moins lisible), éléments flottants sur carte en verre simulé par opacité (~90 %, sans flou : indisponible avant Android 12). Fichiers ajoutés : `tokens/tokens.mobile.json`, `docs/regles-ux-ui-mobile.md`, section « Familles de plateformes » de `tokens/README.md`. **Pas encore fait** : générateur Android (`colors.xml` / `values-night`, `dimens.xml`), test de fraîcheur, version et `CHANGELOG`, thème Flutter mobile, artifact. Rien n'est commité. Thème Auto / Clair / Sombre côté FiiDrive : prévu dans un second temps. |
-| 08/11/2026 | Branche `v0.4-mobile` : **générateur Android** `android/tool/generate_tokens.dart` (Dart autonome) — fusionne `tokens.json` + `tokens.mobile.json` par chemin et écrit `android/res/values{,-night}/ds_colors.xml` et `ds_dimens.xml` (63 ressources : couleurs clair/sombre par qualificateur `values-night`, `dp`, `sp`, opacités en `float`). Option `--check` (code 1 si `res/` périmé ou fichier orphelin). Vérifié : analyse Dart sans alerte, XML valide, clair et sombre symétriques, surcharges mobiles bien appliquées (corps 17 sp, contrôle 48 dp), dérive détectée après modification volontaire du socle (puis rétabli). **Non vérifié** : compilation dans une appli Android réelle ; pas de test automatisé intégré à `flutter test` (le contrôle est la commande `--check`) ; intégration dans FiiDrive à faire (mode de copie à fixer, `UI_MODE_NIGHT_YES` à imposer tant que FiiDrive est sombre uniquement). `android/README.md` documente nommage et usage. Rien n'est commité. |
-| 08/11/2026 | Branche `v0.4-mobile` : **première appli mobile cliente, FiiDrive 0.21.0 (Android natif)** — ressources `android/res` copiées par `tools/sync_design_tokens.sh` (côté FiiDrive), restylage de tous les écrans, vérifié sur émulateur Android 14 (sombre). Retours pour le design system : l'ombre sous un fond translucide transparaît en rectangle (règle ajoutée côté appli : pas d'ombre sur les éléments en verre sur carte), le `Switch` plateforme éclaircit sa piste (piste dessinée en code à 46 × 28 dp). Clair / Sombre Auto : à faire côté FiiDrive. |
-| 08/11/2026 | Branche `v0.4-mobile` : **dégradé de fond inversé sur mobile** (plus foncé en haut, plus clair en bas) validé par le propriétaire sur FiiDrive : `color.background.{light,dark}.{top,bottom}` surchargés dans `tokens/tokens.mobile.json` (clair `#EAE6DF` → `#FAF8F4`, sombre `#090B0E` → `#1D232D`), `android/res` régénéré, règle ajoutée à `docs/regles-ux-ui-mobile.md`. Le desktop (`tokens.json`) garde le dégradé d'origine. Autre retour : la carte (contenu) suit le thème de l'interface, pas de réglage séparé ; la règle correspondante de `regles-ux-ui-mobile.md` § 5 est corrigée. |
-| 08/11/2026 | Branche `v0.4-mobile` : **dégradé inversé remonté au niveau global** (décision du propriétaire : mieux aussi sur desktop) — `color.background.{light,dark}.{top,bottom}` de `tokens/tokens.json` permutés (clair `#EAE6DF` → `#FAF8F4`, sombre `#090B0E` → `#1D232D`), surcharge retirée de `tokens.mobile.json`, `tokens.g.dart` et `android/res` régénérés, `theme.dart` (`onInverseSurface`) recalé pour garder la même couleur, 6 captures de référence regénérées et relues, règles `regles-ux-ui.md` et `regles-ux-ui-mobile.md` mises à jour. `flutter analyze` / `flutter test` / test des captures : OK. **Changement visuel pour les applis desktop** (Quittances) à la montée de version : à noter dans `MIGRATION.md`. **Interrupteur mobile** : contour fin ajouté (règle dans `regles-ux-ui-mobile.md`) ; le `Switch` Flutter n'avait pas le défaut (pouce à l'intérieur de la piste), à re-vérifier sur fond clair. **À faire pour la publication (fin de session)** : version `0.4.0`, `CHANGELOG.md`, `MIGRATION.md` (0.3.0 → 0.4.0), ref du README, tag, artifact Claude à mettre à jour (dégradé, partie mobile). |
-| 08/11/2026 | **Publication 0.4.0** (validée par le propriétaire) : version `0.4.0` dans `flutter/pubspec.yaml`, `CHANGELOG.md`, guide `MIGRATION.md` (0.3.x → 0.4.0), ref `v0.4.0` dans le README ; branche `v0.4-mobile` fusionnée dans `main` ; tag `v0.4.0`. Contenu : dégradé inversé global, tokens mobiles, règles mobiles, générateur Android. |
-| 08/11/2026 | Artifact « ColDay Design System » mis à jour pour la 0.4.0 (version 20) : `tokens.json` (dégradé permuté, famille `mobile`, couleurs mobiles), `README.md`, `regles-ux-ui.md`, nouvelle section `regles-ux-ui-mobile.md`, `bundle.css` (version), page Palette (dégradé et libellés). Contrastes de la Palette inchangés (mêmes paires de couleurs ; seuls les libellés haut / bas changent). |
-| 08/11/2026 | **0.4.1 (non publiée)** : le dégradé inversé redevient **propre au mobile** (retour d'expérience du propriétaire : fonctionne moins bien sur desktop). `tokens.json` : `color.background.*` rétablis comme en 0.3.x (clair `#FAF8F4` → `#EAE6DF`, sombre `#1D232D` → `#090B0E`) ; `tokens.mobile.json` : surcharge `color.background.*` (dégradé inversé, mêmes valeurs qu'en 0.4.0) ; `theme.dart` (`onInverseSurface`) rétabli ; `tokens.g.dart` et `android/res` régénérés (valeurs Android inchangées, commentaires seulement ; `--check` OK) ; 6 captures de référence régénérées, identiques octet pour octet à celles de la 0.3.0 ; règles, `CHANGELOG`, `MIGRATION` (0.4.0 → 0.4.1), version et ref du README mis à jour. `flutter analyze` / `flutter test` OK. **Pas fait** : commit, tag `v0.4.1`, push, mise à jour de l'artifact Claude (encore en 0.4.0 : dégradé permuté). |
-| 08/11/2026 | **0.4.1 publiée** (tag `v0.4.1`, poussé) ; Quittances montée dessus. Artifact « ColDay Design System » mis à jour (version 21) : `bg-top` / `bg-bottom` rétablis (desktop), usages et contrastes d'accent recalés, page Palette (ramps et colonne « Retenue » recalés), README, règles desktop et mobile (tableau : ligne « Fond »), version `bundle.css`. |
-| 09/11/2026 | **Publié en 0.5.0** (mineure ; `pubspec.yaml`, `CHANGELOG.md`, `MIGRATION.md` 0.4.1 → 0.5.0, ref `v0.5.0` du README, tag `v0.5.0`, artifact Claude version 22) : `color.overlay.border.light` de `tokens/tokens.mobile.json` `#CCFFFFFF` (blanc 80 %) → `#2923262B` (encre schiste ~16 %) — retour du premier essai réel sur le Moto G : en thème clair, les éléments flottants sur la carte avaient un anneau blanc épais autour d'un fond gris très clair ; le liseré est désormais discret et légèrement plus foncé que le fond, comme en sombre. `android/res` régénéré, règle ajoutée à `docs/regles-ux-ui-mobile.md`. Reporté dans l'artifact (token `overlay-border`). |
-| 09/11/2026 | Non publié : **famille d'icônes unique, Material Symbols Outlined (Google, Apache 2.0)**, décidée par le propriétaire pour toutes les applis (section « 3 bis. Iconographie » de `docs/regles-ux-ui.md`) — d'abord Material Icons (celles du SDK Flutter), puis Material Symbols car c'est la collection de fonts.google.com/icons que le propriétaire utilise comme référence (roue crantée différente, ex.). Première application : FiiDrive (`tools/material_icons.*`, police variable téléchargée du dépôt google/material-design-icons, figée en contour / graisse 400 / grade 0 / taille optique 24). **Flutter : le package utilise encore `Icons.*` (Material Icons) ; migration vers un paquet Material Symbols à faire.** À reporter dans l'artifact (section Iconographie du README) à la prochaine publication. |
-| 11/11/2026 | **Publié en 0.6.0** (validée par le propriétaire sur les captures mobiles ; branche `v0.6-flutter-mobile` fusionnée dans `main`, tag `v0.6.0`) : **famille mobile dans le package Flutter**, pour DiRecLy. `TokensMobile` généré (socle + surcharges), `DesignMetrics` / `DesignFamily`, `vbTheme(…, family:)`, composants communs adaptés (liste, section, dialogue, interrupteur, fond), nouveaux composants `MobilePage`, `GlassSheet`, `SectionLabel`, `AppChip`, `RoundButton`, `SelectionMark`, `GlassDisclosure`, `promptName`, `Glass(shadow:)` ; `sliderTheme` et `bottomSheetTheme` ; dépendance `material_symbols_icons` ; tokens mobiles `size.selectionMark` et `size.sheetHandle` (`android/res` régénéré, `--check` OK) ; galerie mobile, 8 captures mobiles, plateforme Android de la galerie. **Vérifié** : `flutter analyze`, `flutter test` (package : 4 ; galerie : 16), 6 captures desktop identiques octet pour octet, galerie construite et lancée sur émulateur Android 14 (thème clair). **Non vérifié** : appareil réel, iOS, thème sombre sur émulateur, feuille basse avec clavier ouvert. **Reste à faire** : plus tard, migration des trois `Icons.*` desktop vers Material Symbols. |
-| 11/11/2026 | **Publié en 0.7.0** (tag `v0.7.0`, validée par le propriétaire sur DiRecLy) : `HeroCard`, `AppToggleGroup`, tokens mobiles `color.hero.fill` / `color.heroBadge`, fond sombre mobile plus foncé (bas du dégradé `#171C24`), titre de `GlassSection` au-dessus de la carte (mobile), `GlassDisclosure(chevronLeading)`, galerie mobile et 5 captures sombres mises à jour ; voir `flutter/CHANGELOG.md`. DiRecLy l'essaie par un `pubspec_overrides.yaml` local. **Reste à faire** : valider avec le propriétaire, taguer `v0.7.0`, mettre à jour l'artifact Claude (aperçus `HeroCard` / `AppToggleGroup`, token), régénérer `android/res` si nécessaire. |
-| 11/11/2026 | Artifact « ColDay Design System » mis à jour pour la 0.7.0 (version 25) : `tokens.json` (`hero-fill`, `hero-badge`, source v0.7.0), README (version, fond sombre mobile `#171C24`, `HeroCard`, `AppToggleGroup`, titre de section mobile), `bundle.css` (classes `vb-hero`, `vb-tog`, `vb-msec`, `vb-mrows`…), nouveaux aperçus `HeroCard` et `ToggleGroup`, aperçus `Disclosure` (session sur fond creusé, icônes de type, pastille de format) et `GlassSection` (variante mobile) refaits, notes de `SegmentedControl`. Aperçus HTML statiques, **non relus visuellement** sur la page ; les autres aperçus mobiles gardent l'ancien fond sombre tant que les tokens `bg-*` ne portent pas la famille mobile. |
-| 11/11/2026 | Artifact « ColDay Design System » mis à jour pour la 0.6.0 (version 24) : `tokens.json` (`mobile-size-selection-mark`, `mobile-size-sheet-handle`, source v0.6.0), README (version, famille mobile Flutter, composants mobiles, iconographie Material Symbols), copies à jour de `regles-ux-ui.md` et `regles-ux-ui-mobile.md`, `bundle.css` (classes mobiles `vb-m`, `vb-chip`, `vb-round`, `vb-mark`, `vb-mtile`, `vb-sheet`), 4 composants du groupe **Mobile** en aperçus HTML statiques : `Chip`, `RoundButton`, `Disclosure`, `GlassSheet`. Premiers aperçus mobiles de l'artifact ; non relus visuellement sur la page. |
-| 13/11/2026 | Branche `v0.8-tab-bar`, version **0.8.0 (non publiée)** pour DiRecLy v2 : `FloatingTabBar` / `TabBarItem` (barre d'onglets flottante façon iOS), tokens mobiles `size.tabBar` 58 et `space.tabBarSide` 24, `MobilePage(onBack:)` (flèche retour seule), `GlassListTile(value:, chevron:)` (ligne de réglage) ; règles mobiles (sous-écran, barre d'onglets, ligne de réglage) ; galerie : écran « Navigation », segments à 4 ; 2 nouvelles captures, 6 captures mobiles régénérées (segments), captures desktop identiques ; `android/res` régénéré (rattrape les couleurs `hero` de la 0.7.0). `flutter analyze` / `flutter test` (package 4, galerie 19) OK. **Reste à faire** : essai dans DiRecLy, validation du propriétaire, tag `v0.8.0`, ref du README, artifact Claude. Rien n'est commité. |
-| 13/11/2026 | Branche `v0.8-tab-bar` (0.8.0, non publiée) : la pastille de `FloatingTabBar` glisse d'un onglet à l'autre (`AnimatedPositioned`, 320 ms, `easeOutCubic`, exposés en `slideDuration` / `slideCurve`), couleur et remplissage de l'icône en fondu ; règle mobile complétée (pages qui glissent avec la pastille). Captures inchangées au repos ; tests OK. |
-| 13/11/2026 | **Publié en 0.8.0** (validée par le propriétaire sur DiRecLy) : branche `v0.8-tab-bar` fusionnée dans `main`, tag `v0.8.0`, ref du README, `MIGRATION.md` (0.7.0 → 0.8.0). **Reste à faire** : mettre à jour l'artifact Claude (aperçus `FloatingTabBar`, ligne de réglage, sous-écran ; tokens `size.tabBar`, `space.tabBarSide`). |
-| 15/11/2026 | **0.8.1 (non publiée)** pour DiRecLy : `Glass(blur:)`, flou et ombre coupés par défaut sur les cartes du mobile (le flou reste sur desktop, feuilles et dialogues) ; cause d'un lag mesuré sur Pixel 4a (25 à 50 % d'images perdues au changement d'onglet, 0 à 2 % sans flou). Analyse, tests package et galerie OK, 6 captures mobiles régénérées. **Reste à faire** : validation du propriétaire, tag `v0.8.1`, ref du README. Rien n'est commité. |
-| 15/11/2026 | **Publié en 0.8.1** (validée par le propriétaire sur le Pixel 4a : 0 à 2 % d'images perdues au changement d'onglet) : tag `v0.8.1`, ref du README. Reste : artifact Claude (rien de visible à y changer). |
-| 15/11/2026 | **0.9.0 (non publiée)** pour DiRecLy, premier volet du chantier « en-têtes » : titres de page en Kaushan Script (`PageTitle`, police embarquée dans le paquet depuis le dépôt google/fonts, OFL), 32 sp, dégradé léger par thème (tokens mobiles `color.pageTitle.*`, `font.size.pageTitle`), marge autour du texte pour que la queue des lettres reste dans le dégradé. Tests package 4, galerie 19 OK, 8 captures mobiles régénérées. Piège : après avoir ajouté une police à un paquet branché par `path`, l'appli doit nettoyer `.dart_tool/flutter_build` (sinon l'APK ne l'embarque pas). **Reste à faire** : validation du propriétaire sur le Pixel, tag `v0.9.0`, ref du README, `MIGRATION.md`. Rien n'est commité. |
-| 15/11/2026 | 0.9.0 (non publiée) : sur demande du propriétaire, `size.pageToolbar` mobile 56 → 64 (hauteur d'une carte dépliable repliée : ligne de liste + 8). Tests package 4, galerie 19 OK, captures mobiles régénérées, vérifié sur le Pixel. |
-| 15/11/2026 | 0.9.0 (non publiée) : `ScrollFade` (haut d'une liste estompé selon le défilement, pendant du fondu du bas des applis), test `scroll_fade_test.dart` ; appliqué dans DiRecLy à Sessions, Morceaux, Réglages et sous-écrans. Pixel 4a release : 0 image perdue (repos, défilement, onglets). |
-| 15/11/2026 | 0.9.0 (non publiée) : `size.pageToolbar` mobile 74 (56 → 64 → 74 : une carte repliée + l'écart entre deux cartes), captures mobiles régénérées, tests OK. |
-| 15/11/2026 | Essayé puis **abandonné** à la demande du propriétaire (rien n'est gardé) : une grande icône de page en filigrane en haut à droite, sous le titre (`MobilePage(icon:)`). Sur Sessions elle était discrète et jolie ; sur Morceaux elle rendait confuse la zone des actions, sur Réglages l'engrenage était massif. Ne pas le reproposer tel quel. |
-| 15/11/2026 | 0.9.0 (non publiée) : système d'illustration, premier volet pour les écrans vides de DiRecLy (maquettes validées par le propriétaire : cartes empilées, forme d'onde + point rouge aux ondes animées pour Sessions, ligne de liste + ampoule jaune aux halos animés pour Morceaux) : `StackedCardsIllustration`, `EmptyState(illustration:, title:, action:)`, tokens `color.illustration.*`, règles mobiles. Tests package 11 OK. |
-| 15/11/2026 | **Publié en 0.9.0** (validée par le propriétaire sur DiRecLy, Pixel 4a) : titres en Kaushan Script avec dégradé léger (`PageTitle`), bande du titre 74 dp, `ScrollFade`, système d'illustration et écrans vides (`StackedCardsIllustration`, `EmptyState(illustration:)`), tokens `color.pageTitle.*` / `color.illustration.*`. Tag `v0.9.0`, ref du README, `MIGRATION.md` (0.8.1 → 0.9.0). Essayées puis abandonnées : icône de page en filigrane. **Reste à faire** : mettre à jour l'artifact Claude (titres, écrans vides). |
-| 15/11/2026 | **Artifact Claude mis à jour** (version 30, https://claude.ai/artifact/LAQJD8A2dFK2HZxMxPDUx7) : de 0.7.0 à 0.9.0 (rattrape aussi 0.8.0 et 0.8.1). `tokens.json` : 9 couleurs (`page-title-from/to`, `illustration-*`), police Kaushan Script (`fonts/KaushanScript-Regular.ttf`, famille `script`, style `page-title`), `mobile-font-page-title` 32, `mobile-size-page-toolbar` 74, `mobile-size-tab-bar` 58, `mobile-space-tab-bar-side` 24. `README.md`, `regles-ux-ui-mobile.md` (copie du dépôt), `bundle.css`. Composants : nouveaux `FloatingTabBar`, `PageTitle`, `ScrollFade`, `Illustration` ; `EmptyState` (version avec illustration), `Glass` et `GlassList` (notes). Les aperçus HTML sont statiques (les anneaux animés le sont en CSS) ; non vérifiés visuellement dans la page (connexion requise). |
-| 18/11/2026 | **0.9.1** (demandée par le propriétaire pour DiRecLy, à reprendre dans les autres applis) : `RoundButton(loading:, loadingTooltip:)`, l'icône se fond en un cercle de progression dans le bouton, qui reste en place ; appuis ignorés ; test `round_button_test.dart`. Sans rupture, aucun changement visuel sans le paramètre. `CHANGELOG.md`, `MIGRATION.md`, tag `v0.9.1`. |
-| 18/11/2026 | **0.9.2** (locale, non publiée) : `FlashOutline(play:, child:, radius:, delay:, duration:)`, contour d'accent qui se trace une fois autour d'un élément qui vient d'apparaître puis s'efface (maquette option 4 choisie par le propriétaire, pas de pastille persistante) ; rien si les animations sont coupées ; test `flash_outline_test.dart`, `CHANGELOG.md`, `MIGRATION.md`. À taguer `v0.9.2` après validation de DiRecLy. |
-| 18/11/2026 | **0.9.3** (locale, non publiée) : `GlassDisclosure(onLongPress:)`, appui long sur l'en-tête (renommer la session dans DiRecLy), sans effet sur l'état ouvert / fermé ; pas de double appui (retarde l'appui simple et replie la carte aussitôt dépliée). `CHANGELOG.md`, `MIGRATION.md`. À taguer `v0.9.3` après validation. |
-| 18/11/2026 | **0.9.4** (locale, non publiée) : `FlashOutline(borderRadius:, outset:)`, contour qui déborde jusqu'au bord d'une carte à marge interne et en suit les coins (demandé sur la page Morceau de DiRecLy) ; calque `Stack` non rogné + `CustomPainter` ; `joinTop` / `joinBottom` : un seul contour pour un groupe de lignes contiguës (chaque ligne en trace sa part). Tests d'`outset` et de jonction. À taguer `v0.9.4` après validation. |
-| 20/11/2026 | Procédure de publication d'une version et de mise à jour de l'artifact écrite (§ 6 ter), tirée de la 0.7.0 : ordre des étapes, essai par `pubspec_overrides.yaml`, pièges (bulle d'aide en double dans la galerie, `file_path` obligatoire à la publication de l'artifact, icônes d'aperçu dessinées à la main). Documentation seule ; non commité. |
-| 20/11/2026 | Règle de l'icône d'application ajoutée (`docs/regles-ux-ui.md` § 3 ter, à la demande du propriétaire de DiRecLy) : fond ardoise du thème sombre, pas de nom de marque sur l'icône, construction Android (adaptive + monochrome, environ 70 dp sur les 72 dp du rond, icône boutique de 512 px), génération par un script depuis une seule géométrie. Pas de nouveau jeton, pas de nouvelle version. Non commité. |
-| 22/11/2026 | **0.9.8 publiée** (demande du propriétaire de DiRecLy, validée sur le Pixel) : verre « fort » sombre plus sombre sur mobile (`opacity.glass.fillStrong.dark` 0,14 → 0,09 dans `tokens.mobile.json`, `Glass` lit la valeur mobile), `tokens.g.dart` et `android/res` régénérés, 3 captures sombres mobiles régénérées (desktop inchangé). **Pas fait** : mise à jour de l'artifact « ColDay Design System » (§ 6 ter, étape 6). |
-| 23/11/2026 | **0.9.9 (locale, non publiée)** pour DiRecLy : `promptName(fieldAction:)`, un bouton à droite dans le champ du dialogue de saisie d'un nom (construit avec le contrôleur du champ, vit autant que le dialogue ; DiRecLy y met un micro de dictée). Sans le paramètre : aucun changement. Test `prompt_name_test.dart`, `flutter analyze` / `flutter test` OK. **Reste à faire** : validation du propriétaire sur DiRecLy, commit, tag `v0.9.9`, push, artifact Claude (rien de visible à y changer). Rien n'est commité. |
+| what the design system is, how an app uses it | [README.md](README.md), then [flutter/README.md](flutter/README.md) or [android/README.md](android/README.md) |
+| the UX/UI rules (reference for every technology, in French) | [docs/regles-ux-ui.md](docs/regles-ux-ui.md), and for mobile [docs/regles-ux-ui-mobile.md](docs/regles-ux-ui-mobile.md) |
+| the visual reference (Saracroche captures) | [docs/exemples-apps-screenshots/](docs/exemples-apps-screenshots/README.md) |
+| the design values and their format | [tokens/README.md](tokens/README.md), `tokens/tokens.json`, `tokens/tokens.mobile.json` |
+| how it is built: layout, tokens, Flutter package, mobile family | [docs/architecture.md](docs/architecture.md) |
+| why a choice was made, what was set aside | [docs/decisions.md](docs/decisions.md) |
+| regenerate, check, publish, align the Claude artifact, client apps, traps | [docs/operations.md](docs/operations.md) |
+| what each version delivered | [flutter/CHANGELOG.md](flutter/CHANGELOG.md) |
+| how an app moves to a newer version | [flutter/MIGRATION.md](flutter/MIGRATION.md) |
+| measures and the dated history | [docs/journal.md](docs/journal.md) |
+| what is next, ideas | the [GitHub Project « Roadmap »](https://github.com/users/vince4012/projects/1), see « The roadmap » below |
+| the web theme (reserved) | [web/README.md](web/README.md) |
+
+## Where we stand (2026-11-23)
+
+- Version **0.9.9**, tagged and pushed (`v0.9.9`). Families: desktop (macOS / Windows) and mobile (Flutter, native Android).
+- `flutter analyze` without issue; 23 package tests, 19 gallery tests (16 captures); `android/res` up to date (79 resources).
+- Client apps: Quittances (desktop), FiiDrive (native Android), DiRecLy (Flutter mobile, pinned to `v0.9.9`).
+- Tried on devices through the client apps: Pixel 4a (DiRecLy), Moto G and Android 14 emulator (FiiDrive). Not tried: iOS.
+- The Claude artifact reflects **0.9.0** (version 30); its HTML previews were never checked visually.
+
+## How to resume (reading order)
+
+1. This file, the cards of the Project (`Projet` = `design-system`) and the last lines of [journal.md](docs/journal.md).
+2. The [UX/UI rules](docs/regles-ux-ui.md), and the [mobile ones](docs/regles-ux-ui-mobile.md) for a mobile change.
+3. [architecture.md](docs/architecture.md) for the code, then [operations.md](docs/operations.md) for the checks, the publication and the traps.
+
+## The roadmap (GitHub Project)
+
+The roadmap is the **Project « Roadmap »** (https://github.com/users/vince4012/projects/1, private, shared by all the owner's projects), not a file.
+The field `Projet` = `design-system` selects the cards. They are **written in French** and are **draft items, never issues**, because this repository
+is public.
+
+| Field | Values |
+|---|---|
+| **Status** (board columns) | Idée · À implémenter · En cours · À valider · Implémenté · Abandonné |
+| **Projet** | `design-system` |
+| **Catégorie** | Fix · Improvement · New feature |
+| **Priorité** | P1 next · P2 soon · P3 when useful; proposed by the assistant, confirmed by the owner; an idea has none until qualified |
+| **Poids** | 1 to 5, given by the owner, never guessed |
+| **Effort** | S · M · L; empty until estimated |
+
+Kept up to date by the assistant in the same session, with `gh` (the token needs the `project` scope):
+
+- **A to-do or an idea appears** → `gh project item-create 1 --owner vince4012` (title and body in French), then `gh project item-edit` for Status, Projet
+  and Catégorie (ids from `gh project field-list 1 --owner vince4012 --format json`).
+- **Work starts** → « En cours ». **Implemented** (code done, tests pass) → « À valider », and the card is rewritten: a title that says what was
+  implemented, « Ce qui a été implémenté » and numbered « Scénarios de validation ». A draft item has no number: the commit message describes the
+  change instead of `Refs #n`.
+- **Only the owner** moves a card to « Implémenté », after a manual test. At the start of a session, remind the owner of the cards in « À valider ».
+- **Dropped** → « Abandonné », the reason in the body of the card; a choice also goes to [decisions.md](docs/decisions.md).
+- Never copy the list into a document.
+
+## Keeping the documents up to date
+
+Done **in the same session** as the change:
+
+| The change… | Update |
+|---|---|
+| adds or changes a UX/UI rule | [regles-ux-ui.md](docs/regles-ux-ui.md) or [regles-ux-ui-mobile.md](docs/regles-ux-ui-mobile.md) |
+| changes a value | the tokens, then everything regenerated ([operations.md](docs/operations.md)); the rule that quotes it |
+| adds, moves or removes a file or a component | [architecture.md](docs/architecture.md), the table of [flutter/README.md](flutter/README.md) |
+| takes or reverses a choice | [decisions.md](docs/decisions.md) (never delete: mark « Replaced by ») |
+| changes the checks, the publication, a client app, or meets a trap | [operations.md](docs/operations.md) |
+| makes a new version | [flutter/CHANGELOG.md](flutter/CHANGELOG.md), [flutter/MIGRATION.md](flutter/MIGRATION.md) if an app must act, the `ref` of [README.md](README.md), « Where we stand » above |
+| plans, defers, drops or discovers a to-do | the card in the Project |
+| changes an assistant rule | `CLAUDE.md` **and** `AGENTS.md`, kept identical |
+| anything | one line in [journal.md](docs/journal.md) |
+
+Commit and push **only when the owner asks**.

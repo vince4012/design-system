@@ -24,7 +24,7 @@ dependencies:
     git:
       url: https://github.com/vince4012/design-system.git
       path: flutter
-      ref: v0.9.0
+      ref: v0.9.9
 ```
 
 Mise en place : voir [`flutter/README.md`](flutter/README.md).

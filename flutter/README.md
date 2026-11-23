@@ -81,6 +81,9 @@ MaterialApp(
 | `AppTextField`, `DateField`, `AppSwitch`, `AppSwitchTile`, `FieldRow`, `requiredField` | formulaires (interrupteur réduit : à utiliser à la place de `Switch` / `SwitchListTile`) |
 | `GlassDialog`, `showGlassDialog`, `FormDialog`, `confirm`, `showMessage` | dialogues, confirmations, messages |
 | `MobilePage`, `showGlassSheet`, `GlassSheet`, `SectionLabel`, `AppChip`, `RoundButton`, `SelectionMark`, `GlassDisclosure`, `promptName` | mobile : écran à grand titre, feuille basse, puce à cocher, bouton rond, coche de sélection, carte dépliable, dialogue « renommer » |
+| `PageTitle`, `ScrollFade`, `StackedCardsIllustration` | mobile : titre de page, liste estompée sous le titre, illustration d'écran vide |
+| `HeroCard`, `AppToggleGroup`, `FloatingTabBar`, `TabBarItem`, `FlashOutline`, `InfoLine`, `InfoItem` | mobile : carte d'accroche, groupe de bascules, barre d'onglets flottante, contour d'un nouvel élément, ligne d'informations |
+| `RotaryKnob`, `PanBar`, `MiniCurve` | mobile : rond de réglage, panoramique et courbe en lecture seule |
 | `NativeWindow`, `ToolbarItem` | fenêtre macOS (vitrage, barre d'outils, agrandissement, plein écran) |
 
 ## Galerie
