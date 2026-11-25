@@ -190,6 +190,9 @@ class StatusPill extends StatelessWidget {
 }
 
 /// Panneau de verre regroupant des lignes séparées par un filet, comme une liste du Finder.
+///
+/// Mobile (depuis la 0.9.10) : les lignes touchent les bords de la carte, qui les coupe à son arrondi ; le surlignage d'une ligne (appui,
+/// survol, focus) va donc de bord à bord. Desktop : 4 de marge en haut et en bas.
 class GlassGroup extends StatelessWidget {
   const GlassGroup({super.key, required this.children});
 
@@ -202,7 +205,7 @@ class GlassGroup extends StatelessWidget {
     final inset = metrics.listPadding.left;
     return Glass(
       radius: metrics.radiusGroup,
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: metrics.isMobile ? EdgeInsets.zero : const EdgeInsets.symmetric(vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -273,7 +276,8 @@ class GlassListTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         mouseCursor: WidgetStateMouseCursor.clickable,
-        borderRadius: BorderRadius.circular(metrics.radiusControl),
+        // Mobile : la carte coupe les coins (voir Glass)
+        borderRadius: metrics.isMobile ? null : BorderRadius.circular(metrics.radiusControl),
         child: Container(
           // Mobile : ligne d'au moins 56 (cible tactile) ; desktop : hauteur du contenu.
           constraints: BoxConstraints(minHeight: metrics.listRow),

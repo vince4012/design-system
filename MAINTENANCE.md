@@ -24,11 +24,11 @@ Documentation structure: `doc-structure v1` (the owner's official structure, a g
 | what is next, ideas | the [GitHub Project « Roadmap »](https://github.com/users/vince4012/projects/1), see « The roadmap » below |
 | the web theme (reserved) | [web/README.md](web/README.md) |
 
-## Where we stand (2026-11-23)
+## Where we stand (2026-11-25)
 
-- Version **0.9.9**, tagged and pushed (`v0.9.9`). Families: desktop (macOS / Windows) and mobile (Flutter, native Android).
-- `flutter analyze` without issue; 23 package tests, 19 gallery tests (16 captures); `android/res` up to date (79 resources).
-- Client apps: Quittances (desktop), FiiDrive (native Android), DiRecLy (Flutter mobile, pinned to `v0.9.9`).
+- Version **0.9.10**, tagged and pushed (`v0.9.10`). Families: desktop (macOS / Windows) and mobile (Flutter, native Android).
+- `flutter analyze` without issue; 25 package tests, 19 gallery tests (16 captures); `android/res` up to date (79 resources).
+- Client apps: Quittances (desktop), FiiDrive (native Android), DiRecLy (Flutter mobile, pinned to `v0.9.10`).
 - Tried on devices through the client apps: Pixel 4a (DiRecLy), Moto G and Android 14 emulator (FiiDrive). Not tried: iOS.
 - The Claude artifact reflects **0.9.0** (version 30); its HTML previews were never checked visually.
 

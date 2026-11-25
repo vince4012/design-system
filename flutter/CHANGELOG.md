@@ -1,3 +1,11 @@
+## 0.9.10
+
+Changement visuel limité au **mobile** (aucun changement pour une appli desktop : captures desktop identiques).
+
+- `GlassGroup` et `GlassListTile` : les lignes touchent les bords de la carte, le surlignage d'une ligne (appui, survol, focus) va de bord à bord et suit
+  l'arrondi. Avant, 4 de marge vide en haut et en bas laissaient deux bandes plus sombres, très visibles sur une carte d'une seule ligne. Chaque carte
+  perd 8 de hauteur. Une appli qui pose ses propres lignes dans un `GlassGroup` doit retirer leurs coins arrondis (`InkWell.borderRadius`).
+
 ## 0.9.9
 
 Ajout sans rupture (famille mobile). **Aucun changement visuel** pour qui ne passe pas le nouveau paramètre ; aucun changement pour une appli desktop.
