@@ -59,6 +59,10 @@
     <color name="ds_color_status_danger_ink">#FFFF5C5F</color>
     <!-- Texte sur fond d'erreur, sombre. -->
     <color name="ds_color_status_danger_on">#FF2A0805</color>
+    <!-- Erreur, fond teinté d'un message, sombre : rouge très sombre. Texte 14,5:1, encre 6:1. -->
+    <color name="ds_color_status_danger_tint">#FF2C0B0C</color>
+    <!-- Info, fond teinté d'un message, sombre : bleu nuit (carte d'accueil). Texte 14,7:1, accent 5,7:1. -->
+    <color name="ds_color_status_info_tint">#FF021627</color>
     <!-- Neutre : état inactif, sombre. -->
     <color name="ds_color_status_neutral">#FF9A9DA4</color>
     <!-- Succès, teinte vive, sombre : vert franc de Saracroche. -->
@@ -69,6 +73,8 @@
     <color name="ds_color_status_warning_fill">#FFFEC600</color>
     <!-- Attention, texte, sombre (7,7:1 sur fond teinté). -->
     <color name="ds_color_status_warning_ink">#FFFEC600</color>
+    <!-- Attention, fond teinté d'un message, sombre : brun-jaune très sombre. Texte 12,7:1, encre 10:1. -->
+    <color name="ds_color_status_warning_tint">#FF2A2200</color>
     <!-- Surfaces opaques (menus, sélecteurs), sombre. -->
     <color name="ds_color_surface">#FF262B35</color>
     <!-- Fond des bulles d'aide (sombre), texte blanc. -->

@@ -1,3 +1,21 @@
+## 0.10.0
+
+Messages typés (info, avertissement, erreur), pour toutes les familles. Changement visuel des messages brefs ; les dialogues sans type ne changent
+pas, sauf la marge du bas quand ils n'ont pas de boutons propres (voir plus bas).
+
+- `MessageKind` (`info`, `warning`, `error`) : la couleur et la **forme** de l'icône (cercle « i », triangle « ! », octogone « ! »), et la durée
+  d'un bandeau (4, 8 et 10 s). `MessageColors.of(kind, brightness)`, `MessageIcon(kind, size:)` (icône dessinée, sans police).
+- **Bandeau teinté** (`MessageBar`, `messageBar(…)` pour `showSnackBar`) : fond pâle de la couleur du type, bord fin, icône à gauche, bouton
+  facultatif dans la couleur du type. Le bouton passe sous le texte quand celui-ci prendrait plus de deux lignes à côté de lui. Le bouton ferme le
+  bandeau avec la raison `SnackBarClosedReason.action`, comme `SnackBarAction`.
+- `showMessage(context, message, {kind, actionLabel, onAction, duration, margin, replace})` remplace l'ancien `showMessage(context, message)`
+  (même appel possible, type info par défaut) ; il rend le contrôleur de la snackbar. Déplacé de `forms.dart` vers `messages.dart`.
+- `GlassDialog(kind:)` et `confirm(kind:)` : avec un type, la grande icône (56) en haut, titre et texte centrés.
+- `GlassDialog` sans `actions` (boutons posés dans le contenu) n'ajoute plus 18 de marge pour une rangée vide.
+- Jetons : `color.status.info.tint`, `color.status.warning.tint`, `color.status.danger.tint` (fonds teintés des messages, contrastes dans leur
+  description) ; `android/res` régénéré (82 ressources).
+- Demandé par DiRecLy (#49), d'après les maquettes choisies le 26/11/2026 (bandeau teinté, dialogue neutre à pastille).
+
 ## 0.9.10
 
 Changement visuel limité au **mobile** (aucun changement pour une appli desktop : captures desktop identiques).

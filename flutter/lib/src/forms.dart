@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'glass.dart';
+import 'messages.dart';
 import 'metrics.dart';
 import 'tokens.g.dart';
 
@@ -197,13 +198,22 @@ Future<T?> showGlassDialog<T>(BuildContext context, WidgetBuilder builder) => sh
 );
 
 /// Dialogue en verre : titre, contenu, boutons alignés à droite.
+/// Avec un [kind] (info, avertissement, erreur) : la grande icône du type en haut, titre et texte centrés.
 class GlassDialog extends StatelessWidget {
-  const GlassDialog({super.key, required this.title, required this.child, required this.actions, this.width = 560});
+  const GlassDialog({
+    super.key,
+    required this.title,
+    required this.child,
+    required this.actions,
+    this.width = 560,
+    this.kind,
+  });
 
   final String title;
   final Widget child;
   final List<Widget> actions;
   final double width;
+  final MessageKind? kind;
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -223,16 +233,29 @@ class GlassDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(title, style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 14),
-            Flexible(child: child),
-            const SizedBox(height: 18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                for (final (i, a) in actions.indexed) ...[if (i > 0) const SizedBox(width: Tokens.spaceS), a],
-              ],
+            if (kind case final kind?) ...[
+              Center(child: MessageIcon(kind, size: 56)),
+              const SizedBox(height: Tokens.spaceM),
+            ],
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+              textAlign: kind == null ? null : TextAlign.center,
             ),
+            const SizedBox(height: 14),
+            Flexible(
+              child: kind == null ? child : DefaultTextStyle.merge(textAlign: TextAlign.center, child: child),
+            ),
+            // Sans boutons ici (ils sont dans le contenu), pas de marge pour une rangée vide
+            if (actions.isNotEmpty) ...[
+              const SizedBox(height: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  for (final (i, a) in actions.indexed) ...[if (i > 0) const SizedBox(width: Tokens.spaceS), a],
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -281,7 +304,7 @@ class FormDialog extends StatelessWidget {
   );
 }
 
-/// Demande confirmation. Par défaut, action destructive « Supprimer » en rouge.
+/// Demande confirmation. Par défaut, action destructive « Supprimer » en rouge. [kind] : voir [GlassDialog].
 Future<bool> confirm(
   BuildContext context, {
   required String title,
@@ -289,12 +312,14 @@ Future<bool> confirm(
   String action = 'Supprimer',
   String cancelLabel = 'Annuler',
   bool destructive = true,
+  MessageKind? kind,
 }) async =>
     await showGlassDialog<bool>(
       context,
       (context) => GlassDialog(
         title: title,
         width: 420,
+        kind: kind,
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: Text(cancelLabel)),
           FilledButton(
@@ -307,7 +332,3 @@ Future<bool> confirm(
       ),
     ) ??
     false;
-
-/// Message bref en bas de la fenêtre (snackbar flottante du thème).
-void showMessage(BuildContext context, String message) =>
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));

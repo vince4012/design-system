@@ -59,6 +59,10 @@
     <color name="ds_color_status_danger_ink">#FFA8121A</color>
     <!-- Texte sur fond d'erreur, clair (4,8:1). -->
     <color name="ds_color_status_danger_on">#FFFFFFFF</color>
+    <!-- Erreur, fond teinté d'un message, clair : rouge pâle. Texte 12,3:1, encre d'erreur 6,1:1. -->
+    <color name="ds_color_status_danger_tint">#FFFCE1E1</color>
+    <!-- Info, fond teinté d'un message (bandeau, dialogue), clair : bleu très pâle. Texte courant 13:1, accent 4,6:1. Pastille et bouton : l'accent. -->
+    <color name="ds_color_status_info_tint">#FFE3EFFD</color>
     <!-- Neutre : état inactif (« Terminé »), icône grisée, clair. -->
     <color name="ds_color_status_neutral">#FF666A71</color>
     <!-- Succès, teinte vive (pastilles, icônes, fonds teintés), clair : vert franc de Saracroche. -->
@@ -69,6 +73,8 @@
     <color name="ds_color_status_warning_fill">#FFFEC600</color>
     <!-- Attention, texte clair : posé sur l'étiquette jaune pleine (7,3:1). Brun foncé, plus lisible que le brun clair sur fond teinté. -->
     <color name="ds_color_status_warning_ink">#FF4A3600</color>
+    <!-- Attention, fond teinté d'un message, clair : jaune pâle. Texte 13,6:1, encre d'attention 10,4:1. -->
+    <color name="ds_color_status_warning_tint">#FFFFF3C2</color>
     <!-- Surfaces opaques (menus, sélecteurs), clair. -->
     <color name="ds_color_surface">#FFF7F5F1</color>
     <!-- Fond des bulles d'aide (clair), texte blanc. -->

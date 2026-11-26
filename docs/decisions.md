@@ -62,6 +62,13 @@ never reused. The dated facts and measures are in the [journal](journal.md); the
 - **D-31 Long press, not double tap, on a `GlassDisclosure` header.** 2026-11-18 (0.9.3). A double tap delays the single tap and folds back the card that was just
   opened.
 - **D-32 The back arrow tooltip follows the language of the app** (`MaterialLocalizations`). 2026-11-20 (0.9.7), for DiRecLy in 13 languages.
+- **D-36 Messages have a kind: info, warning, error.** Owner, 2026-11-26 (0.10.0), for DiRecLy #49, after mock-ups of three bars and two dialogs.
+  Chosen: the **tinted bar** (pale background of the kind, like the state card of Saracroche; button in the colour of the kind) and the **neutral
+  dialog with a badge** (opaque glass as before, big icon on top, centred title and text). Set aside: the neutral bar with only a coloured icon, the
+  full-colour bar (too loud), the tinted dialog. Each kind has its own **shape** (circle, triangle, octagon) so that colour is never the only sign;
+  in light, the yellow triangle has a brown outline (yellow on pale yellow is under 3:1). The light info tint is `#E3EFFD`, not the hero card's
+  `#D9EAFD`, so that the accent button keeps 4.5:1 (4.6:1 instead of 4.4:1). Durations grow with the kind (4, 8, 10 s): an error is read
+  to the end. No « success » kind for now (no message needs it).
 
 ## Icons
 

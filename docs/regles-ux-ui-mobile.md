@@ -48,7 +48,7 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Ligne de liste** : hauteur ≥ 56 dp, icône brute d'accent (24 dp), titre 17 sp, sous-titre 14 sp en gris,
   élément de fin (interrupteur, chevron) ; filet séparateur fin entre les lignes.
 - **Interrupteur** : 46 × 28 dp, piste **bleu d'accent** (pas de jaune, moins lisible), pouce blanc rond de 22 dp **à l'intérieur** de la piste (3 dp de marge), **contour fin et discret** (encre à ~18 % sur la piste, ~22 % sur le pouce) : sans lui, le pouce blanc se fond dans une carte claire.
-- **Dialogue** : verre opaque, rayon 24, à 20 dp des bords ; boutons à droite (Annuler, puis l'action).
+- **Dialogue** : verre opaque, rayon 24, à 20 dp des bords ; boutons à droite (Annuler, puis l'action). Un dialogue d'information, d'avertissement ou d'erreur porte son **type** (`GlassDialog(kind:)`) : grande icône de 56 dp en haut, titre et texte centrés ; ses boutons peuvent s'empiler en capsules pleine largeur dans le contenu.
 - **Feuille basse** (réglages, choix) : verre opaque, rayon 24, **flottante** à la marge d'écran (12 dp), poignée de 36 × 4 en haut, titre,
   contenu défilant, 80 % de la hauteur au plus ; se ferme en la tirant ou en touchant le voile. **Sans ombre** (voir § 4).
 - **Écran** : grand titre de 32 sp en haut à gauche (`PageTitle` : Kaushan Script, une seule graisse donc **jamais de gras**, hauteur de ligne 1,1, dégradé léger de gauche à droite, une paire de couleurs par thème ; réservé aux titres de page, le reste du texte garde la police du système), actions en icônes à droite (zone de 48 dp) ; un panneau d'action peut flotter en bas,
@@ -73,7 +73,7 @@ d'action (le bleu), états jamais portés par la couleur seule, icônes de liste
 - **Carte dépliable** : en-tête (titre demi-gras, sous-titre gris, actions, chevron qui pivote) ; les lignes se déplient sous un filet.
 - **Sélection multiple** : coche ronde de 22 dp à gauche de la ligne, vide puis pleine en accent ; toute la ligne reste la cible tactile.
 - **Curseur** (lecture) : piste de 4 dp, partie parcourue et pouce en accent.
-- **Message bref** : bandeau flottant en bas, une phrase, au-dessus de la zone de gestes du système.
+- **Message bref** : bandeau flottant en bas, au-dessus de la zone de gestes du système, **typé** (`showMessage(kind:)`) : info (bleu, cercle « i », 4 s), avertissement (jaune, triangle « ! », 8 s), erreur (rouge, octogone « ! », 10 s). Fond pâle de la couleur du type (`color.status.*.tint`), bord fin, rayon 16, icône de 28 dp, texte de 15 sp, bouton facultatif (un verbe) dans la couleur du type ; le bouton passe sous le texte quand celui-ci ferait plus de deux lignes. Info : rien n'est perdu, rien à faire ; avertissement : fait, mais moins bien que prévu, ou une question avant d'agir ; erreur : l'action a échoué, il faut agir.
 
 ## 4. Éléments flottants sur une carte ou un contenu plein écran
 

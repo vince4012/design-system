@@ -24,8 +24,9 @@ flutter/                     Flutter package vb_design
   lib/src/design_scope.dart  DesignScope (native window active?)
   lib/src/background.dart    AppBackground
   lib/src/glass.dart         Glass, GlassSection, GlassGroup, GlassListView, GlassListTile, GlassBadge, StatusPill, StatusStyle, StatusColors
-  lib/src/forms.dart         AppTextField, DateField, AppSwitch, AppSwitchTile, FieldRow, requiredField, GlassDialog, showGlassDialog,
-                             FormDialog, confirm, showMessage
+  lib/src/forms.dart         AppTextField, DateField, AppSwitch, AppSwitchTile, FieldRow, requiredField, GlassDialog (kind:), showGlassDialog,
+                             FormDialog, confirm
+  lib/src/messages.dart      MessageKind, MessageColors, MessageIcon, MessageBar, messageBar, showMessage (typed messages)
   lib/src/illustrations.dart StackedCardsIllustration (empty screens, tokens color.illustration.*)
   lib/src/page.dart          PageScaffold, EmptyState
   lib/src/shell.dart         GlassShell, ShellDestination, SidebarHeader, ThemeModeSwitch

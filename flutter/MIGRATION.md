@@ -1,3 +1,11 @@
+# Migration 0.9.10 → 0.10.0
+
+Monter `ref: v0.10.0`. Le code compile tel quel : `showMessage(context, message)` existe toujours (type info, bandeau teinté bleu).
+À faire pour profiter des types : passer `kind: MessageKind.warning` ou `MessageKind.error` aux messages qui le sont ; remplacer les
+`SnackBar(content: Text(…), action: SnackBarAction(…))` écrites à la main par `messageBar(…)` / `showMessage(…, actionLabel:, onAction:)` ;
+donner un `kind` aux dialogues d'avertissement et d'erreur (`GlassDialog`, `confirm`). Les tests qui attendent la fin d'un message
+doivent tenir compte des durées par type (8 s pour un avertissement, 10 s pour une erreur), et chercher `MessageBar` au lieu de `SnackBarAction`.
+
 # Migration 0.9.3 → 0.9.4
 
 Rien à faire : monter `ref: v0.9.4`. Facultatif : `FlashOutline(borderRadius:, outset:)`.

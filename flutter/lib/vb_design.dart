@@ -10,6 +10,7 @@ export 'src/forms.dart';
 export 'src/glass.dart';
 export 'src/illustrations.dart';
 export 'src/knobs.dart';
+export 'src/messages.dart';
 export 'src/metrics.dart';
 export 'src/mobile.dart';
 export 'src/native_window.dart';

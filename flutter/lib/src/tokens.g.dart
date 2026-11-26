@@ -50,6 +50,10 @@ abstract final class Tokens {
   static const colorStatusWarningInkLight = Color(0xFF4A3600);
   /// Attention, texte, sombre (7,7:1 sur fond teinté).
   static const colorStatusWarningInkDark = Color(0xFFFEC600);
+  /// Attention, fond teinté d'un message, clair : jaune pâle. Texte 13,6:1, encre d'attention 10,4:1.
+  static const colorStatusWarningTintLight = Color(0xFFFFF3C2);
+  /// Attention, fond teinté d'un message, sombre : brun-jaune très sombre. Texte 12,7:1, encre 10:1.
+  static const colorStatusWarningTintDark = Color(0xFF2A2200);
   /// Erreur, teinte vive (boutons destructifs, bordures, icônes), clair : le rouge de Saracroche #FF383C assombri pour tenir 4,5:1 avec du texte blanc.
   static const colorStatusDangerFillLight = Color(0xFFE5262B);
   /// Erreur, teinte vive, sombre : rouge de Saracroche.
@@ -62,6 +66,14 @@ abstract final class Tokens {
   static const colorStatusDangerOnLight = Color(0xFFFFFFFF);
   /// Texte sur fond d'erreur, sombre.
   static const colorStatusDangerOnDark = Color(0xFF2A0805);
+  /// Erreur, fond teinté d'un message, clair : rouge pâle. Texte 12,3:1, encre d'erreur 6,1:1.
+  static const colorStatusDangerTintLight = Color(0xFFFCE1E1);
+  /// Erreur, fond teinté d'un message, sombre : rouge très sombre. Texte 14,5:1, encre 6:1.
+  static const colorStatusDangerTintDark = Color(0xFF2C0B0C);
+  /// Info, fond teinté d'un message (bandeau, dialogue), clair : bleu très pâle. Texte courant 13:1, accent 4,6:1. Pastille et bouton : l'accent.
+  static const colorStatusInfoTintLight = Color(0xFFE3EFFD);
+  /// Info, fond teinté d'un message, sombre : bleu nuit (carte d'accueil). Texte 14,7:1, accent 5,7:1.
+  static const colorStatusInfoTintDark = Color(0xFF021627);
   /// Neutre : état inactif (« Terminé »), icône grisée, clair.
   static const colorStatusNeutralLight = Color(0xFF666A71);
   /// Neutre : état inactif, sombre.
@@ -200,6 +212,10 @@ abstract final class TokensMobile {
   static const colorStatusWarningInkLight = Color(0xFF4A3600);
   /// Attention, texte, sombre (7,7:1 sur fond teinté).
   static const colorStatusWarningInkDark = Color(0xFFFEC600);
+  /// Attention, fond teinté d'un message, clair : jaune pâle. Texte 13,6:1, encre d'attention 10,4:1.
+  static const colorStatusWarningTintLight = Color(0xFFFFF3C2);
+  /// Attention, fond teinté d'un message, sombre : brun-jaune très sombre. Texte 12,7:1, encre 10:1.
+  static const colorStatusWarningTintDark = Color(0xFF2A2200);
   /// Erreur, teinte vive (boutons destructifs, bordures, icônes), clair : le rouge de Saracroche #FF383C assombri pour tenir 4,5:1 avec du texte blanc.
   static const colorStatusDangerFillLight = Color(0xFFE5262B);
   /// Erreur, teinte vive, sombre : rouge de Saracroche.
@@ -212,6 +228,14 @@ abstract final class TokensMobile {
   static const colorStatusDangerOnLight = Color(0xFFFFFFFF);
   /// Texte sur fond d'erreur, sombre.
   static const colorStatusDangerOnDark = Color(0xFF2A0805);
+  /// Erreur, fond teinté d'un message, clair : rouge pâle. Texte 12,3:1, encre d'erreur 6,1:1.
+  static const colorStatusDangerTintLight = Color(0xFFFCE1E1);
+  /// Erreur, fond teinté d'un message, sombre : rouge très sombre. Texte 14,5:1, encre 6:1.
+  static const colorStatusDangerTintDark = Color(0xFF2C0B0C);
+  /// Info, fond teinté d'un message (bandeau, dialogue), clair : bleu très pâle. Texte courant 13:1, accent 4,6:1. Pastille et bouton : l'accent.
+  static const colorStatusInfoTintLight = Color(0xFFE3EFFD);
+  /// Info, fond teinté d'un message, sombre : bleu nuit (carte d'accueil). Texte 14,7:1, accent 5,7:1.
+  static const colorStatusInfoTintDark = Color(0xFF021627);
   /// Neutre : état inactif (« Terminé »), icône grisée, clair.
   static const colorStatusNeutralLight = Color(0xFF666A71);
   /// Neutre : état inactif, sombre.
