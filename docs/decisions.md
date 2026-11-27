@@ -69,6 +69,14 @@ never reused. The dated facts and measures are in the [journal](journal.md); the
   in light, the yellow triangle has a brown outline (yellow on pale yellow is under 3:1). The light info tint is `#E3EFFD`, not the hero card's
   `#D9EAFD`, so that the accent button keeps 4.5:1 (4.6:1 instead of 4.4:1). Durations grow with the kind (4, 8, 10 s): an error is read
   to the end. No « success » kind for now (no message needs it).
+- **D-37 A light theme of its own for the mobile family: « Glacier sur fond net ».** Owner, 2026-11-27 (0.11.0), for DiRecLy #52, after
+  mock-ups of three directions (A Glacier: cool background with a blue glow and glass cards with a bluish shadow; B Aurore: soft colour blots behind
+  the glass, gradient buttons; C Net: opaque white cards on a pale blue-grey background). Chosen: **the background of C with everything else of A**.
+  The sand background was dull and the 52 % cards barely stood out. Follows: a barely blue grey background, navy ink, brighter accent `#0064DC`,
+  cards opaque at the tint of 90 % white (a translucent card showed its own shadow as a second card inside), a 16 % navy edge instead of the white glass highlight (white on a white card, it showed as a lighter line on the sides) and **no drop shadow**
+  (a bluish shadow was tried first, long then short; owner's review on the Pixel: the first background was too cold, the long shadows of two cards overlapped
+  into a dark band, the left and right edges melted into the background; even short, the shadows drew odd zones, so they were removed), navy lines instead of black, accent-tinted tab pill and chips. Mobile only: the desktop light theme (Quittances) and both
+  dark themes are unchanged. The light values of a family are carried by `DesignMetrics`. Set aside: the colour blots (B) and the blue glow (A). The light gradient is lighter at the top (owner, same day), like the desktop: D-15 / D-17 now hold for the dark mobile theme only.
 
 ## Icons
 

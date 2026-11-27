@@ -34,12 +34,13 @@ class MessageColors {
     required this.text,
   });
 
-  factory MessageColors.of(MessageKind kind, Brightness brightness) {
+  /// [metrics] : la famille, qui donne l'accent et le texte du thème clair (desktop par défaut).
+  factory MessageColors.of(MessageKind kind, Brightness brightness, [DesignMetrics metrics = DesignMetrics.desktop]) {
     final dark = brightness == Brightness.dark;
-    final text = dark ? Tokens.colorInkDark : Tokens.colorInkLight;
+    final text = dark ? Tokens.colorInkDark : metrics.inkLight;
     switch (kind) {
       case MessageKind.info:
-        final fill = dark ? Tokens.colorAccentDark : Tokens.colorAccentLight;
+        final fill = dark ? Tokens.colorAccentDark : metrics.accentLight;
         return MessageColors(
           tint: dark ? Tokens.colorStatusInfoTintDark : Tokens.colorStatusInfoTintLight,
           border: fill.withValues(alpha: dark ? 0.35 : 0.28),
@@ -109,7 +110,10 @@ class MessageIcon extends StatelessWidget {
   Widget build(BuildContext context) => ExcludeSemantics(
     child: CustomPaint(
       size: Size.square(size),
-      painter: _MessageIconPainter(kind, MessageColors.of(kind, Theme.of(context).brightness)),
+      painter: _MessageIconPainter(
+        kind,
+        MessageColors.of(kind, Theme.of(context).brightness, DesignMetrics.of(context)),
+      ),
     ),
   );
 }
@@ -183,13 +187,10 @@ class MessageBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = MessageColors.of(kind, Theme.of(context).brightness);
+    final colors = MessageColors.of(kind, Theme.of(context).brightness, DesignMetrics.of(context));
     final mobile = DesignMetrics.of(context).isMobile;
-    final style = Theme.of(context).textTheme.bodyMedium!.copyWith(
-      fontSize: mobile ? 15 : 13,
-      height: mobile ? 20 / 15 : 18 / 13,
-      color: colors.text,
-    );
+    final style = Theme.of(context).textTheme.bodyMedium!
+        .copyWith(fontSize: mobile ? 15 : 13, height: mobile ? 20 / 15 : 18 / 13, color: colors.text);
     final label = actionLabel;
     final button = label == null
         ? null
@@ -219,23 +220,31 @@ class MessageBar extends StatelessWidget {
           final scaler = MediaQuery.textScalerOf(context);
           final dir = Directionality.of(context);
           double width(String text, TextStyle s, double max) {
-            final p = TextPainter(text: TextSpan(text: text, style: s), textDirection: dir, textScaler: scaler)
-              ..layout(maxWidth: max);
+            final p = TextPainter(
+              text: TextSpan(text: text, style: s),
+              textDirection: dir,
+              textScaler: scaler,
+            )..layout(maxWidth: max);
             final w = p.width;
             p.dispose();
             return w;
           }
 
           int lines(double max) {
-            final p = TextPainter(text: TextSpan(text: message, style: style), textDirection: dir, textScaler: scaler)
-              ..layout(maxWidth: max);
+            final p = TextPainter(
+              text: TextSpan(text: message, style: style),
+              textDirection: dir,
+              textScaler: scaler,
+            )..layout(maxWidth: max);
             final n = p.computeLineMetrics().length;
             p.dispose();
             return n;
           }
 
           final textMax = constraints.maxWidth - _iconSize - _gap;
-          final buttonWidth = label == null ? 0.0 : width(label, style.copyWith(fontWeight: FontWeight.w600), textMax) + 24 + 4;
+          final buttonWidth = label == null
+              ? 0.0
+              : width(label, style.copyWith(fontWeight: FontWeight.w600), textMax) + 24 + 4;
           final besideLines = lines((textMax - buttonWidth).clamp(1, double.infinity));
           final below = button != null && besideLines > 2;
           final single = (below ? lines(textMax) : besideLines) == 1;

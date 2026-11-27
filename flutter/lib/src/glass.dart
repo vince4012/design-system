@@ -37,7 +37,7 @@ class Glass extends StatelessWidget {
 
   /// Flou d'arrière-plan. Par défaut : actif sur desktop et pour les éléments au premier plan (`strong` : feuilles,
   /// dialogues), coupé pour les cartes du mobile (fond en dégradé : le flou s'y voit à peine, mais il est recalculé à
-  /// chaque image dès que la page bouge, et fait ramer un téléphone moyen). Sans flou, l'ombre est coupée aussi.
+  /// chaque image dès que la page bouge, et fait ramer un téléphone moyen). Sans flou, l'ombre est coupée aussi. En clair mobile, jamais d'ombre portée : un bord bleu marine fin à la place.
   final bool? blur;
 
   final VoidCallback? onTap;
@@ -45,7 +45,11 @@ class Glass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final blurred = blur ?? (strong || !DesignMetrics.of(context).isMobile);
+    final metrics = DesignMetrics.of(context);
+    final blurred = blur ?? (strong || !metrics.isMobile);
+    // Clair mobile : un bord bleu marine fin détache la carte du fond, sans ombre portée ni liseré blanc.
+    final coolLight = !dark && metrics.isMobile;
+    final shade = metrics.glassShadowLight;
     final shape = BorderRadius.circular(radius);
     final highlight = dark ? Tokens.colorGlassHighlightDark : Tokens.colorGlassHighlightLight;
     final color = tint ?? (dark ? Tokens.colorGlassTintDark : Tokens.colorGlassTintLight);
@@ -56,16 +60,23 @@ class Glass extends StatelessWidget {
               ? (DesignMetrics.of(context).isMobile
                     ? TokensMobile.opacityGlassFillStrongDark
                     : Tokens.opacityGlassFillStrongDark)
-              : Tokens.opacityGlassFillStrongLight)
-        : (dark ? Tokens.opacityGlassFillDark : Tokens.opacityGlassFillLight);
+              : metrics.glassFillStrongLight)
+        : (dark ? Tokens.opacityGlassFillDark : metrics.glassFillLight);
 
     final panel = Container(
       decoration: BoxDecoration(
         borderRadius: shape,
-        // Remplissage uni : le relief vient du dégradé du fond, pas de la carte.
-        color: color.withValues(alpha: alpha),
+        // Remplissage uni : le relief vient du dégradé du fond, pas de la carte. Carte claire du mobile : la même teinte,
+        // rendue opaque (blanc à 90 % sur le fond).
+        color: coolLight && !strong && tint == null
+            ? Color.alphaBlend(color.withValues(alpha: alpha), metrics.backgroundLight.first)
+            : color.withValues(alpha: alpha),
+        // Clair mobile : un seul trait bleu marine, sans le liseré blanc du verre (blanc sur blanc, il ressortait en trait clair
+        // sur les côtés, à côté du fond grisé des lignes dépliées).
         border: Border.all(
-          color: highlight.withValues(alpha: dark ? Tokens.opacityGlassBorderDark : Tokens.opacityGlassBorderLight),
+          color: coolLight && tint == null
+              ? shade.withValues(alpha: 0.16)
+              : highlight.withValues(alpha: dark ? Tokens.opacityGlassBorderDark : metrics.glassBorderLight),
         ),
       ),
       child: Material(
@@ -84,7 +95,11 @@ class Glass extends StatelessWidget {
         borderRadius: shape,
         // Ombre diffuse et rentrée : sous un verre translucide, une ombre
         // marquée se verrait à travers.
-        boxShadow: tint != null || !shadow || !blurred
+        boxShadow: tint != null || !shadow
+            ? null
+            // Clair mobile : pas d'ombre portée, elle dessinait des zones sombres entre deux cartes (essais du propriétaire sur le
+            // Pixel, 27/11/2026) ; le bord bleu marine suffit à détacher la carte.
+            : coolLight || !blurred
             ? null
             : [
                 BoxShadow(

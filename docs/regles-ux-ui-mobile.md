@@ -19,7 +19,8 @@ Applis clientes : FiiDrive (Android natif), DiRecLy (Flutter, `vbTheme(…, fami
 | Texte secondaire | 12 pt | **14 sp** |
 | Titre de page | 17 pt, dans la barre d'outils | **32 sp en Kaushan Script**, dégradé léger, en haut de l'écran |
 | Rayon des cartes | 14–16 pt | **20 dp** |
-| Fond | dégradé plus clair en haut, plus foncé en bas | dégradé **inversé** : plus foncé en haut, plus clair en bas (surcharge `color.background.*`) |
+| Fond | dégradé plus clair en haut, plus foncé en bas | en sombre, dégradé **inversé** : plus foncé en haut, plus clair en bas ; en clair, comme le desktop, plus clair en haut (titre mieux détaché), **gris à peine bleuté** et non sable (surcharge `color.background.*`) |
+| Thème clair | sable, cartes de verre à 52 % | « **Glacier sur fond net** » : textes bleu-nuit, accent `#0064DC`, cartes blanches opaques avec un **bord net bleu marine** (pas de liseré blanc) et **sans ombre portée**, filets bleu marine, pastille d'onglet et puces teintées d'accent (D-37) |
 | Navigation | barre latérale flottante | pas de barre latérale (barre d'onglets ou écran unique selon l'appli) |
 
 Ce qui **ne change pas** : cartes unies à bordure lumineuse fine, un seul accent

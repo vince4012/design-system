@@ -168,32 +168,32 @@ abstract final class Tokens {
 /// Valeurs de la famille mobile : socle + surcharges de tokens/tokens.mobile.json
 /// (voir docs/regles-ux-ui-mobile.md).
 abstract final class TokensMobile {
-  /// Bleu vif, thème clair (boutons, liens, sélection) : le bleu de Saracroche #0088FF assombri pour tenir 4,5:1 sur le fond sable (5,4:1 avec du texte blanc).
-  static const colorAccentLight = Color(0xFF006AC7);
+  /// Bleu vif, thème clair mobile (boutons, liens, sélection) : plus vif que le socle (#006AC7). 4,6:1 sur le haut du fond, 5,5:1 sur blanc, texte blanc dessus 5,5:1.
+  static const colorAccentLight = Color(0xFF0064DC);
   /// Bleu électrique, thème sombre (bleu vif de Saracroche). 5,2:1 sur le fond ardoise.
   static const colorAccentDark = Color(0xFF0091FF);
   /// Texte et icônes sur l'accent, thème clair (5,5:1).
   static const colorOnAccentLight = Color(0xFFFFFFFF);
   /// Texte et icônes sur l'accent, thème sombre (5,5:1).
   static const colorOnAccentDark = Color(0xFF08162E);
-  /// Fond d'appli mobile, haut du dégradé (clair) : sable plus foncé. Sur mobile le dégradé est plus foncé en haut, plus clair en bas (desktop : l'inverse).
-  static const colorBackgroundLightTop = Color(0xFFEAE6DF);
-  /// Fond d'appli mobile, bas du dégradé (clair) : sable clair.
-  static const colorBackgroundLightBottom = Color(0xFFFAF8F4);
+  /// Fond d'appli mobile, haut du dégradé (clair) : presque blanc, à peine bleuté (27/11 : éclairci depuis #F5F6F8) ; en clair le dégradé est plus clair en haut (titre mieux détaché, bas plus soutenu sous le panneau), demande du propriétaire 27/11/2026 (thème « Glacier sur fond net », DiRecLy #52 ; avant : sable #EAE6DF). En sombre, le dégradé mobile reste plus foncé en haut.
+  static const colorBackgroundLightTop = Color(0xFFF9FAFB);
+  /// Fond d'appli mobile, bas du dégradé (clair) : gris à peine bleuté (27/11 : moins froid que #E9EDF3 / #F4F6F9, à la demande du propriétaire) (avant : sable #FAF8F4).
+  static const colorBackgroundLightBottom = Color(0xFFEAECEF);
   /// Fond d'appli mobile, haut du dégradé (sombre) : ardoise très foncée.
   static const colorBackgroundDarkTop = Color(0xFF090B0E);
   /// Fond d'appli mobile, bas du dégradé (sombre) : ardoise bleutée (0.7.0 : #1D232D assombri, la partie claire du dégradé était trop présente).
   static const colorBackgroundDarkBottom = Color(0xFF171C24);
-  /// Surfaces opaques (menus, sélecteurs), clair.
-  static const colorSurfaceLight = Color(0xFFF7F5F1);
+  /// Surfaces opaques (menus, sélecteurs), clair mobile : blanc bleuté.
+  static const colorSurfaceLight = Color(0xFFF8FAFC);
   /// Surfaces opaques (menus, sélecteurs), sombre.
   static const colorSurfaceDark = Color(0xFF262B35);
-  /// Texte courant et titres, clair : schiste.
-  static const colorInkLight = Color(0xFF23262B);
+  /// Texte courant et titres, clair mobile : bleu-nuit, le pendant du fond ardoise du sombre (13,9:1 sur le fond).
+  static const colorInkLight = Color(0xFF18202C);
   /// Texte courant et titres, sombre : sable clair.
   static const colorInkDark = Color(0xFFE8E6E1);
-  /// Texte secondaire, clair (5,2:1 sur le fond).
-  static const colorInkMutedLight = Color(0xFF5E6269);
+  /// Texte secondaire, clair mobile : gris-bleu (5,7:1 sur le fond, 6,4:1 sur une carte).
+  static const colorInkMutedLight = Color(0xFF525D6E);
   /// Texte secondaire, sombre (7,1:1 sur le fond).
   static const colorInkMutedDark = Color(0xFFA9ABB0);
   /// Succès, teinte vive (pastilles, icônes, fonds teintés), clair : vert franc de Saracroche.
@@ -248,6 +248,10 @@ abstract final class TokensMobile {
   static const colorGlassHighlightLight = Color(0xFFFFFFFF);
   /// Bordure, reflet, filets et contours, sombre : bleu pâle.
   static const colorGlassHighlightDark = Color(0xFFAAC3F0);
+  /// Ombre et filets du verre, clair mobile : bleu marine, employé translucide (bord des cartes 16 %, ombre du panneau du bas de l'appli, séparateurs 10 %, pistes 14 % ; plus d'ombre portée sous les cartes). Donne des ombres bleutées plutôt que grises.
+  static const colorGlassShadowLight = Color(0xFF1C3A6E);
+  /// Ombre du verre, sombre : noir (inchangé).
+  static const colorGlassShadowDark = Color(0xFF000000);
   /// Or de signature, clair : jaune vif. Filet de la rubrique active, compteurs, étoile des favoris.
   static const colorSignatureFillLight = Color(0xFFFEC600);
   /// Or de signature, sombre.
@@ -261,17 +265,17 @@ abstract final class TokensMobile {
   /// Fond des bulles d'aide (sombre), texte blanc.
   static const colorTooltipDark = Color(0xF22B2E33);
   /// Illustrations : carte du fond (clair).
-  static const colorIllustrationLightBack = Color(0xFFF1EEE8);
+  static const colorIllustrationLightBack = Color(0xFFEDF1F6);
   /// Illustrations : bordure de la carte du fond (clair).
-  static const colorIllustrationLightBackBorder = Color(0xFFE2DED6);
+  static const colorIllustrationLightBackBorder = Color(0xFFDCE3EC);
   /// Illustrations : carte du milieu (clair).
-  static const colorIllustrationLightMid = Color(0xFFF6F3EE);
+  static const colorIllustrationLightMid = Color(0xFFF3F6F9);
   /// Illustrations : bordure de la carte du milieu (clair).
-  static const colorIllustrationLightMidBorder = Color(0xFFDCD8D0);
+  static const colorIllustrationLightMidBorder = Color(0xFFD5DDE7);
   /// Illustrations : carte de devant (clair).
-  static const colorIllustrationLightFront = Color(0xFFFBFAF8);
+  static const colorIllustrationLightFront = Color(0xFFFBFCFD);
   /// Illustrations : bordure de la carte de devant (clair).
-  static const colorIllustrationLightFrontBorder = Color(0xFFD3CFC6);
+  static const colorIllustrationLightFrontBorder = Color(0xFFCCD5E1);
   /// Illustrations : lignes et barres grises du contenu des cartes (clair).
   static const colorIllustrationLightSkeleton = Color(0xFFA3ACB8);
   /// Illustrations : carte du fond (sombre).
@@ -296,24 +300,24 @@ abstract final class TokensMobile {
   static const colorPageTitleDarkFrom = Color(0xFF0091FF);
   /// Titre de page, fin du dégradé (sombre) : bleu ciel, à droite.
   static const colorPageTitleDarkTo = Color(0xFF62C8FF);
-  /// Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité).
-  static const colorOverlayFillLight = Color(0xE6FAF8F4);
+  /// Fond des éléments flottants sur une carte ou un contenu plein écran, clair (blanc bleuté à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité).
+  static const colorOverlayFillLight = Color(0xE6F8FAFC);
   /// Idem, sombre (ardoise à ~88 %).
   static const colorOverlayFillDark = Color(0xE01D232D);
-  /// Bordure des éléments flottants, clair : liseré discret de la couleur du texte (schiste) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair.
-  static const colorOverlayBorderLight = Color(0x2923262B);
+  /// Bordure des éléments flottants, clair : liseré discret de la couleur du texte (bleu-nuit) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair.
+  static const colorOverlayBorderLight = Color(0x2918202C);
   /// Bordure des éléments flottants, sombre (bleu pâle à 18 %).
   static const colorOverlayBorderDark = Color(0x2EAAC3F0);
   /// Carte d'accueil teintée (HeroCard), clair : bleu très pâle, comme la carte d'état de Saracroche.
   static const colorHeroFillLight = Color(0xFFD9EAFD);
   /// Carte d'accueil teintée, sombre : bleu nuit.
   static const colorHeroFillDark = Color(0xFF021627);
-  /// Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#006AC7, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible.
+  /// Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#0064DC, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible.
   static const colorHeroBadgeLight = Color(0xFF007AFF);
   /// Pastille d'icône de la carte d'accueil, sombre : l'accent.
   static const colorHeroBadgeDark = Color(0xFF0091FF);
   /// Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent.
-  static const colorBannerLight = Color(0xF0006AC7);
+  static const colorBannerLight = Color(0xF00064DC);
   /// Bandeau d'instruction, sombre : accent à ~90 %, texte onAccent.
   static const colorBannerDark = Color(0xE60091FF);
   /// Tracé / progression d'un itinéraire, clair.
@@ -324,20 +328,20 @@ abstract final class TokensMobile {
   static const colorRouteCasingLight = Color(0xB3707070);
   /// Contour du tracé, sombre : blanc.
   static const colorRouteCasingDark = Color(0xFFFFFFFF);
-  /// Remplissage blanc du verre (clair).
-  static const opacityGlassFillLight = 0.52;
+  /// Verre des cartes (clair, mobile) : blanc à 90 % (socle : 52 % ; 70 % au premier essai, les bords se fondaient dans le fond), pour que la carte se détache du fond gris-bleu (thème clair « Glacier sur fond net », DiRecLy #52, 27/11/2026).
+  static const opacityGlassFillLight = 0.9;
   /// Remplissage du verre (sombre), couleur glass.tint.
   static const opacityGlassFillDark = 0.08;
-  /// Verre au premier plan : dialogues (clair).
-  static const opacityGlassFillStrongLight = 0.78;
+  /// Verre au premier plan : feuilles basses, panneaux et dialogues (clair, mobile), blanc à 65 % avec le flou (socle : 78 %) : le contenu qui passe dessous se devine, comme en sombre (86 % au premier essai : presque opaque, demande du propriétaire 27/11/2026).
+  static const opacityGlassFillStrongLight = 0.65;
   /// Verre au premier plan : feuilles basses et panneaux (sombre), un peu plus sombre qu'au socle (0,14) sur mobile. Demande du propriétaire de DiRecLy, 22/11/2026.
   static const opacityGlassFillStrongDark = 0.09;
   /// Verre teinté d'une couleur (clair).
   static const opacityGlassTintLight = 0.18;
   /// Verre teinté d'une couleur (sombre).
   static const opacityGlassTintDark = 0.22;
-  /// Bordure lumineuse blanche du verre (clair).
-  static const opacityGlassBorderLight = 0.75;
+  /// Bord blanc du verre (clair, mobile) : sert aux verres teintés ; les cartes et panneaux clairs du mobile ont à la place un bord color.glass.shadow à 16 % (le liseré blanc ressortait en trait clair sur les côtés).
+  static const opacityGlassBorderLight = 1.0;
   /// Bordure lumineuse du verre (sombre), couleur glass.highlight.
   static const opacityGlassBorderDark = 0.16;
   /// Opacité du fond avec la fenêtre native (macOS, clair) : 1 = opaque, le bureau ne transparaît pas. Baisser pour retrouver le flou natif.

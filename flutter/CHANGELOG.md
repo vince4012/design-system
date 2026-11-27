@@ -1,3 +1,19 @@
+## 0.11.0
+
+Thème clair de la famille **mobile** refait (« Glacier sur fond net »), demandé par DiRecLy (#52) d'après les maquettes du 27/11/2026. Changement
+visuel en clair sur mobile seulement : le sombre et la famille desktop ne changent pas.
+
+- Fond gris à peine bleuté à la place du sable, **plus clair en haut** (`#F9FAFB` → `#EAECEF`, comme le desktop ; le sombre mobile reste plus foncé en haut) ; textes bleu-nuit (`#18202C`, secondaire `#525D6E`) ; accent plus vif
+  (`#0064DC`, 4,6:1 sur le fond) ; surfaces opaques blanc bleuté (`#F8FAFC`).
+- Cartes de verre : blanc à 90 % rendu opaque (sinon l'ombre se voyait à travers), **bord** net bleu marine à 16 %, sans le liseré blanc du verre (il ressortait en trait clair sur les côtés ; les bords ne se fondent
+  pas dans le fond) et **pas d'ombre portée** (une ombre dessinait des zones sombres entre deux cartes). Premier plan (feuilles, panneaux, dialogues) à 65 %, avec le flou : le contenu se devine dessous, comme en sombre. Nouveau jeton `color.glass.shadow` (mobile).
+- Filets, contours de champs et de boutons, pistes des curseurs : bleu marine translucide au lieu du noir. Pastille de l'onglet choisi et puces
+  (`AppChip`) teintées d'accent. Illustrations, éléments flottants et bandeau d'instruction refroidis (plus de sable).
+- `DesignMetrics` porte le thème clair de la famille (`accentLight`, `inkLight`, `inkMutedLight`, `surfaceLight`, `glassFillLight`,
+  `glassFillStrongLight`, `glassBorderLight`, `glassShadowLight`) ; `vbTheme`, `Glass` et les composants mobiles le lisent.
+  `MessageColors.of(kind, brightness, [metrics])` prend la famille (desktop par défaut).
+- `android/res` régénéré (83 ressources) : FiiDrive recevra ce clair en montant de version.
+
 ## 0.10.0
 
 Messages typés (info, avertissement, erreur), pour toutes les familles. Changement visuel des messages brefs ; les dialogues sans type ne changent

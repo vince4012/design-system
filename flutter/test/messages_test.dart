@@ -26,7 +26,7 @@ void main() {
       testWidgets('${b.name} ${kind.name}: tinted bar with its icon and colours', (tester) async {
         phone(tester);
         await tester.pumpWidget(app(b, (_) => MessageBar(message: 'Texte', kind: kind)));
-        final colors = MessageColors.of(kind, b);
+        final colors = MessageColors.of(kind, b, DesignMetrics.mobile);
         expect(barDecoration(tester).color, colors.tint);
         expect(find.byWidgetPredicate((w) => w is MessageIcon && w.kind == kind), findsOneWidget);
         expect(tester.widget<Text>(find.text('Texte')).style?.color, colors.text);

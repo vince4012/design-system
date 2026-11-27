@@ -15,7 +15,7 @@ flutter/                     Flutter package vb_design
   fonts/KaushanScript-Regular.ttf, OFL.txt   font of the mobile page titles (SIL OFL), family KaushanScript
   lib/vb_design.dart         public exports
   lib/src/tokens.g.dart      GENERATED (do not edit NOR FORMAT): Tokens (tokens.json) and TokensMobile (+ tokens.mobile.json)
-  lib/src/metrics.dart       DesignFamily, DesignMetrics (dimensions of the family, set in the theme)
+  lib/src/metrics.dart       DesignFamily, DesignMetrics (dimensions and light theme of the family, set in the theme)
   lib/src/theme.dart         vbTheme(Brightness, family:), ThemeModeStore
   lib/src/mobile.dart        MobilePage, PageTitle (Kaushan Script + gradient), ScrollFade (top of a list faded), showGlassSheet, GlassSheet,
                              SectionLabel, AppChip, RoundButton, FlashOutline (accent outline of a new item), SelectionMark, InfoLine / InfoItem,

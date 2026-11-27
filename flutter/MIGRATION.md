@@ -1,3 +1,10 @@
+# Migration 0.10.0 → 0.11.0
+
+Monter `ref: v0.11.0`. Rien ne casse : le clair des applis **mobiles** change d'aspect (fond gris-bleu, cartes plus blanches avec ombre
+bleutée, accent `#0064DC`). Une appli qui peint des couleurs claires à la main (noir translucide, sable) peut les aligner sur
+`DesignMetrics.of(context).glassShadowLight` (filets) et `colorScheme.primary` (teintes). Les tests qui comparent `MessageColors.of(kind, b)`
+à un bandeau mobile passent `DesignMetrics.mobile` en troisième argument. Desktop : rien à faire.
+
 # Migration 0.9.10 → 0.10.0
 
 Monter `ref: v0.10.0`. Le code compile tel quel : `showMessage(context, message)` existe toujours (type info, bandeau teinté bleu).

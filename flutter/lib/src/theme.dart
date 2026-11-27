@@ -14,8 +14,10 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
   final dark = brightness == Brightness.dark;
   final m = DesignMetrics.forFamily(family);
   final mobile = m.isMobile;
-  final accent = dark ? Tokens.colorAccentDark : Tokens.colorAccentLight;
-  final surface = dark ? Tokens.colorSurfaceDark : Tokens.colorSurfaceLight;
+  final accent = dark ? Tokens.colorAccentDark : m.accentLight;
+  final surface = dark ? Tokens.colorSurfaceDark : m.surfaceLight;
+  // Clair mobile : filets et contours bleu marine translucides (ombres bleutées), au lieu du noir.
+  final shade = m.glassShadowLight;
   final scheme =
       ColorScheme.fromSeed(
         seedColor: Tokens.colorAccentDark,
@@ -24,19 +26,17 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
       ).copyWith(
         primary: accent,
         onPrimary: dark ? Tokens.colorOnAccentDark : Tokens.colorOnAccentLight,
-        onSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
-        onSurfaceVariant: dark ? Tokens.colorInkMutedDark : Tokens.colorInkMutedLight,
+        onSurface: dark ? Tokens.colorInkDark : m.inkLight,
+        onSurfaceVariant: dark ? Tokens.colorInkMutedDark : m.inkMutedLight,
         surface: surface,
         surfaceContainerLowest: surface,
         surfaceContainerLow: surface,
         surfaceContainer: surface,
         surfaceContainerHigh: surface,
         surfaceContainerHighest: surface,
-        inverseSurface: dark ? Tokens.colorInkDark : Tokens.colorInkLight,
+        inverseSurface: dark ? Tokens.colorInkDark : m.inkLight,
         // La teinte la plus proche du texte inversé : le bout sombre du dégradé en sombre, le bout clair en clair.
-        onInverseSurface: dark
-            ? (mobile ? m.backgroundDark.first : m.backgroundDark.last)
-            : (mobile ? m.backgroundLight.last : m.backgroundLight.first),
+        onInverseSurface: dark ? (mobile ? m.backgroundDark.first : m.backgroundDark.last) : m.backgroundLight.first,
         outline: dark ? Tokens.colorStatusNeutralDark : Tokens.colorStatusNeutralLight,
         error: dark ? Tokens.colorStatusDangerFillDark : Tokens.colorStatusDangerFillLight,
         onError: dark ? Tokens.colorStatusDangerOnDark : Tokens.colorStatusDangerOnLight,
@@ -46,7 +46,9 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
   final tint = Tokens.colorGlassTintDark;
   final fieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(m.radiusControl),
-    borderSide: BorderSide(color: dark ? highlight.withValues(alpha: 0.16) : Colors.black.withValues(alpha: 0.08)),
+    borderSide: BorderSide(
+      color: dark ? highlight.withValues(alpha: 0.16) : shade.withValues(alpha: mobile ? 0.14 : 0.08),
+    ),
   );
   const stadium = StadiumBorder();
   final buttonPadding = EdgeInsets.symmetric(horizontal: mobile ? 20 : 14, vertical: 8);
@@ -120,7 +122,9 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: buttonText,
         iconSize: buttonIcon,
-        side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
+        side: BorderSide(
+          color: dark ? highlight.withValues(alpha: 0.28) : (mobile ? shade.withValues(alpha: 0.2) : Colors.black12),
+        ),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -156,7 +160,9 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         minimumSize: buttonSize,
         textStyle: buttonText,
-        side: BorderSide(color: dark ? highlight.withValues(alpha: 0.28) : Colors.black12),
+        side: BorderSide(
+          color: dark ? highlight.withValues(alpha: 0.28) : (mobile ? shade.withValues(alpha: 0.2) : Colors.black12),
+        ),
         backgroundColor: dark ? tint.withValues(alpha: 0.06) : Colors.white.withValues(alpha: 0.5),
         // Segment choisi bien visible ; sans foregroundColor, tout passerait en bleu.
         // Mobile : segment choisi plein accent (plus lisible d'un coup d'œil) ; desktop : teinté.
@@ -199,7 +205,7 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
     sliderTheme: SliderThemeData(
       trackHeight: 4,
       activeTrackColor: scheme.primary,
-      inactiveTrackColor: scheme.onSurface.withValues(alpha: dark ? 0.2 : 0.14),
+      inactiveTrackColor: (dark || !mobile ? scheme.onSurface : shade).withValues(alpha: dark ? 0.2 : 0.14),
       thumbColor: scheme.primary,
       overlayColor: scheme.primary.withValues(alpha: 0.14),
       thumbShape: RoundSliderThumbShape(enabledThumbRadius: mobile ? 8 : 6),
@@ -222,7 +228,7 @@ ThemeData vbTheme(Brightness brightness, {DesignFamily family = DesignFamily.des
       ),
     ),
     dividerTheme: DividerThemeData(
-      color: dark ? highlight.withValues(alpha: 0.14) : Colors.black.withValues(alpha: 0.07),
+      color: dark ? highlight.withValues(alpha: 0.14) : shade.withValues(alpha: mobile ? 0.1 : 0.07),
     ),
   );
 }

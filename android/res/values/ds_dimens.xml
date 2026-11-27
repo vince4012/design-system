@@ -21,12 +21,12 @@
     <dimen name="ds_font_size_title">28sp</dimen>
     <!-- Opacité du fond avec la fenêtre native (macOS, clair) : 1 = opaque, le bureau ne transparaît pas. Baisser pour retrouver le flou natif. -->
     <item name="ds_opacity_background_translucent" format="float" type="dimen">1</item>
-    <!-- Bordure lumineuse blanche du verre (clair). -->
-    <item name="ds_opacity_glass_border" format="float" type="dimen">0.75</item>
-    <!-- Remplissage blanc du verre (clair). -->
-    <item name="ds_opacity_glass_fill" format="float" type="dimen">0.52</item>
-    <!-- Verre au premier plan : dialogues (clair). -->
-    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.78</item>
+    <!-- Bord blanc du verre (clair, mobile) : sert aux verres teintés ; les cartes et panneaux clairs du mobile ont à la place un bord color.glass.shadow à 16 % (le liseré blanc ressortait en trait clair sur les côtés). -->
+    <item name="ds_opacity_glass_border" format="float" type="dimen">1.0</item>
+    <!-- Verre des cartes (clair, mobile) : blanc à 90 % (socle : 52 % ; 70 % au premier essai, les bords se fondaient dans le fond), pour que la carte se détache du fond gris-bleu (thème clair « Glacier sur fond net », DiRecLy #52, 27/11/2026). -->
+    <item name="ds_opacity_glass_fill" format="float" type="dimen">0.9</item>
+    <!-- Verre au premier plan : feuilles basses, panneaux et dialogues (clair, mobile), blanc à 65 % avec le flou (socle : 78 %) : le contenu qui passe dessous se devine, comme en sombre (86 % au premier essai : presque opaque, demande du propriétaire 27/11/2026). -->
+    <item name="ds_opacity_glass_fill_strong" format="float" type="dimen">0.65</item>
     <!-- Verre teinté d'une couleur (clair). -->
     <item name="ds_opacity_glass_tint" format="float" type="dimen">0.18</item>
     <!-- Champs de saisie, segments, éléments de liste (desktop : 10). -->

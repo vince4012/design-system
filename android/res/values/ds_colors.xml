@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- GÉNÉRÉ par android/tool/generate_tokens.dart depuis tokens/tokens.json et tokens/tokens.mobile.json — ne pas modifier à la main. -->
 <resources>
-    <!-- Bleu vif, thème clair (boutons, liens, sélection) : le bleu de Saracroche #0088FF assombri pour tenir 4,5:1 sur le fond sable (5,4:1 avec du texte blanc). -->
-    <color name="ds_color_accent">#FF006AC7</color>
-    <!-- Fond d'appli mobile, bas du dégradé (clair) : sable clair. -->
-    <color name="ds_color_background_bottom">#FFFAF8F4</color>
-    <!-- Fond d'appli mobile, haut du dégradé (clair) : sable plus foncé. Sur mobile le dégradé est plus foncé en haut, plus clair en bas (desktop : l'inverse). -->
-    <color name="ds_color_background_top">#FFEAE6DF</color>
+    <!-- Bleu vif, thème clair mobile (boutons, liens, sélection) : plus vif que le socle (#006AC7). 4,6:1 sur le haut du fond, 5,5:1 sur blanc, texte blanc dessus 5,5:1. -->
+    <color name="ds_color_accent">#FF0064DC</color>
+    <!-- Fond d'appli mobile, bas du dégradé (clair) : gris à peine bleuté (27/11 : moins froid que #E9EDF3 / #F4F6F9, à la demande du propriétaire) (avant : sable #FAF8F4). -->
+    <color name="ds_color_background_bottom">#FFEAECEF</color>
+    <!-- Fond d'appli mobile, haut du dégradé (clair) : presque blanc, à peine bleuté (27/11 : éclairci depuis #F5F6F8) ; en clair le dégradé est plus clair en haut (titre mieux détaché, bas plus soutenu sous le panneau), demande du propriétaire 27/11/2026 (thème « Glacier sur fond net », DiRecLy #52 ; avant : sable #EAE6DF). En sombre, le dégradé mobile reste plus foncé en haut. -->
+    <color name="ds_color_background_top">#FFF9FAFB</color>
     <!-- Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent. -->
-    <color name="ds_color_banner">#F0006AC7</color>
+    <color name="ds_color_banner">#F00064DC</color>
     <!-- Bordure et reflet du verre, clair : blanc. -->
     <color name="ds_color_glass_highlight">#FFFFFFFF</color>
+    <!-- Ombre et filets du verre, clair mobile : bleu marine, employé translucide (bord des cartes 16 %, ombre du panneau du bas de l'appli, séparateurs 10 %, pistes 14 % ; plus d'ombre portée sous les cartes). Donne des ombres bleutées plutôt que grises. -->
+    <color name="ds_color_glass_shadow">#FF1C3A6E</color>
     <!-- Couleur de base du verre, clair : blanc. -->
     <color name="ds_color_glass_tint">#FFFFFFFF</color>
-    <!-- Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#006AC7, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible. -->
+    <!-- Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#0064DC, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible. -->
     <color name="ds_color_hero_badge">#FF007AFF</color>
     <!-- Carte d'accueil teintée (HeroCard), clair : bleu très pâle, comme la carte d'état de Saracroche. -->
     <color name="ds_color_hero_fill">#FFD9EAFD</color>
     <!-- Illustrations : carte du fond (clair). -->
-    <color name="ds_color_illustration_back">#FFF1EEE8</color>
+    <color name="ds_color_illustration_back">#FFEDF1F6</color>
     <!-- Illustrations : bordure de la carte du fond (clair). -->
-    <color name="ds_color_illustration_back_border">#FFE2DED6</color>
+    <color name="ds_color_illustration_back_border">#FFDCE3EC</color>
     <!-- Illustrations : carte de devant (clair). -->
-    <color name="ds_color_illustration_front">#FFFBFAF8</color>
+    <color name="ds_color_illustration_front">#FFFBFCFD</color>
     <!-- Illustrations : bordure de la carte de devant (clair). -->
-    <color name="ds_color_illustration_front_border">#FFD3CFC6</color>
+    <color name="ds_color_illustration_front_border">#FFCCD5E1</color>
     <!-- Illustrations : carte du milieu (clair). -->
-    <color name="ds_color_illustration_mid">#FFF6F3EE</color>
+    <color name="ds_color_illustration_mid">#FFF3F6F9</color>
     <!-- Illustrations : bordure de la carte du milieu (clair). -->
-    <color name="ds_color_illustration_mid_border">#FFDCD8D0</color>
+    <color name="ds_color_illustration_mid_border">#FFD5DDE7</color>
     <!-- Illustrations : lignes et barres grises du contenu des cartes (clair). -->
     <color name="ds_color_illustration_skeleton">#FFA3ACB8</color>
-    <!-- Texte courant et titres, clair : schiste. -->
-    <color name="ds_color_ink">#FF23262B</color>
-    <!-- Texte secondaire, clair (5,2:1 sur le fond). -->
-    <color name="ds_color_ink_muted">#FF5E6269</color>
+    <!-- Texte courant et titres, clair mobile : bleu-nuit, le pendant du fond ardoise du sombre (13,9:1 sur le fond). -->
+    <color name="ds_color_ink">#FF18202C</color>
+    <!-- Texte secondaire, clair mobile : gris-bleu (5,7:1 sur le fond, 6,4:1 sur une carte). -->
+    <color name="ds_color_ink_muted">#FF525D6E</color>
     <!-- Texte et icônes sur l'accent, thème clair (5,5:1). -->
     <color name="ds_color_on_accent">#FFFFFFFF</color>
-    <!-- Bordure des éléments flottants, clair : liseré discret de la couleur du texte (schiste) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair. -->
-    <color name="ds_color_overlay_border">#2923262B</color>
-    <!-- Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité). -->
-    <color name="ds_color_overlay_fill">#E6FAF8F4</color>
+    <!-- Bordure des éléments flottants, clair : liseré discret de la couleur du texte (bleu-nuit) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair. -->
+    <color name="ds_color_overlay_border">#2918202C</color>
+    <!-- Fond des éléments flottants sur une carte ou un contenu plein écran, clair (blanc bleuté à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité). -->
+    <color name="ds_color_overlay_fill">#E6F8FAFC</color>
     <!-- Titre de page, début du dégradé (clair) : bleu profond, à gauche. -->
     <color name="ds_color_page_title_from">#FF00479E</color>
     <!-- Titre de page, fin du dégradé (clair) : bleu vif, à droite (3,2:1 sur le haut du fond sable, assez pour un grand titre). -->
@@ -75,8 +77,8 @@
     <color name="ds_color_status_warning_ink">#FF4A3600</color>
     <!-- Attention, fond teinté d'un message, clair : jaune pâle. Texte 13,6:1, encre d'attention 10,4:1. -->
     <color name="ds_color_status_warning_tint">#FFFFF3C2</color>
-    <!-- Surfaces opaques (menus, sélecteurs), clair. -->
-    <color name="ds_color_surface">#FFF7F5F1</color>
+    <!-- Surfaces opaques (menus, sélecteurs), clair mobile : blanc bleuté. -->
+    <color name="ds_color_surface">#FFF8FAFC</color>
     <!-- Fond des bulles d'aide (clair), texte blanc. -->
     <color name="ds_color_tooltip">#EE23262B</color>
 </resources>

@@ -44,6 +44,14 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     required this.gap,
     required this.backgroundLight,
     required this.backgroundDark,
+    required this.accentLight,
+    required this.inkLight,
+    required this.inkMutedLight,
+    required this.surfaceLight,
+    required this.glassFillLight,
+    required this.glassFillStrongLight,
+    required this.glassBorderLight,
+    required this.glassShadowLight,
   });
 
   final DesignFamily family;
@@ -100,6 +108,17 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
   final List<Color> backgroundLight;
   final List<Color> backgroundDark;
 
+  /// Thème clair, propre à la famille (le mobile a son clair « Glacier sur fond net », DiRecLy #52) : accent, textes,
+  /// surfaces opaques, opacités du verre (remplissage, premier plan, bord) et couleur de ses ombres et filets.
+  final Color accentLight;
+  final Color inkLight;
+  final Color inkMutedLight;
+  final Color surfaceLight;
+  final double glassFillLight;
+  final double glassFillStrongLight;
+  final double glassBorderLight;
+  final Color glassShadowLight;
+
   bool get isMobile => family == DesignFamily.mobile;
 
   static const desktop = DesignMetrics(
@@ -133,6 +152,14 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     gap: Tokens.spaceM,
     backgroundLight: [Tokens.colorBackgroundLightTop, Tokens.colorBackgroundLightBottom],
     backgroundDark: [Tokens.colorBackgroundDarkTop, Tokens.colorBackgroundDarkBottom],
+    accentLight: Tokens.colorAccentLight,
+    inkLight: Tokens.colorInkLight,
+    inkMutedLight: Tokens.colorInkMutedLight,
+    surfaceLight: Tokens.colorSurfaceLight,
+    glassFillLight: Tokens.opacityGlassFillLight,
+    glassFillStrongLight: Tokens.opacityGlassFillStrongLight,
+    glassBorderLight: Tokens.opacityGlassBorderLight,
+    glassShadowLight: Color(0xFF000000),
   );
 
   static const mobile = DesignMetrics(
@@ -165,6 +192,14 @@ class DesignMetrics extends ThemeExtension<DesignMetrics> {
     gap: TokensMobile.spaceGap,
     backgroundLight: [TokensMobile.colorBackgroundLightTop, TokensMobile.colorBackgroundLightBottom],
     backgroundDark: [TokensMobile.colorBackgroundDarkTop, TokensMobile.colorBackgroundDarkBottom],
+    accentLight: TokensMobile.colorAccentLight,
+    inkLight: TokensMobile.colorInkLight,
+    inkMutedLight: TokensMobile.colorInkMutedLight,
+    surfaceLight: TokensMobile.colorSurfaceLight,
+    glassFillLight: TokensMobile.opacityGlassFillLight,
+    glassFillStrongLight: TokensMobile.opacityGlassFillStrongLight,
+    glassBorderLight: TokensMobile.opacityGlassBorderLight,
+    glassShadowLight: TokensMobile.colorGlassShadowLight,
   );
 
   static DesignMetrics forFamily(DesignFamily family) => family == DesignFamily.mobile ? mobile : desktop;

@@ -1,11 +1,27 @@
 {
-  "$description": "Surcharges pour la famille MOBILE (téléphones, usage tactile : Android natif, Flutter mobile). Même schéma que tokens.json ; seules les valeurs qui diffèrent du socle ou propres au mobile figurent ici. Fusion : chemin identique = valeur mobile remplace celle du socle ; chemin absent du socle = ajout. Couleurs, opacités du verre et flou viennent du socle. Tailles en dp/sp (= points logiques de tokens.json). Valeurs validées par le propriétaire sur maquette FiiDrive le 08/11/2026.",
+  "$description": "Surcharges pour la famille MOBILE (téléphones, usage tactile : Android natif, Flutter mobile). Même schéma que tokens.json ; seules les valeurs qui diffèrent du socle ou propres au mobile figurent ici. Fusion : chemin identique = valeur mobile remplace celle du socle ; chemin absent du socle = ajout. Couleurs, opacités du verre et flou viennent du socle, sauf le thème clair mobile (« Glacier sur fond net », DiRecLy #52) : accent, textes, surface, fond, verre. Tailles en dp/sp (= points logiques de tokens.json). Valeurs validées par le propriétaire sur maquette FiiDrive le 08/11/2026.",
   "opacity": {
     "glass": {
+      "fill": {
+        "light": {
+          "$value": 0.9,
+          "$description": "Verre des cartes (clair, mobile) : blanc à 90 % (socle : 52 % ; 70 % au premier essai, les bords se fondaient dans le fond), pour que la carte se détache du fond gris-bleu (thème clair « Glacier sur fond net », DiRecLy #52, 27/11/2026)."
+        }
+      },
       "fillStrong": {
+        "light": {
+          "$value": 0.65,
+          "$description": "Verre au premier plan : feuilles basses, panneaux et dialogues (clair, mobile), blanc à 65 % avec le flou (socle : 78 %) : le contenu qui passe dessous se devine, comme en sombre (86 % au premier essai : presque opaque, demande du propriétaire 27/11/2026)."
+        },
         "dark": {
           "$value": 0.09,
           "$description": "Verre au premier plan : feuilles basses et panneaux (sombre), un peu plus sombre qu'au socle (0,14) sur mobile. Demande du propriétaire de DiRecLy, 22/11/2026."
+        }
+      },
+      "border": {
+        "light": {
+          "$value": 1.0,
+          "$description": "Bord blanc du verre (clair, mobile) : sert aux verres teintés ; les cartes et panneaux clairs du mobile ont à la place un bord color.glass.shadow à 16 % (le liseré blanc ressortait en trait clair sur les côtés)."
         }
       }
     }
@@ -137,15 +153,51 @@
     }
   },
   "color": {
+    "accent": {
+      "light": {
+        "$value": "#0064DC",
+        "$description": "Bleu vif, thème clair mobile (boutons, liens, sélection) : plus vif que le socle (#006AC7). 4,6:1 sur le haut du fond, 5,5:1 sur blanc, texte blanc dessus 5,5:1."
+      }
+    },
+    "ink": {
+      "light": {
+        "$value": "#18202C",
+        "$description": "Texte courant et titres, clair mobile : bleu-nuit, le pendant du fond ardoise du sombre (13,9:1 sur le fond)."
+      }
+    },
+    "inkMuted": {
+      "light": {
+        "$value": "#525D6E",
+        "$description": "Texte secondaire, clair mobile : gris-bleu (5,7:1 sur le fond, 6,4:1 sur une carte)."
+      }
+    },
+    "surface": {
+      "light": {
+        "$value": "#F8FAFC",
+        "$description": "Surfaces opaques (menus, sélecteurs), clair mobile : blanc bleuté."
+      }
+    },
+    "glass": {
+      "shadow": {
+        "light": {
+          "$value": "#1C3A6E",
+          "$description": "Ombre et filets du verre, clair mobile : bleu marine, employé translucide (bord des cartes 16 %, ombre du panneau du bas de l'appli, séparateurs 10 %, pistes 14 % ; plus d'ombre portée sous les cartes). Donne des ombres bleutées plutôt que grises."
+        },
+        "dark": {
+          "$value": "#000000",
+          "$description": "Ombre du verre, sombre : noir (inchangé)."
+        }
+      }
+    },
     "background": {
       "light": {
         "top": {
-          "$value": "#EAE6DF",
-          "$description": "Fond d'appli mobile, haut du dégradé (clair) : sable plus foncé. Sur mobile le dégradé est plus foncé en haut, plus clair en bas (desktop : l'inverse)."
+          "$value": "#F9FAFB",
+          "$description": "Fond d'appli mobile, haut du dégradé (clair) : presque blanc, à peine bleuté (27/11 : éclairci depuis #F5F6F8) ; en clair le dégradé est plus clair en haut (titre mieux détaché, bas plus soutenu sous le panneau), demande du propriétaire 27/11/2026 (thème « Glacier sur fond net », DiRecLy #52 ; avant : sable #EAE6DF). En sombre, le dégradé mobile reste plus foncé en haut."
         },
         "bottom": {
-          "$value": "#FAF8F4",
-          "$description": "Fond d'appli mobile, bas du dégradé (clair) : sable clair."
+          "$value": "#EAECEF",
+          "$description": "Fond d'appli mobile, bas du dégradé (clair) : gris à peine bleuté (27/11 : moins froid que #E9EDF3 / #F4F6F9, à la demande du propriétaire) (avant : sable #FAF8F4)."
         }
       },
       "dark": {
@@ -161,12 +213,12 @@
     },
     "illustration": {
       "light": {
-        "back": { "$value": "#F1EEE8", "$description": "Illustrations : carte du fond (clair)." },
-        "backBorder": { "$value": "#E2DED6", "$description": "Illustrations : bordure de la carte du fond (clair)." },
-        "mid": { "$value": "#F6F3EE", "$description": "Illustrations : carte du milieu (clair)." },
-        "midBorder": { "$value": "#DCD8D0", "$description": "Illustrations : bordure de la carte du milieu (clair)." },
-        "front": { "$value": "#FBFAF8", "$description": "Illustrations : carte de devant (clair)." },
-        "frontBorder": { "$value": "#D3CFC6", "$description": "Illustrations : bordure de la carte de devant (clair)." },
+        "back": { "$value": "#EDF1F6", "$description": "Illustrations : carte du fond (clair)." },
+        "backBorder": { "$value": "#DCE3EC", "$description": "Illustrations : bordure de la carte du fond (clair)." },
+        "mid": { "$value": "#F3F6F9", "$description": "Illustrations : carte du milieu (clair)." },
+        "midBorder": { "$value": "#D5DDE7", "$description": "Illustrations : bordure de la carte du milieu (clair)." },
+        "front": { "$value": "#FBFCFD", "$description": "Illustrations : carte de devant (clair)." },
+        "frontBorder": { "$value": "#CCD5E1", "$description": "Illustrations : bordure de la carte de devant (clair)." },
         "skeleton": { "$value": "#A3ACB8", "$description": "Illustrations : lignes et barres grises du contenu des cartes (clair)." }
       },
       "dark": {
@@ -204,8 +256,8 @@
     "overlay": {
       "fill": {
         "light": {
-          "$value": "#E6FAF8F4",
-          "$description": "Fond des éléments flottants sur une carte ou un contenu plein écran, clair (sable à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité)."
+          "$value": "#E6F8FAFC",
+          "$description": "Fond des éléments flottants sur une carte ou un contenu plein écran, clair (blanc bleuté à ~90 % : pas de flou fiable avant Android 12, la lisibilité vient de l'opacité)."
         },
         "dark": {
           "$value": "#E01D232D",
@@ -214,8 +266,8 @@
       },
       "border": {
         "light": {
-          "$value": "#2923262B",
-          "$description": "Bordure des éléments flottants, clair : liseré discret de la couleur du texte (schiste) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair."
+          "$value": "#2918202C",
+          "$description": "Bordure des éléments flottants, clair : liseré discret de la couleur du texte (bleu-nuit) à ~16 %, légèrement plus foncé que le fond. Une bordure blanche formait un anneau épais sur un fond clair."
         },
         "dark": {
           "$value": "#2EAAC3F0",
@@ -238,7 +290,7 @@
     "heroBadge": {
       "light": {
         "$value": "#007AFF",
-        "$description": "Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#006AC7, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible."
+        "$description": "Pastille d'icône de la carte d'accueil (HeroCard), clair : bleu vif, plus lumineux que l'accent de texte (#0064DC, choisi pour le contraste) ; décoratif, l'icône blanche reste lisible."
       },
       "dark": {
         "$value": "#0091FF",
@@ -247,7 +299,7 @@
     },
     "banner": {
       "light": {
-        "$value": "#F0006AC7",
+        "$value": "#F00064DC",
         "$description": "Bandeau d'instruction sur une carte (direction de navigation), clair : accent à ~94 %, texte onAccent."
       },
       "dark": {

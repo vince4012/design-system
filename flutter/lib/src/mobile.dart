@@ -300,10 +300,14 @@ class AppChip extends StatelessWidget {
     // Non choisie : même remplissage et même bordure qu'un champ de saisie.
     final fill = selected
         ? scheme.primary
-        : (dark ? Tokens.colorGlassTintDark.withValues(alpha: 0.08) : Colors.white.withValues(alpha: 0.65));
+        : (dark
+              ? Tokens.colorGlassTintDark.withValues(alpha: 0.08)
+              : Colors.white.withValues(alpha: metrics.isMobile ? 0.8 : 0.65));
     final border = selected
         ? scheme.primary
-        : (dark ? Tokens.colorGlassHighlightDark.withValues(alpha: 0.16) : Colors.black.withValues(alpha: 0.08));
+        : (dark
+              ? Tokens.colorGlassHighlightDark.withValues(alpha: 0.16)
+              : metrics.glassShadowLight.withValues(alpha: metrics.isMobile ? 0.14 : 0.08));
     return Semantics(
       button: true,
       selected: selected,
@@ -822,7 +826,9 @@ class GlassDisclosure extends StatelessWidget {
                 ? const SizedBox(width: double.infinity)
                 : ColoredBox(
                     color: insetChildren
-                        ? Colors.black.withValues(alpha: theme.brightness == Brightness.dark ? 0.24 : 0.045)
+                        ? (theme.brightness == Brightness.dark
+                              ? Colors.black.withValues(alpha: 0.24)
+                              : DesignMetrics.of(context).glassShadowLight.withValues(alpha: 0.045))
                         : Colors.transparent,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1047,7 +1053,10 @@ class FloatingTabBar extends StatelessWidget {
                     child: DecoratedBox(
                       decoration: ShapeDecoration(
                         shape: const StadiumBorder(),
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08),
+                        // Clair : pastille teintée d'accent ; sombre : voile clair.
+                        color: dark
+                            ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08)
+                            : Theme.of(context).colorScheme.primary.withValues(alpha: 0.13),
                       ),
                     ),
                   ),

@@ -11,6 +11,8 @@
     <color name="ds_color_banner">#E60091FF</color>
     <!-- Bordure, reflet, filets et contours, sombre : bleu pâle. -->
     <color name="ds_color_glass_highlight">#FFAAC3F0</color>
+    <!-- Ombre du verre, sombre : noir (inchangé). -->
+    <color name="ds_color_glass_shadow">#FF000000</color>
     <!-- Couleur de base du verre, sombre : bleu-ardoise. -->
     <color name="ds_color_glass_tint">#FF8CA5D7</color>
     <!-- Pastille d'icône de la carte d'accueil, sombre : l'accent. -->
